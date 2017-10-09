@@ -10,10 +10,12 @@ const config = require('../.stylelintrc');
 module.exports = merge(baseConfig, {
   devServer: {
     stats: 'errors-only',
-    contentBase: './src',
     hot: true,
     port: 3000,
-    quiet: true
+    quiet: true,
+    watchOptions: {
+      aggregateTimeout: 100
+    }
   },
   devtool: 'eval',
   plugins: [
