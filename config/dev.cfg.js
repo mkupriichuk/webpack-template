@@ -10,7 +10,7 @@ const config = require('../.stylelintrc');
 module.exports = merge(baseConfig, {
   devServer: {
     stats: 'errors-only',
-    contentBase: './dist',
+    contentBase: './src',
     hot: true,
     port: 3000,
     quiet: true
