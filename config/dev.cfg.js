@@ -15,6 +15,7 @@ module.exports = merge(baseConfig, {
     port: 3000,
     quiet: true
   },
+  devtool: 'eval',
   plugins: [
     new webpack.ProvidePlugin({
 			$: 'jquery',
@@ -91,7 +92,7 @@ module.exports = merge(baseConfig, {
           {
             loader: 'postcss-loader',
             options: {
-              sourceMap: true,
+              // sourceMap: true,
               plugins: (loader) => [
                 require('stylelint')(config),
                 // require('autoprefixer')({
@@ -101,8 +102,8 @@ module.exports = merge(baseConfig, {
               ]
             }
           },
-          'resolve-url-loader',
-          'sass-loader?sourceMap'
+          // 'resolve-url-loader',
+          'sass-loader' // ?sourcemap when resolve-url-loader enabled
         ]
       }
     ]
