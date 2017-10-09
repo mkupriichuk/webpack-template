@@ -38,7 +38,7 @@ $ npm run build
 ```
 
 ## 5.Purify-Css
-  - Do not forget to configure Purify config on ./config/helpers/purify.js
+  - Do not forget to configure [Purify](https://github.com/purifycss/purifycss) config on ./config/helpers/purify.js
   - Now:
 
 ```
@@ -52,7 +52,7 @@ $ npm run purify
 ## 6. Creating icon font
 1. Put ur svg icons to src/icons/icon_font/icons
 2. Go to ./config/helpers/iconfont.js and configure fontName, fontFormats, etc
-3. Run webfont generator
+3. Run [webfont generator](https://github.com/sunflowerdeath/webfonts-generator)
 ```
 $ yarn run iconfont
 ```
