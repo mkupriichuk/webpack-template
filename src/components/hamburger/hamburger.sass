@@ -1,0 +1,125 @@
+$lineColor: #000
+$hamburgerWidth: 30px
+$hamburgerHeight: 30px
+$hamburgerLineWidth: 24px
+$hamburgerLineHeight: 2px
+$hamburgerLineInWidth: 72px
+$hamburgerLineInHeight: 2px
+$hamburgerLineInPseudoWidth: 24px
+$hamburgerLineInPseudoHeight: 2px
+$hamburgerMainLineLeft: 4px
+$transitionTimingFunction: cubic-bezier(0.175,  0.885, 0.320, 1.275)
+
+.c-hamburger
+	width: $hamburgerWidth
+	height: $hamburgerHeight
+	display: none
+	cursor: pointer
+	position: relative
+	&__line
+		width: $hamburgerLineWidth
+		height: $hamburgerLineHeight
+		overflow: hidden
+		position: absolute
+		&-in
+			width: $hamburgerLineInWidth
+			height: $hamburgerLineInHeight
+			position: absolute
+			top: 0
+			left: 0
+			&:before, &:after
+				width: $hamburgerLineInPseudoWidth
+				height: $hamburgerLineInPseudoHeight
+				content: ''
+				display: block
+				position: absolute
+				top: 0
+				background-color: $lineColor
+			&:before
+				left: -49px
+			&:after
+				left: 0
+		&--01
+			top: 11px
+			left: $hamburgerMainLineLeft
+		&--02
+			top: 19px
+			left: $hamburgerMainLineLeft
+		&--03
+			top: 27px
+			left: $hamburgerMainLineLeft
+		&--cross01, &--cross02
+			top: 19px
+			left: $hamburgerMainLineLeft
+		&--cross01
+			transform: rotate(45deg)
+		&--cross02
+			transform: rotate(-45deg)
+	//
+	// Interaction
+	//
+	&__line
+		transition-duration: 0.6s
+		transition-timing-function: $transitionTimingFunction
+		&-in
+			transition-duration: 0.6s
+			transition-timing-function: $transitionTimingFunction
+			&:before, &:after
+				transition-timing-function: $transitionTimingFunction
+				transition-property: transform
+			&--cross01, &--cross02
+				transform: translateX(-35%)
+			&--01
+				transition-delay: 0.2s
+			&--02
+				transition-delay: 0.25s
+				&:before, &:after
+					transition-delay: 0.05s
+			&--03
+				transition-delay: 0.3s
+				&:before, &:after
+					transition-delay: 0.1s
+			&--cross01
+				transition-delay: 0.0s
+			&--cross02
+				transition-delay: 0.05s
+				&:before, &:after
+					transition-delay: 0.1s
+	&.is-open &
+		&__line
+			&-in
+				&:before, &:after
+				&--01, &--02, &--03
+					transform: translateX(35%)
+				&--cross01, &--cross02
+					transform: translateX(0)
+				&--01
+					transition-delay: 0s
+				&--02
+					transition-delay: 0.05s
+				&--03
+					transition-delay: 0.1s
+				&--cross01
+					transition-delay: 0.25s
+				&--cross02
+					transition-delay: 0.3s
+	&:hover &
+		&__line
+			&-in
+				&:before, &:after
+					transform: translateX(200%)
+				&--01, &--02, &--03
+					&:before, &:after
+						transition-duration: 1s
+				&--cross01, &--cross02
+					&:before, &:after
+						transition-duration: 0s
+	&.is-open:hover &
+		&__line
+			&-in
+				&--cross01, &--cross02
+					&:before, &:after
+						transition-duration: 1s
+				&--01, &--02, &--03
+					&:before, &:after
+						transition-duration: 0s

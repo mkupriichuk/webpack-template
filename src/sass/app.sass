@@ -1,0 +1,18 @@
+@import "_helpers/_all"
+
+// +font-face("Montserrat", "Montserrat/Montserrat-Light", 300)
+
+body
+	min-width: 320px
+	position: relative
+	font-family: sans-serif
+	overflow-x: hidden
+
+.container
+	max-width: $container-width +px
+	margin: 0 auto
+	position: relative
+	+r($container-width)
+		margin: 0 20px
+
+@import "_blocks/_all"

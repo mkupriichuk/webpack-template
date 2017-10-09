@@ -1,0 +1,167 @@
+=ts
+	box-shadow: 0 0 0 .5px #FF0000
+=full($var: absolute)
+	position: $var
+	top: 0
+	right: 0
+	bottom: 0
+	left: 0
+=size($width, $height: $width)
+	width: $width + px
+	height: $height + px
+=cover
+	background-repeat: no-repeat
+	background-size: cover
+	background-position: 50% 50%
+
+=vcenter($var: absolute)
+	position: $var
+	top: 50%
+	transform: translateY(-50%)
+
+=hcenter($var: absolute)
+	position: $var
+	left: 50%
+	transform: translateX(-50%)
+
+=center($var: absolute)
+	position: $var
+	left: 50%
+	top: 50%
+	transform: translate(-50%,-50%)
+
+=scale($var)
+	transform: scale($var)
+
+=rotate($var)
+	transform: rotate($var+deg)
+	
+=skew($var, $direction)
+	@if $direction == x
+		transform: skewX($var+deg)
+	@if $direction == y
+		transform: skewY($var+deg)
+	
+=persp($var)
+	perspective: $var + px
+
+=tr($what, $time)
+	transition: $what $time+s linear
+=hvr
+	&:hover
+		@content
+=nth($value)
+	&:nth-of-type($value)
+		@content
+ 
+=r($width)
+	@media only screen and (max-width: $width+ "px")
+		@content
+
+=rmin($width)
+	@media only screen and (min-width: $width+ "px")
+		@content
+//fonts
+
+=font-face($font-family, $file-path, $weight: normal, $style: normal)
+	@font-face
+		font-family: $font-family
+		font-weight: $weight
+		font-style: $style
+		src: url("../fonts/" + $file-path + ".woff2") format("woff2"), url("../fonts/" + $file-path + ".woff") format("woff")
+
+=fwt
+	font-weight: 100
+=fwl
+	font-weight: 300
+=fwn
+	font-weight: 400
+=fwm
+	font-weight: 500
+=fwsb
+	font-weight: 600
+=fwb
+	font-weight: 700
+=fweb
+	font-weight: 800
+// height
+=rh($height)
+	@media only screen and (max-height: $height + "px")
+		@content
+
+=rhmin($height)
+	@media only screen and (min-height: $height + "px")
+		@content
+
+
+//half circle
+=hcircle($width, $height, $bg, $direction)
+	background-color: $bg
+	height: $height + px
+	width: $width + px
+	@if $direction == t
+		border-top-right-radius: $width + px
+		border-top-left-radius: $width + px
+	@if $direction == b
+		border-bottom-right-radius: $width + px
+		border-bottom-left-radius: $width + px
+	@if $direction == r
+		border-bottom-right-radius: $width + px
+		border-top-right-radius: $width + px
+	@if $direction == l
+		border-bottom-left-radius: $width + px
+		border-top-left-radius: $width + px
+		
+// example
+// +hcircle(90, 45, #000, b)
+
+=circle($value, $bg)
+	height: $value + px
+	width: $value + px
+	border-radius: 50%
+	background-color: $bg
+
+// example
+// +circle(90, #000)
+
+//triangle
+=tri($width, $height, $bg, $direction)
+	width: 0px
+	height: 0px
+	border-style: solid
+	@if $direction == t
+		border-width: 0 $width / 2 + px $height + px $width / 2 + px
+		border-color: transparent transparent $bg transparent
+	@if $direction == r
+		border-width: $height / 2 + px 0 $height / 2 + px $width + px
+		border-color: transparent transparent transparent $bg
+	@if $direction == b
+		border-width: $height + px $width / 2 + px 0 $width / 2 + px
+		border-color: $bg transparent transparent transparent
+	@if $direction == l
+		border-width: $height / 2 + px $width + px $height / 2 + px 0
+		border-color: transparent $bg transparent transparent
+	@if $direction == tl
+		border-width: $height + px $width + px 0 0
+		border-color: $bg transparent transparent transparent
+	@if $direction == tr
+		border-width: 0 $width + px $height + px 0
+		border-color: transparent $bg transparent transparent
+	@if $direction == br
+		border-width: 0 0 $height + px $width + px
+		border-color: transparent transparent $bg transparent
+	@if $direction == bl
+		border-width: $width + px 0 0 $height + px
+		border-color: transparent transparent transparent $bg
+// example
+// +tri(500,50, #000, l)
+// +tri(500,50, #000, bl)
+
+
+@mixin css-lock($min-size: 1, $max-size: 1.4, $min-width: 20, $max-width: 100, $property: font-size, $unit: px)
+	#{$property}: #{$max-size}#{$unit}
+	#{$property}: calc(#{$min-size}#{$unit} + (#{$max-size} - #{$min-size}) * ((100vw - #{$min-width}#{$unit}) / (#{$max-width} - #{$min-width})))
+	@media (max-width: #{$min-width}#{$unit})
+		#{$property}: #{$min-size}#{$unit}
+	@media (min-width: #{$max-width}#{$unit})
+		#{$property}: #{$max-size}#{$unit}

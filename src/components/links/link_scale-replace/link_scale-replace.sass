@@ -1,0 +1,19 @@
+$linkPseudoColor: #000
+$linkColor: orange
+$linkPseudoBorder: 1px solid orange
+$linkTransition: transform 0.3s, opacity 0.3s
+
+.link-scale_replace
+	position: relative
+	display: inline-block
+	color: $linkColor
+	text-transform: uppercase
+	&::before
+		position: absolute
+		color: $linkPseudoColor
+		content: attr(data-hover)
+		transition: $linkTransition
+	&:hover
+		&::before
+			transform: scale(0.9)
+			opacity: 0

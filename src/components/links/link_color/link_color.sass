@@ -1,0 +1,23 @@
+$linkColor: #000
+$linkPseudoColor: orange
+$linkPseudoBorder: 1px solid orange
+$linkTransition: width .25s ease
+
+.link-clr_h
+	position: relative
+	display: inline-block
+	color: $linkColor
+	text-transform: uppercase
+	&::before
+		position: absolute
+		top: 0
+		left: 0
+		overflow: hidden
+		width: 0
+		color: $linkPseudoColor
+		content: attr(data-hover)
+		border-bottom: $linkPseudoBorder
+		transition: $linkTransition
+	&:hover
+		&::before
+			width: 100%

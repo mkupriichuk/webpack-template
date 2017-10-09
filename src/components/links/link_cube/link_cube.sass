@@ -1,0 +1,36 @@
+$linkColor: #000
+$linkBackGroundColor: lightblue
+$linkSpanPadding: 0 14px
+$linkLineHeight: 44px
+
+.link-cube_h
+	position: relative
+	display: inline-block
+	color: $linkColor
+	text-transform: uppercase
+	perspective: 1000px
+	line-height: $linkLineHeight
+	.link-cube_h-text
+		position: relative
+		display: inline-block
+		padding: $linkSpanPadding
+		background: $linkBackGroundColor
+		transition: transform 0.3s
+		transform-origin: 50% 0
+		transform-style: preserve-3d
+		&::before
+			position: absolute
+			top: 100%
+			left: 0
+			width: 100%
+			height: 100%
+			background: darken($linkBackGroundColor, 20%)
+			content: attr(data-hover)
+			transition: background 0.3s
+			transform: rotateX(-90deg)
+			transform-origin: 50% 0
+	&:hover
+		.link-cube_h-text
+			transform: rotateX(90deg) translateY(-22px)
+		&::before
+			background-color: $linkBackGroundColor

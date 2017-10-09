@@ -1,0 +1,19 @@
+//- sprite mixin
+mixin icon(name)
+	svg(class="icon icon-" + name)
+		//- use(xlink:href="images/spriteIcons.svg#" + name +"-usage")
+		use(xlink:href="#" + name)
+//- mobile list mixin
+mixin mli(name)
+	li(class!=attributes.class)
+		a(href="#" + name)= name
+//-
+	+mli('about') => <li><a href="#about">about</a></li>
+//-
+	+mli('home')(class='active') => <li class="active"><a href="#home">home</a></li>
+
+mixin list(...items)
+	ul(class=className)
+		each item in items
+			li
+				a(href="#" + item)= item
