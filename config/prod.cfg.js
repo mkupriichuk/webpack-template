@@ -35,6 +35,7 @@ module.exports = merge(baseConfig, {
       }
     }),
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
       beautify: false,
       comments: false,
       compress: {
