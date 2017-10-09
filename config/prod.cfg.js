@@ -11,6 +11,7 @@ const baseConfig = require('./base.cfg');
 const config = require('../.stylelintrc');
 
 module.exports = merge(baseConfig, {
+  devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
