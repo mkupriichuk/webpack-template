@@ -123,11 +123,11 @@ module.exports = merge(baseConfig, {
           publicPath: '../',
           fallback: 'style-loader',
           use: [
-            'css-loader',
+            'css-loader?sourceMap',
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: true,
+                // sourceMap: true,
                 plugins: (loader) => [
                   require('autoprefixer')({
                     'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
@@ -138,8 +138,8 @@ module.exports = merge(baseConfig, {
                 ]
               }
             },
-            'resolve-url-loader',
-            'sass-loader?sourceMap'
+            // 'resolve-url-loader',
+            'sass-loader' // sass-loader?sourceMap  when 'resolve-url-loader' enabled
           ]
         })
       },
