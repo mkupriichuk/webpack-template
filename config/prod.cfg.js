@@ -7,6 +7,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const baseConfig = require('./base.cfg');
 const config = require('../.stylelintrc');
 
@@ -49,6 +50,8 @@ module.exports = merge(baseConfig, {
         unsafe: true
       }
     }),
+    new ProgressBarPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
