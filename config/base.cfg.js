@@ -15,11 +15,11 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'src': path.resolve(__dirname, 'src'),
-      'pug': path.resolve(__dirname, 'src/pug'),
-      'icons': path.resolve(__dirname, 'src/icons'),
-      'images': path.resolve(__dirname, 'src/images'),
-      'components': path.resolve(__dirname, 'src/components')
+      'src': path.resolve(__dirname, '../src'),
+      'pug': path.resolve(__dirname, '../src/pug'),
+      'icons': path.resolve(__dirname, '../src/images/icons'),
+      'images': path.resolve(__dirname, '../src/images'),
+      'components': path.resolve(__dirname, '../src/components')
     }
   },
   module: {
@@ -56,7 +56,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        exclude: path.resolve(__dirname, '../src/images/icons/'),
+        // exclude: path.resolve(__dirname, '../src/images/icons/'),
         use: [
           {
             loader: 'file-loader',
