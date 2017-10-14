@@ -19,7 +19,7 @@
 	},
 	"size-limit": [
 		{
-			"path": "./dist/js/bundle.*.js"
+			"path": "./dist/js/*.js"
 		}
 	],
 	"devDependencies": {
