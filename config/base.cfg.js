@@ -7,11 +7,11 @@ const PATHS = {
 module.exports = {
   // devtool: 'source-map',
   entry: {
-    'index': PATHS.src + '/index.js'
+    bundle: PATHS.src + '/index.js'
   },
   output: {
     path: PATHS.dist,
-    filename: 'js/bundle.[hash:7].js'
+    filename: 'js/[name].[hash:7].js'
   },
   resolve: {
     alias: {
