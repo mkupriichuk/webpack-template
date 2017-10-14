@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
@@ -23,6 +24,10 @@ module.exports = merge(baseConfig, {
         removeComments: true,
         collapseWhitespace: true
       }
+    }),
+    new ScriptExtHtmlWebpackPlugin({
+      async: /some.*.js$/,
+      defaultAttribute: 'sync'
     }),
     new ExtractTextPlugin({
       filename: 'css/bundle.[hash:7].css',
