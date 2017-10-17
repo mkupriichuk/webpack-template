@@ -12,6 +12,6 @@ module.exports = {
     'at-rule-no-unknown': true,
     'comment-no-empty': true,
     'no-extra-semicolons': true,
-    'unit-whitelist': ["px", "em", "rem", "vh", "fr", "deg", "%", "s", "ms"]
+    'unit-whitelist': ["px", "em", "rem", "vh", "vw", "fr", "deg", "%", "s", "ms"]
   }
 }
