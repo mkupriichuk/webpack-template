@@ -5,6 +5,7 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -37,6 +38,11 @@ module.exports = merge(baseConfig, {
       filename: 'css/bundle.[hash:7].css',
       disable: false,
       allChunks: true
+    }),
+    new StyleLintPlugin({
+      configFile: '.stylelintrc',
+      files: ['src/sass/*.s?(a|c)ss', 'src/sass/_blocks/*.s?(a|c)ss'],
+      syntax: 'sugarss'
     }),
     new OptimizeCssAssetsPlugin({
       cssProcessor: require('cssnano'),
