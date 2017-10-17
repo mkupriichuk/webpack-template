@@ -1,15 +1,26 @@
 const path = require('path');
+const glob = require('glob');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const notifier = require('node-notifier');
-const baseConfig = require('./base.cfg');
+const baseConfig = require('./webpack.base.cfg');
 const config = require('../.stylelintrc');
+const pages = glob.sync('*.pug', {
+  cwd: path.join(__dirname, '../src/'),
+  root: '/'
+}).map(page => new HtmlWebpackPlugin({
+  filename: page.replace('pug', 'html'),
+  template: path.join(__dirname, `../src/${page}`),
+  inject: true
+}));
 
 module.exports = merge(baseConfig, {
   devServer: {
     stats: 'errors-only',
+    // contentBase: path.resolve(__dirname, '../src'),
+    // watchContentBase: true,
     hot: true,
     port: 3000,
     quiet: true,
@@ -37,14 +48,14 @@ module.exports = merge(baseConfig, {
 					icon: path.join(__dirname, '../notify-error.png'),
 					sound: false
 				});
-			}
-		}),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      chunks: 'index',
-      template: path.join(__dirname, '../src/index.pug'),
-      inject: true
+      }
     }),
+    ...pages,
+    // new webpack.WatchIgnorePlugin([
+    //   path.join(__dirname, 'node_modules'),
+    //   path.join(__dirname, 'config'),
+    //   path.join(__dirname, 'dist')
+    // ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
@@ -105,7 +116,7 @@ module.exports = merge(baseConfig, {
             }
           },
           // 'resolve-url-loader',
-          'sass-loader' // ?sourcemap when resolve-url-loader enabled
+          'sass-loader'
         ]
       }
     ]
