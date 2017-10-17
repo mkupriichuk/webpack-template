@@ -4,9 +4,9 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 const notifier = require('node-notifier');
 const baseConfig = require('./webpack.base.cfg');
-const config = require('../.stylelintrc');
 const pages = glob.sync('*.pug', {
   cwd: path.join(__dirname, '../src/'),
   root: '/'
@@ -56,6 +56,11 @@ module.exports = merge(baseConfig, {
     //   path.join(__dirname, 'config'),
     //   path.join(__dirname, 'dist')
     // ]),
+    new StyleLintPlugin({
+      configFile: '.stylelintrc',
+      files: ['src/sass/*.s?(a|c)ss', 'src/sass/_blocks/*.s?(a|c)ss'],
+      syntax: 'sugarss'
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
@@ -102,19 +107,17 @@ module.exports = merge(baseConfig, {
         use: [
           'style-loader',
           'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              // sourceMap: true,
-              plugins: (loader) => [
-                require('stylelint')(config),
-                // require('autoprefixer')({
-                //   'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
-                // }),
-                require('postcss-browser-reporter')
-              ]
-            }
-          },
+          // {
+          //   loader: 'postcss-loader',
+          //   options: {
+          //     // sourceMap: true,
+          //     plugins: (loader) => [
+          //       require('autoprefixer')({
+          //         'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
+          //       })
+          //     ]
+          //   }
+          // },
           // 'resolve-url-loader',
           'sass-loader'
         ]
