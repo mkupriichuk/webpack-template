@@ -6,7 +6,6 @@ module.exports = {
     'unit-no-unknown': true,
     'property-no-unknown': true,
     'declaration-block-no-duplicate-properties': true,
-    'block-no-empty': true,
     'selector-pseudo-class-no-unknown': true,
     'selector-pseudo-element-no-unknown': true,
     'at-rule-no-unknown': true,
