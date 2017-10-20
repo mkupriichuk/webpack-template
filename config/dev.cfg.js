@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 const notifier = require('node-notifier');
-const baseConfig = require('./webpack.base.cfg');
+const baseConfig = require('./base.cfg');
 const pages = glob.sync('*.pug', {
   cwd: path.join(__dirname, '../src/'),
   root: '/'
