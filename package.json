@@ -13,7 +13,7 @@
 		"purify": "node ./config/helpers/purify.js",
 		"shorty": "gulp shorty --gulpfile ./config/helpers/gulp-helpers.js",
 		"iconfont": "rimraf src/icons/icon_font/icons/.gitkeep && svgo -f src/icons/icon_font/icons && node ./config/helpers/iconfont.js && rimraf src/fonts/**/*.{ttf,svg}",
-		"icons": "gulp icons --gulpfile ./config/helpers/gulp-helpers.js && svgo -f src/icons/svg_inline",
+		"icons": "gulp icons --gulpfile ./config/helpers/gulp-helpers.js && svgo -f src/images/icons",
 		"clearfonts": "rimraf src/fonts/**/*.{css,html,eot,ttf,svg}",
 		"size": "size-limit --why"
 	},
