@@ -4,15 +4,13 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const baseConfig = require('./base.cfg');
-const config = require('../.stylelintrc');
+// const config = require('../stylelintrc');
 const pages = glob.sync('*.pug', {
   cwd: path.join(__dirname, '../src/'),
   root: '/'
@@ -28,41 +26,51 @@ const pages = glob.sync('*.pug', {
 
 module.exports = merge(baseConfig, {
   devtool: 'source-map',
+  mode: 'production',
+  optimization: {
+    minimize: true,
+    runtimeChunk: false,
+    splitChunks: {
+      chunks: 'async',
+      minSize: 1000,
+      minChunks: 2,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      name: true,
+      cacheGroups: {
+        default: {
+          minChunks: 1,
+          priority: -20,
+          reuseExistingChunk: true
+        },
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        }
+      }
+    }
+  },
   plugins: [
     ...pages,
     new ScriptExtHtmlWebpackPlugin({
       async: /some.*.js$/,
       defaultAttribute: 'sync'
     }),
-    new ExtractTextPlugin({
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    }),
+    new MiniCssExtractPlugin({
       filename: 'css/bundle.[hash:7].css',
       disable: false,
       allChunks: true
     }),
-    new StyleLintPlugin({
-      configFile: '.stylelintrc',
-      files: ['src/sass/*.s?(a|c)ss', 'src/sass/_blocks/*.s?(a|c)ss'],
-      syntax: 'sugarss'
-    }),
     new OptimizeCssAssetsPlugin({
       cssProcessor: require('cssnano'),
-      cssProcessorOptions: { 
+      cssProcessorOptions: {
         safe: true,
         discardComments: { removeAll: true }
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      beautify: false,
-      comments: false,
-      compress: {
-        sequences: true,
-        booleans: true,
-        loops: true,
-        unused: true,
-        warnings: false,
-        drop_console: true,
-        unsafe: true
       }
     }),
     new ProgressBarPlugin(),
@@ -132,36 +140,56 @@ module.exports = merge(baseConfig, {
           {
             loader: 'file-loader',
             options: {
-              name: 'images/[name].[hash:7].[ext]',
+              name: 'images/[name].[hash:7].[ext]'
             }
           }
         ]
       },
       {
         test: /\.(css|scss|sass)$/,
-        use: ExtractTextPlugin.extract({
-          publicPath: '../',
-          fallback: 'style-loader',
-          use: [
-            'css-loader?sourceMap',
-            {
-              loader: 'postcss-loader',
-              options: {
-                // sourceMap: true,
-                plugins: (loader) => [
-                  require('autoprefixer')({
-                    'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
-                  }),
-                  require('css-mqpacker')({
-                    sort: sortMediaQueries
-                  })
-                ]
-              }
-            },
-            // 'resolve-url-loader',
-            'sass-loader' // sass-loader?sourceMap  when 'resolve-url-loader' enabled
-          ]
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              // sourceMap: true,
+              plugins: (loader) => [
+                require('autoprefixer')({
+                  'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
+                }),
+                require('css-mqpacker')({
+                  sort: sortMediaQueries
+                })
+              ]
+            }
+          },
+          // 'resolve-url-loader',
+          'sass-loader' // sass-loader?sourceMap  when 'resolve-url-loader' enabled
+        ]
+        // use: ExtractTextPlugin.extract({
+        //   publicPath: '../',
+        //   fallback: 'style-loader',
+        //   use: [
+        //     'css-loader?sourceMap',
+        //     {
+        //       loader: 'postcss-loader',
+        //       options: {
+        //         // sourceMap: true,
+        //         plugins: (loader) => [
+        //           require('autoprefixer')({
+        //             'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
+        //           }),
+        //           require('css-mqpacker')({
+        //             sort: sortMediaQueries
+        //           })
+        //         ]
+        //       }
+        //     },
+        //     // 'resolve-url-loader',
+        //     'sass-loader' // sass-loader?sourceMap  when 'resolve-url-loader' enabled
+        //   ]
+        // })
       },
       {
         test: /\.js$/,
@@ -186,8 +214,8 @@ function isMin(mq) {
 }
 
 function sortMediaQueries(a, b) {
-	A = a.replace(/\D/g, '');
-	B = b.replace(/\D/g, '');
+  A = a.replace(/\D/g, '');
+  B = b.replace(/\D/g, '');
 
   if (isMax(a) && isMax(b)) {
     return B - A;

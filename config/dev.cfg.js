@@ -4,7 +4,6 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
 const notifier = require('node-notifier');
 const baseConfig = require('./base.cfg');
 const pages = glob.sync('*.pug', {
@@ -28,26 +27,27 @@ module.exports = merge(baseConfig, {
       aggregateTimeout: 100
     }
   },
+  mode: 'development',
   devtool: 'eval',
   plugins: [
     new webpack.ProvidePlugin({
-			$: 'jquery',
-			jQuery: 'jquery',
-			'window.jQuery': 'jquery'
-		}),
-		new FriendlyErrorsWebpackPlugin({
-			onErrors: (severity, errors) => {
-				if (severity !== 'error') {
-					return;
-				}
-				const error = errors[0];
-				notifier.notify({
-					title: 'Compile error',
-					message: severity + ': ' + error.name,
-					subtitle: error.file || '',
-					icon: path.join(__dirname, '../notify-error.png'),
-					sound: false
-				});
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    }),
+    new FriendlyErrorsWebpackPlugin({
+      onErrors: (severity, errors) => {
+        if (severity !== 'error') {
+          return;
+        }
+        const error = errors[0];
+        notifier.notify({
+          title: 'Compile error',
+          message: severity + ': ' + error.name,
+          subtitle: error.file || '',
+          icon: path.join(__dirname, '../notify-error.png'),
+          sound: false
+        });
       }
     }),
     ...pages,
@@ -56,11 +56,6 @@ module.exports = merge(baseConfig, {
     //   path.join(__dirname, 'config'),
     //   path.join(__dirname, 'dist')
     // ]),
-    new StyleLintPlugin({
-      configFile: '.stylelintrc',
-      files: ['src/sass/*.s?(a|c)ss', 'src/sass/_blocks/*.s?(a|c)ss'],
-      syntax: 'sugarss'
-    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
@@ -97,7 +92,7 @@ module.exports = merge(baseConfig, {
           {
             loader: 'file-loader',
             options: {
-              name: 'images/[name].[hash:7].[ext]',
+              name: 'images/[name].[hash:7].[ext]'
             }
           }
         ]
@@ -107,21 +102,20 @@ module.exports = merge(baseConfig, {
         use: [
           'style-loader',
           'css-loader',
-          // {
-          //   loader: 'postcss-loader',
-          //   options: {
-          //     // sourceMap: true,
-          //     plugins: (loader) => [
-          //       require('autoprefixer')({
-          //         'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
-          //       })
-          //     ]
-          //   }
-          // },
-          // 'resolve-url-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              // sourceMap: true,
+              plugins: (loader) => [
+                require('autoprefixer')({
+                  'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
+                })
+              ]
+            }
+          },
           'sass-loader'
         ]
       }
     ]
   }
-})
+});
