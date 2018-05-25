@@ -64,6 +64,7 @@
 		"size-limit": "^0.18.1",
 		"style-loader": "^0.21.0",
 		"stylelint": "^9.2.1",
+		"stylelint-webpack-plugin": "^0.10.5",
 		"svg-fill-loader": "^0.0.8",
 		"svg-sprite-loader": "^3.2.5",
 		"svgo": "^1.0.5",

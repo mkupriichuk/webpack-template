@@ -5,6 +5,7 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const notifier = require('node-notifier');
+const StylelintPlugin = require('stylelint-webpack-plugin');
 const baseConfig = require('./base.cfg');
 const pages = glob.sync('*.pug', {
   cwd: path.join(__dirname, '../src/'),
@@ -14,6 +15,12 @@ const pages = glob.sync('*.pug', {
   template: path.join(__dirname, `../src/${page}`),
   inject: true
 }));
+
+const lintStylesOptions = {
+  context: path.resolve(__dirname, '../src/sass/'),
+  syntax: 'sass'
+  // fix: true,
+}
 
 module.exports = merge(baseConfig, {
   devServer: {
@@ -57,6 +64,7 @@ module.exports = merge(baseConfig, {
     //   path.join(__dirname, 'dist')
     // ]),
     new webpack.HotModuleReplacementPlugin(),
+    new StylelintPlugin(lintStylesOptions),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],
