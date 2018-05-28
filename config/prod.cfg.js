@@ -114,7 +114,7 @@ module.exports = merge(baseConfig, {
           },
           {
             loader: 'image-webpack-loader',
-            query: {
+            options: {
               gifsicle: {
                 interlaced: false
               },

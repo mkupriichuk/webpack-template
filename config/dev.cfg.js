@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const notifier = require('node-notifier');
+// const notifier = require('node-notifier');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const baseConfig = require('./base.cfg');
 const pages = glob.sync('*.pug', {
@@ -30,6 +30,7 @@ module.exports = merge(baseConfig, {
     hot: true,
     port: 3000,
     quiet: true,
+    overlay: true,
     watchOptions: {
       aggregateTimeout: 100
     }
@@ -42,21 +43,22 @@ module.exports = merge(baseConfig, {
       jQuery: 'jquery',
       'window.jQuery': 'jquery'
     }),
-    new FriendlyErrorsWebpackPlugin({
-      onErrors: (severity, errors) => {
-        if (severity !== 'error') {
-          return;
-        }
-        const error = errors[0];
-        notifier.notify({
-          title: 'Compile error',
-          message: severity + ': ' + error.name,
-          subtitle: error.file || '',
-          icon: path.join(__dirname, '../notify-error.png'),
-          sound: false
-        });
-      }
-    }),
+    new FriendlyErrorsWebpackPlugin(),
+    // new FriendlyErrorsWebpackPlugin({
+    //   onErrors: (severity, errors) => {
+    //     if (severity !== 'error') {
+    //       return;
+    //     }
+    //     const error = errors[0];
+    //     notifier.notify({
+    //       title: 'Compile error',
+    //       message: severity + ': ' + error.name,
+    //       subtitle: error.file || '',
+    //       icon: path.join(__dirname, '../notify-error.png'),
+    //       sound: false
+    //     });
+    //   }
+    // }),
     ...pages,
     // new webpack.WatchIgnorePlugin([
     //   path.join(__dirname, 'node_modules'),
