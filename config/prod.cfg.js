@@ -25,7 +25,7 @@ const pages = glob.sync('*.pug', {
 }));
 
 module.exports = merge(baseConfig, {
-  devtool: 'source-map',
+  // devtool: 'source-map',
   mode: 'production',
   optimization: {
     minimize: true,
