@@ -30,7 +30,10 @@ module.exports = merge(baseConfig, {
     hot: true,
     port: 3000,
     quiet: true,
-    overlay: true,
+    overlay: {
+      warnings: true,
+      errors: true
+    },
     watchOptions: {
       aggregateTimeout: 100
     }
