@@ -1,8 +1,8 @@
 //- sprite mixin
 mixin icon(name)
 	svg(class="icon icon-" + name)
-		//- use(xlink:href="images/spriteIcons.svg#" + name +"-usage")
-		use(xlink:href="#" + name)
+		use(xlink:href="images/sprite_icons.svg#" + name)
+		//- use(xlink:href="#" + name)
 //- mobile list mixin
 mixin mli(name)
 	li(class!=attributes.class)
