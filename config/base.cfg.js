@@ -66,7 +66,7 @@ module.exports = {
               outputPath: 'images/'
             }
           },
-          'svg-fill-loader'
+          'svg-transform-loader'
         ]
       }
     ]
