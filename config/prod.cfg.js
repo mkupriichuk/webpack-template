@@ -8,7 +8,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const WebpackBar = require('webpackbar');
 const baseConfig = require('./base.cfg');
 // const config = require('../stylelintrc');
 const pages = glob.sync('*.pug', {
@@ -72,9 +71,6 @@ module.exports = merge(baseConfig, {
         safe: true,
         discardComments: { removeAll: true }
       }
-    }),
-    new WebpackBar({
-      done: setTimeout(function() { console.log('\x1b[32m%s\x1b[0m', '\r\n\r\n===========SUCCESS===========\r\n'); }, 3000)
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new CompressionPlugin({

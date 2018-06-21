@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-// const notifier = require('node-notifier');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const baseConfig = require('./base.cfg');
 const pages = glob.sync('*.pug', {
@@ -62,6 +62,11 @@ module.exports = merge(baseConfig, {
     //     });
     //   }
     // }),
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css',
+      disable: false,
+      allChunks: true
+    }),
     ...pages,
     // new webpack.WatchIgnorePlugin([
     //   path.join(__dirname, 'node_modules'),
@@ -113,20 +118,27 @@ module.exports = merge(baseConfig, {
       {
         test: /\.(css|scss|sass)$/,
         use: [
-          'style-loader',
+          'css-hot-loader',
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../'
+            }
+          },
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
               // sourceMap: true,
               plugins: (loader) => [
-                require('autoprefixer')({
-                  'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
-                })
+                // require('autoprefixer')({
+                //   'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
+                // })
               ]
             }
           },
-          'sass-loader'
+          // 'resolve-url-loader',
+          'sass-loader' // ?sourcemap when resolve-url-loader enabled
         ]
       }
     ]
