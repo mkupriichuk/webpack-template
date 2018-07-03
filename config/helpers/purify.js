@@ -1,7 +1,7 @@
 const purify = require('purify-css');
-const cssFile = './dist/css/bundle.8dcd12f.css';
+const cssFile = './dist/css/bundle.8dcd12f.css'; // YOUR CSS NAME
 
-const content = ['./dist/*html'];
+const content = ['./dist/js/*.js', './dist/*.html'];
 const css = [cssFile];
 const options = {
 	output: cssFile,
