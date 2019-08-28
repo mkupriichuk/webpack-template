@@ -47,21 +47,6 @@ module.exports = merge(baseConfig, {
       'window.jQuery': 'jquery'
     }),
     new FriendlyErrorsWebpackPlugin(),
-    // new FriendlyErrorsWebpackPlugin({
-    //   onErrors: (severity, errors) => {
-    //     if (severity !== 'error') {
-    //       return;
-    //     }
-    //     const error = errors[0];
-    //     notifier.notify({
-    //       title: 'Compile error',
-    //       message: severity + ': ' + error.name,
-    //       subtitle: error.file || '',
-    //       icon: path.join(__dirname, '../notify-error.png'),
-    //       sound: false
-    //     });
-    //   }
-    // }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css',
       disable: false,
@@ -74,7 +59,7 @@ module.exports = merge(baseConfig, {
     //   path.join(__dirname, 'dist')
     // ]),
     new webpack.HotModuleReplacementPlugin(),
-    new StylelintPlugin(lintStylesOptions),
+    // new StylelintPlugin(lintStylesOptions),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],
@@ -91,7 +76,7 @@ module.exports = merge(baseConfig, {
       //   }
       // },
       {
-        test: /\.(png|jpe?g|gif|ico)$/,
+        test: /\.(png|jpe?g|gif|ico|webp)$/,
         exclude: /(node_modules|bower_components)/,
         use: [
           {
@@ -126,17 +111,17 @@ module.exports = merge(baseConfig, {
             }
           },
           'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              // sourceMap: true,
-              plugins: (loader) => [
-                // require('autoprefixer')({
-                //   'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
-                // })
-              ]
-            }
-          },
+          // {
+          //   loader: 'postcss-loader',
+          //   options: {
+          //     // sourceMap: true,
+          //     plugins: (loader) => [
+          //       // require('autoprefixer')({
+          //       //   'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
+          //       // })
+          //     ]
+          //   }
+          // },
           // 'resolve-url-loader',
           'sass-loader' // ?sourcemap when resolve-url-loader enabled
         ]

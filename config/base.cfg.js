@@ -18,8 +18,7 @@ module.exports = {
       'src': path.resolve(__dirname, '../src'),
       'pug': path.resolve(__dirname, '../src/pug'),
       'icons': path.resolve(__dirname, '../src/images/icons'),
-      'images': path.resolve(__dirname, '../src/images'),
-      'components': path.resolve(__dirname, '../src/components')
+      'images': path.resolve(__dirname, '../src/images')
     }
   },
   module: {
@@ -32,7 +31,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        test: /\.(mp4|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         use: [
           {
             loader: 'file-loader',

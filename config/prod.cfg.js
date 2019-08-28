@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./base.cfg');
 // const config = require('../stylelintrc');
@@ -73,13 +72,6 @@ module.exports = merge(baseConfig, {
       }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new CompressionPlugin({
-      filename: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.(js|css|html)$/,
-      threshold: 10240,
-      minRatio: 0.8
-    }),
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../src/images/favicons'),
@@ -100,7 +92,7 @@ module.exports = merge(baseConfig, {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif|ico)$/,
+        test: /\.(png|jpe?g|gif|ico|webp)$/,
         exclude: /(node_modules|bower_components)/,
         use: [
           {
@@ -126,6 +118,9 @@ module.exports = merge(baseConfig, {
               mozjpeg: {
                 progressive: true,
                 quality: 65
+              },
+              webp: {
+                quality: 75
               }
             }
           }
