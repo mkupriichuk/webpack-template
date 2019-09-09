@@ -34,9 +34,10 @@ module.exports = merge(baseConfig, {
       warnings: true,
       errors: true
     },
-    watchOptions: {
-      aggregateTimeout: 100
-    }
+  },
+  watchOptions: {
+    aggregateTimeout: 100,
+    ignored: /node_modules/
   },
   mode: 'development',
   devtool: 'eval',
