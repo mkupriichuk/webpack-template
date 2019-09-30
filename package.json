@@ -13,17 +13,24 @@
 		"purify": "node ./config/helpers/purify.js",
 		"iconfont": "rimraf src/icons/icon_font/icons/.gitkeep && svgo -f src/icons/icon_font/icons && node ./config/helpers/iconfont.js && rimraf src/fonts/**/*.{ttf,svg}",
 		"clearfonts": "rimraf src/fonts/**/*.{css,html,eot,ttf,svg}",
-		"size": "size-limit --why"
+		"size": "size-limit"
 	},
 	"size-limit": [
 		{
 			"path": "./dist/js/*.js"
 		}
 	],
+	"browserslist": [
+    "last 2 versions",
+    "safari >= 7",
+    "ie >= 9",
+    "ios >= 6"
+  ],
 	"devDependencies": {
 		"@babel/core": "^7.6.0",
 		"@babel/plugin-proposal-class-properties": "^7.5.5",
 		"@babel/preset-env": "^7.6.0",
+		"@size-limit/preset-app": "^2.1.6",
 		"autoprefixer": "^9.6.1",
 		"babel-eslint": "^10.0.3",
 		"babel-loader": "^8.0.6",
@@ -56,7 +63,6 @@
 		"rimraf": "^3.0.0",
 		"sass-loader": "^8.0.0",
 		"script-ext-html-webpack-plugin": "^2.1.4",
-		"size-limit": "^2.1.4",
 		"stylelint": "^10.1.0",
 		"stylelint-webpack-plugin": "^0.10.5",
 		"svg-sprite-loader": "^4.1.6",

@@ -76,10 +76,6 @@ module.exports = merge(baseConfig, {
       {
         from: path.resolve(__dirname, '../src/images/favicons'),
         to: path.resolve(__dirname, '../dist/images/favicons')
-      },
-      {
-        from: path.resolve(__dirname, '../src/.htaccess'),
-        to: path.resolve(__dirname, '../dist/')
       }
     ], {
       ignore: [
@@ -153,9 +149,7 @@ module.exports = merge(baseConfig, {
             options: {
               // sourceMap: true,
               plugins: (loader) => [
-                require('autoprefixer')({
-                  'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
-                }),
+                require('autoprefixer'),
                 require('css-mqpacker')({
                   sort: sortMediaQueries
                 })
