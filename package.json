@@ -21,15 +21,15 @@
 		}
 	],
 	"browserslist": [
-    "last 2 versions",
-    "safari >= 7",
-    "ie >= 9",
-    "ios >= 6"
-  ],
+		"last 2 versions",
+		"safari >= 7",
+		"ie >= 9",
+		"ios >= 6"
+	],
 	"devDependencies": {
 		"@babel/core": "^7.6.0",
 		"@babel/plugin-proposal-class-properties": "^7.5.5",
-		"@babel/preset-env": "^7.6.0",
+		"@babel/preset-modules": "^0.1.0",
 		"@size-limit/preset-app": "^2.1.6",
 		"autoprefixer": "^9.6.1",
 		"babel-eslint": "^10.0.3",
