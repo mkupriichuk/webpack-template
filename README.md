@@ -5,7 +5,7 @@
 You can start by cloning the latest version of project on your local machine by running:
 
 ```
-$ git clone https://github.com/maksymkpr/webpack-pug-starter.git
+$ git clone https://github.com/kprm/webpack-pug-starter.git
 ```
 
 ## 2. Run yarn install or npm install
