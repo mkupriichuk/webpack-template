@@ -49,24 +49,8 @@ Or:
 ```
 $ npm run purify
 ```
-## 6. Creating icon font
-1. Put ur svg icons to src/icons/icon_font/icons
-2. Go to ./config/helpers/iconfont.js and configure fontName, fontFormats, etc
-3. Run [webfont generator](https://github.com/sunflowerdeath/webfonts-generator)
-```
-$ yarn run iconfont
-```
-Or:
 
-```
-$ npm run iconfont
-```
-- .Font files will be created in the src/fonts/{FONT_NAME}/
-- _{FONT_NAME}.sass will be created on the src/sass/_helpers/
-- add the font to the sass file: +font-face("{FONT_NAME}", "{FONT_NAME}/{FONT_NAME}")
-- Now u can add twitter or some icon on ur pug files like this: i.icon.icon-twitter or span.icon.icon-twitter...
-
-## 7. Server
+## 6. Server
 - Run server:
 
 ```
