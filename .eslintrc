@@ -4,7 +4,7 @@
   ],
   "plugins": [],
   "parserOptions": {
-      "ecmaVersion": 5,
+      "ecmaVersion": 2015,
       "sourceType": "module"
   },
   "env": {
