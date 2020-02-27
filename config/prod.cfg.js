@@ -5,6 +5,7 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./base.cfg');
@@ -28,6 +29,24 @@ module.exports = merge(baseConfig, {
   optimization: {
     minimize: true,
     runtimeChunk: false,
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js$/,
+        terserOptions: {
+          warnings: false,
+          compress: {
+            pure_getters: true,
+            unsafe_proto: true,
+            passes: 3,
+            join_vars: true,
+            sequences: true
+          },
+          mangle: true
+        },
+        parallel: true,
+        cache: true
+      })
+    ],
     splitChunks: {
       chunks: 'async',
       minSize: 1000,
