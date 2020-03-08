@@ -23,6 +23,38 @@ const pages = glob.sync('*.pug', {
   }
 }));
 
+const styleLoaders = ext => {
+  const loaders = [
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        publicPath: '../'
+      }
+    },
+    'css-loader',
+    {
+      loader: 'postcss-loader',
+      options: {
+        // sourceMap: true,
+        plugins: (loader) => [
+          require('autoprefixer')({
+            grid: true
+          }),
+          require('css-mqpacker')({
+            sort: sortMediaQueries
+          })
+        ]
+      }
+    }
+  ];
+
+  if (ext) {
+    loaders.push(ext);
+  }
+
+  return loaders;
+};
+
 module.exports = merge(baseConfig, {
   // devtool: 'source-map',
   mode: 'production',
@@ -154,53 +186,12 @@ module.exports = merge(baseConfig, {
         ]
       },
       {
-        test: /\.(css|scss|sass)$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../'
-            }
-          },
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              // sourceMap: true,
-              plugins: (loader) => [
-                require('autoprefixer'),
-                require('css-mqpacker')({
-                  sort: sortMediaQueries
-                })
-              ]
-            }
-          },
-          // 'resolve-url-loader',
-          'sass-loader' // sass-loader?sourceMap  when 'resolve-url-loader' enabled
-        ]
-        // use: ExtractTextPlugin.extract({
-        //   publicPath: '../',
-        //   fallback: 'style-loader',
-        //   use: [
-        //     'css-loader?sourceMap',
-        //     {
-        //       loader: 'postcss-loader',
-        //       options: {
-        //         // sourceMap: true,
-        //         plugins: (loader) => [
-        //           require('autoprefixer')({
-        //             'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
-        //           }),
-        //           require('css-mqpacker')({
-        //             sort: sortMediaQueries
-        //           })
-        //         ]
-        //       }
-        //     },
-        //     // 'resolve-url-loader',
-        //     'sass-loader' // sass-loader?sourceMap  when 'resolve-url-loader' enabled
-        //   ]
-        // })
+        test: /\.(css|)$/,
+        use: styleLoaders()
+      },
+      {
+        test: /\.(scss|sass)$/,
+        use: styleLoaders('sass-loader')
       },
       {
         test: /\.js$/,

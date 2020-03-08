@@ -7,6 +7,7 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const baseConfig = require('./base.cfg');
+
 const pages = glob.sync('*.pug', {
   cwd: path.join(__dirname, '../src/'),
   root: '/'
@@ -15,6 +16,37 @@ const pages = glob.sync('*.pug', {
   template: path.join(__dirname, `../src/${page}`),
   inject: true
 }));
+
+const styleLoaders = ext => {
+  const loaders = [
+    'css-hot-loader',
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        publicPath: '../'
+      }
+    },
+    'css-loader'
+    // {
+    //   loader: 'postcss-loader',
+    //   options: {
+    //     // sourceMap: true,
+    //     plugins: (loader) => [
+    //       require('stylelint')(stylelintCfg),
+    //       require('autoprefixer')({
+    //         grid:true
+    //       })
+    //     ]
+    //   }
+    // }
+  ];
+
+  if (ext) {
+    loaders.push(ext);
+  }
+
+  return loaders;
+};
 
 const lintStylesOptions = {
   context: path.resolve(__dirname, '../src/sass/'),
@@ -102,30 +134,12 @@ module.exports = merge(baseConfig, {
         ]
       },
       {
-        test: /\.(css|scss|sass)$/,
-        use: [
-          'css-hot-loader',
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../'
-            }
-          },
-          'css-loader',
-          // {
-          //   loader: 'postcss-loader',
-          //   options: {
-          //     // sourceMap: true,
-          //     plugins: (loader) => [
-          //       // require('autoprefixer')({
-          //       //   'browsers': ['last 2 versions', 'safari >= 7', 'ie >= 9', 'ios >= 6']
-          //       // })
-          //     ]
-          //   }
-          // },
-          // 'resolve-url-loader',
-          'sass-loader' // ?sourcemap when resolve-url-loader enabled
-        ]
+        test: /\.(css)$/,
+        use: styleLoaders()
+      },
+      {
+        test: /\.(scss|sass)$/,
+        use: styleLoaders('sass-loader')
       }
     ]
   }
