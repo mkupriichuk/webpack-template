@@ -19,10 +19,10 @@ const pages = glob.sync('*.pug', {
 
 const styleLoaders = ext => {
   const loaders = [
-    'css-hot-loader',
     {
       loader: MiniCssExtractPlugin.loader,
       options: {
+        hmr: true,
         publicPath: '../'
       }
     },
