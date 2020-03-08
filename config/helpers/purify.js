@@ -1,38 +1,32 @@
 const purify = require('purify-css');
 const fs = require('fs');
 
+let root = fs.existsSync('./dist/css/') ? './dist/css/' : './dist/';
 
-let cssFile = getFiles('./dist/css');
-let whiteListClass = [
-  'is-open',
-  'dropdown',
-  'active',
-  '*owl*',
-  '*mfp*'
-];
+let files = fs.readdirSync(root);
+
+let cssArr = files.filter(ext => ext.endsWith('.css')).map(i => i = root + i);
+
+console.log(cssArr);
 
 
-const content = ['./dist/js/*.js', './dist/*.html'];
-const css = [cssFile];
-const options = {
-	output: cssFile,
-	whitelist: whiteListClass,
-	info: true,
-	minify: true
-};
+cssArr.forEach(file => {
+  const content = ['./dist/*.js', './dist/js/*.js', './dist/*.html'];
+  const css = [file];
+  const whiteListClass = [
+    'is-open',
+    'dropdown',
+    'active',
+    '*owl*',
+    '*mfp*'
+  ];
+  const options = {
+    output: file,
+    whitelist: whiteListClass,
+    info: true,
+    minify: true
+  };
 
+  purify(content, css, options);
 
-function getFiles(dir, files_) {
-  files_ = files_ || [];
-  let files = fs.readdirSync(dir);
-  for (let i in files) {
-    let name = dir + '/' + files[i];
-    if (~name.indexOf('.css')) {
-      files_.push(name);
-    }
-  }
-  return files_.join();
-}
-
-
-purify(content, css, options);
+});
