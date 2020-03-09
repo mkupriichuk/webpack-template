@@ -126,7 +126,7 @@ module.exports = merge(baseConfig, {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../src/images/favicons'),
-        to: path.resolve(__dirname, '../dist/images/favicons')
+        to: path.resolve(__dirname, '../dist/')
       }
     ], {
       ignore: [

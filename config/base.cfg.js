@@ -4,6 +4,21 @@ const PATHS = {
   dist: path.join(__dirname, '../dist')
 };
 
+const fileLoader = (outputPath, name, ext) => {
+  const loaders = [{
+    loader: 'file-loader',
+    options: {
+      context: path.resolve(__dirname, '../src/'),
+      name: name,
+      outputPath: outputPath ? outputPath : undefined
+    }
+  }];
+  if (ext) {
+    loaders.push(ext);
+  }
+  return loaders;
+};
+
 module.exports = {
   // devtool: 'source-map',
   entry: {
@@ -32,41 +47,16 @@ module.exports = {
       },
       {
         test: /\.(mp4|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[hash].[ext]',
-              outputPath: 'media/'
-            }
-          }
-        ]
+        use: fileLoader('media/', '[hash].[ext]')
       },
       {
         test: /\.(woff|woff2)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              context: path.resolve(__dirname, '../src/'),
-              name: '[path][name].[ext]'
-            }
-          }
-        ]
+        use: fileLoader(null, '[path][name].[ext]')
       },
       {
         test: /\.svg$/,
         // exclude: path.resolve(__dirname, '../src/images/icons/'),
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[name].[ext]',
-              outputPath: 'images/'
-            }
-          },
-          'svg-transform-loader'
-        ]
+        use: fileLoader('images/', '[name].[ext]', 'svg-transform-loader')
       }
     ]
   }
