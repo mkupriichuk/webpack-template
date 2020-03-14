@@ -32,7 +32,7 @@ const imagesLoader = () => {
   ];
 };
 
-const styleLoaders = ext => {
+const styleLoaders = (ext, postcss) => {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -42,19 +42,23 @@ const styleLoaders = ext => {
       }
     },
     'css-loader'
-    // {
-    //   loader: 'postcss-loader',
-    //   options: {
-    //     // sourceMap: true,
-    //     plugins: (loader) => [
-    //       require('stylelint')(stylelintCfg),
-    //       require('autoprefixer')({
-    //         grid:true
-    //       })
-    //     ]
-    //   }
-    // }
   ];
+
+  if(postcss) {
+    let ldr = {
+      loader: postcss,
+      options: {
+        // sourceMap: true,
+        plugins: (loader) => [
+          // require('stylelint')(stylelintCfg)
+          require('autoprefixer')({
+            grid: true
+          })
+        ]
+      }
+    }
+    loaders.push(ldr);
+  }
 
   if (ext) {
     loaders.push(ext);
