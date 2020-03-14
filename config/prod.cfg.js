@@ -1,5 +1,5 @@
 const path = require('path');
-const glob = require('glob');
+const fs = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -10,18 +10,23 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./base.cfg');
 // const config = require('../stylelintrc');
-const pages = glob.sync('*.pug', {
-  cwd: path.join(__dirname, '../src/'),
-  root: '/'
-}).map(page => new HtmlWebpackPlugin({
-  filename: page.replace('pug', 'html'),
-  template: path.join(__dirname, `../src/${page}`),
-  inject: true,
-  minify: {
-    removeComments: true,
-    collapseWhitespace: true
-  }
-}));
+
+const PAGES = fs
+  .readdirSync('src/')
+  .filter(fileName => fileName.endsWith(".pug"))
+  .map(
+    page =>
+      new HtmlWebpackPlugin({
+        filename: page.replace('pug', 'html'),
+        template: path.join(__dirname, `../src/${page}`),
+        inject: true,
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true
+        }
+      })
+  );
+
 
 const imagesLoader = name => {
   return [
@@ -134,7 +139,7 @@ module.exports = merge(baseConfig, {
     }
   },
   plugins: [
-    ...pages,
+    ...PAGES,
     new ScriptExtHtmlWebpackPlugin({
       async: /some.*.js$/,
       defaultAttribute: 'sync'

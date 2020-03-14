@@ -1,5 +1,5 @@
 const path = require('path');
-const glob = require('glob');
+const fs = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,14 +8,17 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
-const pages = glob.sync('*.pug', {
-  cwd: path.join(__dirname, '../src/'),
-  root: '/'
-}).map(page => new HtmlWebpackPlugin({
-  filename: page.replace('pug', 'html'),
-  template: path.join(__dirname, `../src/${page}`),
-  inject: true
-}));
+const PAGES = fs
+  .readdirSync('src/')
+  .filter(fileName => fileName.endsWith(".pug"))
+  .map(
+    page =>
+      new HtmlWebpackPlugin({
+        filename: page.replace('pug', 'html'),
+        template: path.join(__dirname, `../src/${page}`),
+        inject: true
+      })
+  );
 
 const imagesLoader = () => {
   return [
@@ -97,7 +100,7 @@ module.exports = merge(baseConfig, {
       disable: false,
       allChunks: true
     }),
-    ...pages,
+    ...PAGES,
     // new webpack.WatchIgnorePlugin([
     //   path.join(__dirname, 'node_modules'),
     //   path.join(__dirname, 'config'),
