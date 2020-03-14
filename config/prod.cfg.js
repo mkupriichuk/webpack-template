@@ -23,6 +23,40 @@ const pages = glob.sync('*.pug', {
   }
 }));
 
+const imagesLoader = name => {
+  return [
+    {
+      loader: 'file-loader',
+      options: {
+        context: path.resolve(__dirname, '../src/'),
+        name: name + '[name].[hash:7].[ext]'
+      }
+    },
+    {
+      loader: 'image-webpack-loader',
+      query: {
+        gifsicle: {
+          interlaced: false
+        },
+        optipng: {
+          optimizationLevel: 7
+        },
+        pngquant: {
+          quality: [0.65, 0.90],
+          speed: 4
+        },
+        mozjpeg: {
+          progressive: true,
+          quality: 65
+        },
+        webp: {
+          quality: 75
+        }
+      }
+    }
+  ];
+};
+
 const styleLoaders = ext => {
   const loaders = [
     {
@@ -141,49 +175,12 @@ module.exports = merge(baseConfig, {
       {
         test: /\.(png|jpe?g|gif|ico|webp)$/,
         exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              context: path.resolve(__dirname, '../src/'),
-              name: '[path][name].[hash:7].[ext]'
-            }
-          },
-          {
-            loader: 'image-webpack-loader',
-            options: {
-              gifsicle: {
-                interlaced: false
-              },
-              optipng: {
-                optimizationLevel: 7
-              },
-              pngquant: {
-                quality: [0.65, 0.90],
-                speed: 4
-              },
-              mozjpeg: {
-                progressive: true,
-                quality: 65
-              },
-              webp: {
-                quality: 75
-              }
-            }
-          }
-        ]
+        use: imagesLoader('[path]')
       },
       {
         test: /\.(png)$/,
         include: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'images/[name].[hash:7].[ext]'
-            }
-          }
-        ]
+        use: imagesLoader('images/')
       },
       {
         test: /\.(css|)$/,

@@ -16,7 +16,8 @@
 	},
 	"size-limit": [
 		{
-			"path": "./dist/js/*.js"
+			"path": "./dist/js/*.js",
+			"limit": "500 ms"
 		}
 	],
 	"browserslist": [

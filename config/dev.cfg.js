@@ -17,6 +17,18 @@ const pages = glob.sync('*.pug', {
   inject: true
 }));
 
+const imagesLoader = () => {
+  return [
+    {
+      loader: 'file-loader',
+      options: {
+        context: path.resolve(__dirname, '../src/'),
+        name: 'images/[name].[hash:7].[ext]'
+      }
+    }
+  ];
+};
+
 const styleLoaders = ext => {
   const loaders = [
     {
@@ -111,27 +123,12 @@ module.exports = merge(baseConfig, {
       {
         test: /\.(png|jpe?g|gif|ico|webp)$/,
         exclude: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              context: path.resolve(__dirname, '../src/'),
-              name: '[path][name].[hash:7].[ext]'
-            }
-          }
-        ]
+        use: imagesLoader()
       },
       {
         test: /\.(png)$/,
         include: /(node_modules|bower_components)/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'images/[name].[hash:7].[ext]'
-            }
-          }
-        ]
+        use: imagesLoader()
       },
       {
         test: /\.(css)$/,
