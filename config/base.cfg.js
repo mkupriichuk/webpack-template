@@ -21,6 +21,7 @@ const fileLoader = (outputPath, name, ext) => {
 
 module.exports = {
   // devtool: 'source-map',
+	context: PATHS.src,
   entry: {
     bundle: PATHS.src + '/index.js'
   },
