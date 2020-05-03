@@ -21,8 +21,16 @@ const PAGES = fs
         template: path.join(__dirname, `../src/${page}`),
         inject: true,
         minify: {
-          removeComments: true,
-          collapseWhitespace: true
+          removecomments: true,
+          collapseWhitespace: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true,
         }
       })
   );
