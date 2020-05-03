@@ -36,13 +36,13 @@ const PAGES = fs
   );
 
 
-const imagesLoader = name => {
+const imagesLoader = filepath => {
   return [
     {
       loader: 'file-loader',
       options: {
         context: path.resolve(__dirname, '../src/'),
-        name: name + '[name].[hash:7].[ext]'
+        name: filepath
       }
     },
     {
@@ -188,12 +188,12 @@ module.exports = merge(baseConfig, {
       {
         test: /\.(png|jpe?g|gif|ico|webp)$/,
         exclude: /(node_modules|bower_components)/,
-        use: imagesLoader('[path]')
+        use: imagesLoader('[path][name].[hash:7].[ext]')
       },
       {
         test: /\.(png)$/,
         include: /(node_modules|bower_components)/,
-        use: imagesLoader('images/')
+        use: imagesLoader('images/[name].[hash:7].[ext]')
       },
       {
         test: /\.(css|)$/,
