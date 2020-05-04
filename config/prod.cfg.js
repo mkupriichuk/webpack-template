@@ -3,21 +3,20 @@ const fs = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./base.cfg');
-// const config = require('../stylelintrc');
 
 const PAGES = fs
   .readdirSync('src/')
-  .filter(fileName => fileName.endsWith(".pug"))
+  .filter(fileName => fileName.endsWith(".html"))
   .map(
     page =>
       new HtmlWebpackPlugin({
-        filename: page.replace('pug', 'html'),
+        filename: `${page}`,
         template: path.join(__dirname, `../src/${page}`),
         inject: true,
         minify: {
@@ -34,7 +33,6 @@ const PAGES = fs
         }
       })
   );
-
 
 const imagesLoader = filepath => {
   return [
@@ -103,8 +101,8 @@ const styleLoaders = ext => {
 };
 
 module.exports = merge(baseConfig, {
-  // devtool: 'source-map',
   mode: 'production',
+  // devtool: 'source-map',
   optimization: {
     minimize: true,
     runtimeChunk: false,
@@ -149,7 +147,8 @@ module.exports = merge(baseConfig, {
   plugins: [
     ...PAGES,
     new ScriptExtHtmlWebpackPlugin({
-      async: /some.*.js$/,
+      async: /ASYNCSCRIPT.*.js$/,
+      // sync: 'SYNCSCRIPT.[hash:7].js',
       defaultAttribute: 'sync'
     }),
     new webpack.ProvidePlugin({
@@ -173,7 +172,7 @@ module.exports = merge(baseConfig, {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../src/images/favicons'),
-        to: path.resolve(__dirname, '../dist/')
+        to: path.resolve(__dirname, '../dist')
       }
     ], {
       ignore: [
@@ -196,11 +195,11 @@ module.exports = merge(baseConfig, {
         use: imagesLoader('images/[name].[hash:7].[ext]')
       },
       {
-        test: /\.(css|)$/,
+        test: /\.(css)$/,
         use: styleLoaders()
       },
       {
-        test: /\.(scss|sass)$/,
+        test: /\.(sass|scss)$/,
         use: styleLoaders('sass-loader')
       },
       {

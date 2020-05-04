@@ -1,7 +1,7 @@
 import './sass/app.sass';
 
 if (process.env.NODE_ENV !== 'production') {
-  require('./pug/blocks/header.pug');
+  require('./index.html');
 }
 
 document.addEventListener('DOMContentLoaded', () => {

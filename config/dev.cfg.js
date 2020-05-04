@@ -5,16 +5,17 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const StylelintPlugin = require('stylelint-webpack-plugin');
 const baseConfig = require('./base.cfg');
+const stylelintCfg = require('../.stylelintrc');
+
 
 const PAGES = fs
   .readdirSync('src/')
-  .filter(fileName => fileName.endsWith(".pug"))
+  .filter(fileName => fileName.endsWith(".html"))
   .map(
     page =>
       new HtmlWebpackPlugin({
-        filename: page.replace('pug', 'html'),
+        filename: `${page}`,
         template: path.join(__dirname, `../src/${page}`),
         inject: true
       })
@@ -67,12 +68,6 @@ const styleLoaders = (ext, postcss) => {
   return loaders;
 };
 
-const lintStylesOptions = {
-  context: path.resolve(__dirname, '../src/sass/'),
-  syntax: 'sass'
-  // fix: true,
-}
-
 module.exports = merge(baseConfig, {
   devServer: {
     stats: 'errors-only',
@@ -84,11 +79,7 @@ module.exports = merge(baseConfig, {
     overlay: {
       warnings: true,
       errors: true
-    },
-  },
-  watchOptions: {
-    aggregateTimeout: 100,
-    ignored: /node_modules/
+    }
   },
   mode: 'development',
   devtool: 'eval',
@@ -105,30 +96,14 @@ module.exports = merge(baseConfig, {
       allChunks: true
     }),
     ...PAGES,
-    // new webpack.WatchIgnorePlugin([
-    //   path.join(__dirname, 'node_modules'),
-    //   path.join(__dirname, 'config'),
-    //   path.join(__dirname, 'dist')
-    // ]),
     new webpack.HotModuleReplacementPlugin(),
-    // new StylelintPlugin(lintStylesOptions),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {
     rules: [
-      // {
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: 'eslint-loader',
-      //     options: {
-      //       fix: true
-      //     }
-      //   }
-      // },
       {
-        test: /\.(png|jpe?g|gif|ico|webp)$/,
+        test: /\.(png|jpe?g|gif|ico)$/,
         exclude: /(node_modules|bower_components)/,
         use: imagesLoader()
       },

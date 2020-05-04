@@ -20,7 +20,6 @@ const fileLoader = (outputPath, name, ext) => {
 };
 
 module.exports = {
-  // devtool: 'source-map',
 	context: PATHS.src,
   entry: {
     bundle: PATHS.src + '/index.js'
@@ -32,7 +31,6 @@ module.exports = {
   resolve: {
     alias: {
       'src': path.resolve(__dirname, '../src'),
-      'pug': path.resolve(__dirname, '../src/pug'),
       'icons': path.resolve(__dirname, '../src/images/icons'),
       'images': path.resolve(__dirname, '../src/images')
     }
@@ -40,11 +38,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.pug$/,
-        use: {
-          loader: 'pug-loader',
-          query: {}
-        }
+        test: /\.html$/,
+        loader: 'html-loader?interpolate'
       },
       {
         test: /\.(mp4|ogg|mp3|wav|flac|aac)(\?.*)?$/,
