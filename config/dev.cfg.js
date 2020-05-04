@@ -5,6 +5,7 @@ const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
 const baseConfig = require('./base.cfg');
 const stylelintCfg = require('../.stylelintrc');
 
@@ -69,10 +70,9 @@ const styleLoaders = (ext, postcss) => {
 };
 
 module.exports = merge(baseConfig, {
+  mode: 'development',
   devServer: {
     stats: 'errors-only',
-    // contentBase: path.resolve(__dirname, '../src'),
-    // watchContentBase: true,
     hot: true,
     port: 3000,
     quiet: true,
@@ -81,13 +81,13 @@ module.exports = merge(baseConfig, {
       errors: true
     }
   },
-  mode: 'development',
   devtool: 'eval',
+  
   plugins: [
     new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      'window.jQuery': 'jquery'
+			$: 'jquery',
+			jQuery: 'jquery',
+			'window.jQuery': 'jquery'
     }),
     new FriendlyErrorsWebpackPlugin(),
     new MiniCssExtractPlugin({
@@ -102,8 +102,18 @@ module.exports = merge(baseConfig, {
   ],
   module: {
     rules: [
+      // {
+      //   test: /\.js$/,
+      //   exclude: /node_modules/,
+      //   use: {
+      //     loader: 'eslint-loader',
+      //     options: {
+      //       fix: true
+      //     }
+      //   }
+      // },
       {
-        test: /\.(png|jpe?g|gif|ico)$/,
+        test: /\.(png|jpe?g|gif|ico|webp)$/,
         exclude: /(node_modules|bower_components)/,
         use: imagesLoader()
       },
@@ -118,8 +128,8 @@ module.exports = merge(baseConfig, {
       },
       {
         test: /\.(scss|sass)$/,
-        use: styleLoaders('sass-loader')
+        use: styleLoaders('sass-loader', 'postcss-loader')
       }
     ]
   }
-});
+})

@@ -1,0 +1,42 @@
+{% import "../data/_mixins.html" as mixins %}
+{% import "../data/_data.html" as data %}
+<!doctype html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>{% if title %}{{ title }}{% else %}Template{% endif %}</title>
+	<meta name="description" content="">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- <meta property="og:image" content="path/to/image.jpg"> -->
+
+	<link rel="shortcut icon" href="images/favicons/favicon.ico" type="image/x-icon">
+	<link rel="icon" sizes="32x32" href="images/favicons/favicon-32x32.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-icon-180x180.png">
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#000">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#000">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#000">
+</head>
+
+
+{% if bodyClass %}
+
+<body class="{{ bodyClass }}">
+	{% else %}
+
+	<body>
+		{% endif %}
+
+		<!-- BEGIN content -->
+		<div class="app">
+			{% block content %}
+			{% endblock %}
+		</div>
+		<!-- END content -->
+	</body>
+
+</html>

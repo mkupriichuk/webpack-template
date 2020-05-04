@@ -29,7 +29,7 @@ const PAGES = fs
           keepClosingSlash: true,
           minifyJS: true,
           minifyCSS: true,
-          minifyURLs: true,
+          minifyURLs: true
         }
       })
   );
@@ -172,7 +172,7 @@ module.exports = merge(baseConfig, {
     new CopyWebpackPlugin([
       {
         from: path.resolve(__dirname, '../src/images/favicons'),
-        to: path.resolve(__dirname, '../dist')
+        to: path.resolve(__dirname, '../dist/images/favicons')
       }
     ], {
       ignore: [

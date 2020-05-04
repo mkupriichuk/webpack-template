@@ -1,18 +1,12 @@
-${require('./blocks/head.html')}
-<body class="is-home">
 
-		<!-- BEGIN content -->
-		<div class="app">
+{% extends "./templates/layouts/_layout.html" %}
+{% set title = 'Home' %}
+{% set bodyClass = 'is-home' %}
 
-			<div class="container" style="background-image: url('${require(`images/samoyed.jpg`)}');">
-				<h1>Hello</h1>
-			</div>
-		</div>
-		<!-- END content -->
-	</body>
-
-</html>
+{% block content %}
 
 
+{% include "templates/partials/_header.html" %}
 
+{% endblock %}
 
