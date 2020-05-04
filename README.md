@@ -21,8 +21,6 @@ This command will start the app from the source files (/src).
 http://localhost:3000/
 ```
 
-You can change the port, for this go to ./config/devserver.js
-
 
 ## 4. Build
 
