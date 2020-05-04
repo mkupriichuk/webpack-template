@@ -1,11 +1,19 @@
 # Getting Started
 
-## 1. Get the latest version
+## 0. Get the latest version
 
 You can start by cloning the latest version of project on your local machine by running:
 
 ```
-$ git clone https://github.com/kprm/webpack-pug-starter.git .
+$ git clone https://github.com/kprm/webpack-template.git .
+```
+
+## 1. Select a branch
+
+```
+default master branch //pug
+git checkout html // html
+git checkout nunjucks // nunjucks
 ```
 
 ## 2. Run yarn install or npm install
@@ -20,6 +28,7 @@ This command will start the app from the source files (/src).
 ```
 http://localhost:3000/
 ```
+
 
 ## 4. Build
 
