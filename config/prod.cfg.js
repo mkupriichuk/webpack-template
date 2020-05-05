@@ -1,5 +1,5 @@
-const path = require('path');
-const fs = require('fs');
+const {join , resolve} = require('path');
+const { readdirSync } = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -10,14 +10,13 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
-const PAGES = fs
-  .readdirSync('src/')
+const PAGES = readdirSync('src/')
   .filter(fileName => fileName.endsWith(".html"))
   .map(
     page =>
       new HtmlWebpackPlugin({
         filename: `${page}`,
-        template: path.join(__dirname, `../src/${page}`),
+        template: join(__dirname, `../src/${page}`),
         inject: true,
         minify: {
           removecomments: true,
@@ -39,7 +38,7 @@ const imagesLoader = filepath => {
     {
       loader: 'file-loader',
       options: {
-        context: path.resolve(__dirname, '../src/'),
+        context: resolve(__dirname, '../src/'),
         name: filepath
       }
     },
@@ -171,8 +170,8 @@ module.exports = merge(baseConfig, {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../src/images/favicons'),
-        to: path.resolve(__dirname, '../dist')
+        from: resolve(__dirname, '../src/images/favicons'),
+        to: resolve(__dirname, '../dist')
       }
     ], {
       ignore: [
