@@ -1,5 +1,5 @@
-const path = require('path');
-const fs = require('fs');
+const { join, resolve } = require('path');
+const { readdirSync  } = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,14 +8,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const StylelintPlugin = require('stylelint-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
-const PAGES = fs
-  .readdirSync('src/')
+const PAGES = readdirSync('src/')
   .filter(fileName => fileName.endsWith(".pug"))
   .map(
     page =>
       new HtmlWebpackPlugin({
         filename: page.replace('pug', 'html'),
-        template: path.join(__dirname, `../src/${page}`),
+        template: join(__dirname, `../src/${page}`),
         inject: true
       })
   );
@@ -25,7 +24,7 @@ const imagesLoader = () => {
     {
       loader: 'file-loader',
       options: {
-        context: path.resolve(__dirname, '../src/'),
+        context: resolve(__dirname, '../src/'),
         name: 'images/[name].[hash:7].[ext]'
       }
     }
@@ -68,7 +67,7 @@ const styleLoaders = (ext, postcss) => {
 };
 
 const lintStylesOptions = {
-  context: path.resolve(__dirname, '../src/sass/'),
+  context: resolve(__dirname, '../src/sass/'),
   syntax: 'sass'
   // fix: true,
 }
@@ -76,7 +75,7 @@ const lintStylesOptions = {
 module.exports = merge(baseConfig, {
   devServer: {
     stats: 'errors-only',
-    // contentBase: path.resolve(__dirname, '../src'),
+    // contentBase: resolve(__dirname, '../src'),
     // watchContentBase: true,
     hot: true,
     port: 3000,
@@ -106,9 +105,9 @@ module.exports = merge(baseConfig, {
     }),
     ...PAGES,
     // new webpack.WatchIgnorePlugin([
-    //   path.join(__dirname, 'node_modules'),
-    //   path.join(__dirname, 'config'),
-    //   path.join(__dirname, 'dist')
+    //   join(__dirname, 'node_modules'),
+    //   join(__dirname, 'config'),
+    //   join(__dirname, 'dist')
     // ]),
     new webpack.HotModuleReplacementPlugin(),
     // new StylelintPlugin(lintStylesOptions),

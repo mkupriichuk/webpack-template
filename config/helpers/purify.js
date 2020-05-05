@@ -1,9 +1,9 @@
 const purify = require('purify-css');
-const fs = require('fs');
+const { existsSync, readdirSync} = require('fs');
 
-let root = fs.existsSync('./dist/css/') ? './dist/css/' : './dist/';
+let root = existsSync('./dist/css/') ? './dist/css/' : './dist/';
 
-let files = fs.readdirSync(root);
+let files = readdirSync(root);
 
 let cssArr = files.filter(ext => ext.endsWith('.css')).map(i => i = root + i);
 
