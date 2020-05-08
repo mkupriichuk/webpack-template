@@ -11,7 +11,7 @@ const stylelintCfg = require('../.stylelintrc');
 
 
 const PAGES = readdirSync('src/')
-  .filter(fileName => fileName.endsWith(".html"))
+  .filter(fileName => fileName.endsWith('.html'))
   .map(
     page =>
       new HtmlWebpackPlugin({
@@ -46,7 +46,7 @@ const styleLoaders = (ext, postcss) => {
   ];
 
   if(postcss) {
-    let ldr = {
+    loaders.push({
       loader: postcss,
       options: {
         // sourceMap: true,
@@ -57,8 +57,7 @@ const styleLoaders = (ext, postcss) => {
           })
         ]
       }
-    }
-    loaders.push(ldr);
+    });
   }
 
   if (ext) {
