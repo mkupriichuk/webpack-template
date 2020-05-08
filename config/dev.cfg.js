@@ -9,7 +9,7 @@ const StylelintPlugin = require('stylelint-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
 const PAGES = readdirSync('src/')
-  .filter(fileName => fileName.endsWith(".pug"))
+  .filter(fileName => fileName.endsWith('.pug'))
   .map(
     page =>
       new HtmlWebpackPlugin({
@@ -43,8 +43,8 @@ const styleLoaders = (ext, postcss) => {
     'css-loader'
   ];
 
-  if(postcss) {
-    let ldr = {
+  if (postcss) {
+    loaders.push({
       loader: postcss,
       options: {
         // sourceMap: true,
@@ -55,8 +55,7 @@ const styleLoaders = (ext, postcss) => {
           })
         ]
       }
-    }
-    loaders.push(ldr);
+    });
   }
 
   if (ext) {
