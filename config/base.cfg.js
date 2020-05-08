@@ -10,7 +10,7 @@ const fileLoader = (outputPath, name, ext) => {
     options: {
       context: resolve(__dirname, '../src/'),
       name: name,
-      outputPath: outputPath ? outputPath : undefined
+      outputPath: outputPath
     }
   }];
   if (ext) {
@@ -52,7 +52,7 @@ module.exports = {
       },
       {
         test: /\.(woff|woff2)$/,
-        use: fileLoader(null, '[path][name].[ext]')
+        use: fileLoader('fonts/', '[name].[ext]')
       },
       {
         test: /\.svg$/,
