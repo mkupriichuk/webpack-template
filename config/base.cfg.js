@@ -10,13 +10,13 @@ const nunjucksLoaderOptions = JSON.stringify({
 	]
 });
 
-const fileLoader = (outputPath, name, ext) => {
+const fileLoader = (output, name, ext) => {
 	const loaders = [{
 		loader: 'file-loader',
 		options: {
       context: resolve(__dirname, '../src/'),
 			name: name,
-			outputPath: outputPath ? outputPath : undefined
+			outputPath: output
 		}
 	}];
   if (ext) {
@@ -54,7 +54,7 @@ module.exports = {
 			},
 			{
 				test: /\.(woff|woff2)$/,
-				use: fileLoader(null, '[path][name].[ext]')
+				use: fileLoader('fonts/', '[name].[ext]')
 			},
 			{
 				test: /\.svg$/,
