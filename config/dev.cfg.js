@@ -20,19 +20,18 @@ const PAGES = readdirSync('src/')
       })
   );
 
-const imagesLoader = () => {
+const fileLoader = (name) => {
   return [
     {
       loader: 'file-loader',
       options: {
         context: resolve(__dirname, '../src/'),
-        name: 'images/[name].[hash:7].[ext]'
+        name: name
       }
     }
-  ];
+  ]
 };
-
-const styleLoaders = (ext, postcss) => {
+const styleLoaders = (preProcessor, postcss) => {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -44,7 +43,7 @@ const styleLoaders = (ext, postcss) => {
     'css-loader'
   ];
 
-  if (postcss) {
+  if (postcss && postcss === 'postcss-loader') {
     loaders.push({
       loader: postcss,
       options: {
@@ -59,8 +58,8 @@ const styleLoaders = (ext, postcss) => {
     });
   }
 
-  if (ext) {
-    loaders.push(ext);
+  if (preProcessor && preProcessor === 'sass-loader') {
+    loaders.push(preProcessor);
   }
 
   return loaders;
@@ -103,12 +102,17 @@ module.exports = merge(baseConfig, {
       {
         test: /\.(png|jpe?g|gif|ico)$/,
         exclude: /(node_modules|bower_components)/,
-        use: imagesLoader()
+        use: fileLoader('images/[name].[hash:7].[ext]')
       },
       {
         test: /\.(png)$/,
         include: /(node_modules|bower_components)/,
-        use: imagesLoader()
+        use: fileLoader('images/[name].[hash:7].[ext]')
+      },
+      {
+        test: /\.svg$/,
+        // exclude: resolve(__dirname, '../src/images/icons/'),
+        use: fileLoader('images/icons/[name].[hash:7].[ext]', 'svg-transform-loader')
       },
       {
         test: /\.(css)$/,

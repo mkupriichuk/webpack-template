@@ -5,7 +5,7 @@ const PATHS = {
 };
 
 const fileLoader = (output, name, ext) => {
-  const loaders = [{
+  return [{
     loader: 'file-loader',
     options: {
       context: resolve(__dirname, '../src/'),
@@ -13,10 +13,6 @@ const fileLoader = (output, name, ext) => {
       outputPath: output
     }
   }];
-  if (ext) {
-    loaders.push(ext);
-  }
-  return loaders;
 };
 
 module.exports = {
@@ -48,11 +44,6 @@ module.exports = {
       {
         test: /\.(woff|woff2)$/,
         use: fileLoader('fonts/', '[name].[ext]')
-      },
-      {
-        test: /\.svg$/,
-        // exclude: resolve(__dirname, '../src/images/icons/'),
-        use: fileLoader('images/', '[name].[ext]', 'svg-transform-loader')
       }
     ]
   }

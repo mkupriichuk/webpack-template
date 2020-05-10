@@ -1,4 +1,4 @@
-const {join , resolve} = require('path');
+const {join, resolve} = require('path');
 const { readdirSync } = require('fs');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
@@ -11,7 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
 const PAGES = readdirSync('src/')
-  .filter(fileName => fileName.endsWith(".html"))
+  .filter(fileName => fileName.endsWith('.html'))
   .map(
     page =>
       new HtmlWebpackPlugin({
@@ -28,10 +28,35 @@ const PAGES = readdirSync('src/')
           keepClosingSlash: true,
           minifyJS: true,
           minifyCSS: true,
-          minifyURLs: true,
+          minifyURLs: true
         }
       })
   );
+
+const fileLoader = (name, svgo) => {
+  const loaders = [
+    {
+      loader: 'file-loader',
+      options: {
+        context: resolve(__dirname, '../src/'),
+        name: name
+      }
+    }
+  ];
+  if (svgo && svgo === 'svgo-loader') {
+    loaders.push({
+      loader: svgo,
+      options: {
+        plugins: [
+          {removeTitle: true},
+          {convertColors: {shorthex: false}},
+          {convertPathData: false}
+        ]
+      }
+    });
+  }
+  return loaders;
+};
 
 const imagesLoader = filepath => {
   return [
@@ -67,7 +92,7 @@ const imagesLoader = filepath => {
   ];
 };
 
-const styleLoaders = ext => {
+const styleLoaders = preProcessor => {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -92,8 +117,8 @@ const styleLoaders = ext => {
     }
   ];
 
-  if (ext) {
-    loaders.push(ext);
+  if (preProcessor && preProcessor === 'sass-loader') {
+    loaders.push(preProcessor);
   }
 
   return loaders;
@@ -192,6 +217,11 @@ module.exports = merge(baseConfig, {
         test: /\.(png)$/,
         include: /(node_modules|bower_components)/,
         use: imagesLoader('images/[name].[hash:7].[ext]')
+      },
+      {
+        test: /\.svg$/,
+        // exclude: resolve(__dirname, '../src/images/icons/'),
+        use: fileLoader('images/icons/[name].[hash:7].[ext]', 'svgo-loader')
       },
       {
         test: /\.(css)$/,
