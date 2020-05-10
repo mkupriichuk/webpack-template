@@ -4,7 +4,7 @@ const PATHS = {
   dist: join(__dirname, '../dist')
 };
 
-const fileLoader = (output, name, ext) => {
+const fileLoader = (output, name) => {
   return [{
     loader: 'file-loader',
     options: {
