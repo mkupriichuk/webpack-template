@@ -35,31 +35,6 @@ const PAGES = readdirSync('src/')
   );
 
 
-// const fileLoader = (name, svgo) => {
-//   const loaders = [
-//     {
-//       loader: 'file-loader',
-//       options: {
-//         context: resolve(__dirname, '../src/'),
-//         name: name
-//       }
-//     }
-//   ];
-//   if (svgo && svgo === 'svgo-loader') {
-//     loaders.push({
-//       loader: svgo,
-//       options: {
-//         plugins: [
-//           {removeTitle: true},
-//           {convertColors: {shorthex: false}},
-//           {convertPathData: false}
-//         ]
-//       }
-//     });
-//   }
-//   return loaders;
-// };
-
 const fileLoader = (filepath, imageLoader, svgLoader) => {
   let loaders = [
     {
