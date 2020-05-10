@@ -4,24 +4,20 @@ const PATHS = {
   dist: join(__dirname, '../dist')
 };
 
-const fileLoader = (outputPath, name, ext) => {
-  const loaders = [{
+const fileLoader = (output, name) => {
+  return [{
     loader: 'file-loader',
     options: {
       context: resolve(__dirname, '../src/'),
       name: name,
-      outputPath: outputPath
+      outputPath: output
     }
   }];
-  if (ext) {
-    loaders.push(ext);
-  }
-  return loaders;
 };
 
 module.exports = {
   // devtool: 'source-map',
-	context: PATHS.src,
+  context: PATHS.src,
   entry: {
     bundle: PATHS.src + '/index.js'
   },
@@ -53,11 +49,6 @@ module.exports = {
       {
         test: /\.(woff|woff2)$/,
         use: fileLoader('fonts/', '[name].[ext]')
-      },
-      {
-        test: /\.svg$/,
-        // exclude: resolve(__dirname, '../src/images/icons/'),
-        use: fileLoader('images/', '[name].[ext]', 'svg-transform-loader')
       }
     ]
   }
