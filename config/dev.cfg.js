@@ -112,7 +112,7 @@ module.exports = merge(baseConfig, {
       {
         test: /\.svg$/,
         // exclude: resolve(__dirname, '../src/images/icons/'),
-        use: fileLoader('images/icons/[name].[hash:7].[ext]', 'svg-transform-loader')
+        use: fileLoader('images/icons/[name].[hash:7].[ext]')
       },
       {
         test: /\.(css)$/,
