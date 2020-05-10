@@ -20,7 +20,7 @@ const PAGES = readdirSync('src/')
         template: join(__dirname, `../src/${page}`),
         inject: true,
         minify: {
-          removecomments: true,
+          removeComments: true,
           collapseWhitespace: true,
           removeRedundantAttributes: true,
           useShortDoctype: true,
