@@ -11,7 +11,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
 const PAGES = readdirSync('src/')
-  .filter(fileName => fileName.endsWith(".html"))
+  .filter(fileName => fileName.endsWith('.html'))
   .map(
     page =>
       new HtmlWebpackPlugin({
@@ -33,17 +33,19 @@ const PAGES = readdirSync('src/')
       })
   );
 
-const imagesLoader = filepath => {
-  return [
+const fileLoader = (filepath, imageLoader, svgLoader) => {
+  let loaders = [
     {
       loader: 'file-loader',
       options: {
         context: resolve(__dirname, '../src/'),
         name: filepath
       }
-    },
-    {
-      loader: 'image-webpack-loader',
+    }
+  ];
+  if (imageLoader && imageLoader === 'image-webpack-loader') {
+    loaders.push({
+      loader: imageLoader,
       query: {
         gifsicle: {
           interlaced: false
@@ -63,11 +65,24 @@ const imagesLoader = filepath => {
           quality: 75
         }
       }
-    }
-  ];
+    });
+  }
+  if (svgLoader && svgLoader === 'svgo-loader') {
+    loaders.push({
+      loader: svgLoader,
+      options: {
+        plugins: [
+          {removeTitle: true},
+          {convertColors: {shorthex: false}},
+          {convertPathData: false}
+        ]
+      }
+    });
+  }
+  return loaders;
 };
 
-const styleLoaders = ext => {
+const styleLoaders = preProcessor => {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -92,12 +107,13 @@ const styleLoaders = ext => {
     }
   ];
 
-  if (ext) {
-    loaders.push(ext);
+  if (preProcessor && preProcessor === 'sass-loader') {
+    loaders.push(preProcessor);
   }
 
   return loaders;
 };
+
 
 module.exports = merge(baseConfig, {
   mode: 'production',
@@ -186,12 +202,17 @@ module.exports = merge(baseConfig, {
       {
         test: /\.(png|jpe?g|gif|ico|webp)$/,
         exclude: /(node_modules|bower_components)/,
-        use: imagesLoader('[path][name].[hash:7].[ext]')
+        use: fileLoader('[path][name].[hash:7].[ext]', 'image-webpack-loader')
       },
       {
         test: /\.(png)$/,
         include: /(node_modules|bower_components)/,
-        use: imagesLoader('images/[name].[hash:7].[ext]')
+        use: fileLoader('images/[name].[hash:7].[ext]', 'image-webpack-loader')
+      },
+      {
+        test: /\.svg$/,
+        // exclude: resolve(__dirname, '../src/images/icons/'),
+        use: fileLoader('images/icons/[name].[hash:7].[ext]', null, 'svgo-loader')
       },
       {
         test: /\.(css)$/,
