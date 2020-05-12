@@ -43,7 +43,7 @@ const styleLoaders = (preProcessor, postcss) => {
     'css-loader'
   ];
 
-  if (postcss && postcss === 'postcss-loader') {
+  if (postcss === 'postcss-loader') {
     loaders.push({
       loader: postcss,
       options: {
@@ -58,8 +58,8 @@ const styleLoaders = (preProcessor, postcss) => {
     });
   }
 
-  if (preProcessor && preProcessor === 'sass-loader') {
-    loaders.push(preProcessor);
+  if (preProcessor === 'sass-loader') {
+    loaders.push('sass-loader');
   }
 
   return loaders;
