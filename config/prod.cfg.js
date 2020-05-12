@@ -10,6 +10,23 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
+const sortMediaQueries = (a, b) => {
+  let A = a.replace(/\D/g, '');
+  let B = b.replace(/\D/g, '');
+
+  if (/max-width/.test(a) && /max-width/.test(b)) {
+    return B - A;
+  } else if (/min-width/.test(a) && /min-width/.test(b)) {
+    return A - B;
+  } else if (/max-width/.test(a) && /min-width/.test(b)) {
+    return 1;
+  } else if (/min-width/.test(a) && /max-width/.test(b)) {
+    return -1;
+  }
+
+  return 1;
+};
+
 const PAGES = readdirSync('src/')
   .filter(fileName => fileName.endsWith('.html'))
   .map(
@@ -235,27 +252,3 @@ module.exports = merge(baseConfig, {
     ]
   }
 });
-
-function isMax(mq) {
-  return /max-width/.test(mq);
-}
-
-function isMin(mq) {
-  return /min-width/.test(mq);
-}
-
-function sortMediaQueries(a, b) {
-  A = a.replace(/\D/g, '');
-  B = b.replace(/\D/g, '');
-
-  if (isMax(a) && isMax(b)) {
-    return B - A;
-  } else if (isMin(a) && isMin(b)) {
-    return A - B;
-  } else if (isMax(a) && isMin(b)) {
-    return 1;
-  } else if (isMin(a) && isMax(b)) {
-    return -1;
-  }
-  return 1;
-}
