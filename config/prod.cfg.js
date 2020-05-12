@@ -35,7 +35,7 @@ const PAGES = readdirSync('src/')
   );
 
 
-const fileLoader = (filepath, imageLoader, svgLoader) => {
+const fileLoader = (filepath, loader) => {
   let loaders = [
     {
       loader: 'file-loader',
@@ -45,9 +45,9 @@ const fileLoader = (filepath, imageLoader, svgLoader) => {
       }
     }
   ];
-  if (imageLoader && imageLoader === 'image-webpack-loader') {
+  if (loader === 'image-webpack-loader') {
     loaders.push({
-      loader: imageLoader,
+      loader: 'image-webpack-loader',
       query: {
         gifsicle: {
           interlaced: false
@@ -69,9 +69,9 @@ const fileLoader = (filepath, imageLoader, svgLoader) => {
       }
     });
   }
-  if (svgLoader && svgLoader === 'svgo-loader') {
+  if (loader === 'svgo-loader') {
     loaders.push({
-      loader: svgLoader,
+      loader: 'svgo-loader',
       options: {
         plugins: [
           {removeTitle: true},
@@ -109,8 +109,8 @@ const styleLoaders = preProcessor => {
     }
   ];
 
-  if (preProcessor && preProcessor === 'sass-loader') {
-    loaders.push(preProcessor);
+  if (preProcessor === 'sass-loader') {
+    loaders.push('sass-loader');
   }
 
   return loaders;
@@ -213,7 +213,7 @@ module.exports = merge(baseConfig, {
       {
         test: /\.svg$/,
         // exclude: resolve(__dirname, '../src/images/icons/'),
-        use: fileLoader('images/icons/[name].[hash:7].[ext]', null, 'svgo-loader')
+        use: fileLoader('images/icons/[name].[hash:7].[ext]', 'svgo-loader')
       },
       {
         test: /\.(css|)$/,
