@@ -10,6 +10,23 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
+const sortMediaQueries = (a, b) => {
+  let A = a.replace(/\D/g, '');
+  let B = b.replace(/\D/g, '');
+
+  if (/max-width/.test(a) && /max-width/.test(b)) {
+    return B - A;
+  } else if (/min-width/.test(a) && /min-width/.test(b)) {
+    return A - B;
+  } else if (/max-width/.test(a) && /min-width/.test(b)) {
+    return 1;
+  } else if (/min-width/.test(a) && /max-width/.test(b)) {
+    return -1;
+  }
+
+  return 1;
+};
+
 const PAGES = readdirSync('src/')
   .filter(fileName => fileName.endsWith('.html'))
   .map(
