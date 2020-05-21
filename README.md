@@ -5,7 +5,7 @@
 You can start by cloning the latest version of project on your local machine by running:
 
 ```
-$ git clone https://github.com/kprm/webpack-template.git .
+$ git clone https://github.com/mkupriichuk/webpack-template.git .
 ```
 
 ## 1. Select a branch
