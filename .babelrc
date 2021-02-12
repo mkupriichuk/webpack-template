@@ -1,6 +1,0 @@
-{
-  "presets": [
-    "@babel/preset-modules"
-  ],
-  "plugins": ["@babel/plugin-proposal-class-properties"]
-}
