@@ -124,7 +124,8 @@ const svgoLoader = () => {
         plugins: [
           {removeTitle: true},
           {convertColors: {shorthex: false}},
-          {convertPathData: false}
+          {convertPathData: false},
+					{removeUselessDefs: false}
         ]
       }
     }
