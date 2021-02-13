@@ -133,6 +133,7 @@ const svgoLoader = () => {
 }
 
 module.exports = merge(baseConfig, {
+  target: 'browserslist',
   output: {
     publicPath: './'
   },
