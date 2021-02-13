@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ESLintPlugin = require('eslint-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
 const sortMediaQueries = (a, b) => {
@@ -159,6 +160,7 @@ module.exports = merge(baseConfig, {
       // sync: 'SYNCSCRIPT.[hash:7].js',
       defaultAttribute: 'sync'
     }),
+    // new ESLintPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/bundle.[hash:7].css'
     }),
