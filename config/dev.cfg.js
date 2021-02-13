@@ -57,6 +57,7 @@ const styleLoaders = (preProcessor, postcss) => {
 };
 
 module.exports = merge(baseConfig, {
+  target: 'web',
   devServer: {
     stats: 'errors-only',
     // contentBase: resolve(__dirname, '../src'),
