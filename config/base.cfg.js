@@ -4,8 +4,7 @@ const PATHS = {
   dist: join(__dirname, '../dist')
 };
 module.exports = {
-	context: PATHS.src,
-  target: 'web',
+  context: PATHS.src,
   entry: {
     bundle: PATHS.src + '/index.js'
   },
