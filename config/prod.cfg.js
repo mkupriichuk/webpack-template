@@ -32,7 +32,7 @@ module.exports = merge(baseConfig, {
     maxAssetSize: 512000,
   },
   plugins: [
-    ...Pages(),
+    ...Pages({inject : true}),  // inject must be set on true || 'head' || 'body' || false. See more on https://github.com/jantimon/html-webpack-plugin#options
     // new ScriptExtHtmlWebpackPlugin({
     //   async: /ASYNCSCRIPT.*.js$/,
     //   // sync: 'SYNCSCRIPT.[hash:7].js',
@@ -47,9 +47,11 @@ module.exports = merge(baseConfig, {
         {
           from: resolve(__dirname, '../src/images/favicons'),
           globOptions: {
+            dot : true,
+            gitignore: true,
             ignore: [
-              '*.svg',
-              '.gitkeep'
+              resolve(__dirname, '../src/images/favicons/.gitkeep'),
+              resolve(__dirname, '../src/images/favicons/*.svg'),
             ],
             copyUnmodified: true
           },
@@ -118,7 +120,7 @@ function sortMediaQueries(a, b) {
   return 1;
 };
 
-function Pages() {
+function Pages(options = {}) {
   return readdirSync('src/')
   .filter(fileName => fileName.endsWith('.html'))
   .map(
@@ -126,7 +128,7 @@ function Pages() {
       new HtmlWebpackPlugin({
         filename: `${page}`,
         template: join(__dirname, `../src/${page}`),
-        inject: true,
+        inject: options.inject || false,
         minify: {
           removeComments: true,
           collapseWhitespace: true,
