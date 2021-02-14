@@ -11,10 +11,9 @@ $ git clone https://github.com/mkupriichuk/webpack-template.git .
 ## 1. Select a branch
 
 ```
-default master branch //pug
-git checkout html // html
+default master branch //html
+git checkout pug // pug
 git checkout nunjucks // nunjucks
-git checkout webpack5 // webpack 5 html
 ```
 
 ## 2. Run yarn install or npm install
