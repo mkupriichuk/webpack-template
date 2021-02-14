@@ -10,128 +10,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
-const sortMediaQueries = (a, b) => {
-  let A = a.replace(/\D/g, '');
-  let B = b.replace(/\D/g, '');
-
-  if (/max-width/.test(a) && /max-width/.test(b)) {
-    return B - A;
-  } else if (/min-width/.test(a) && /min-width/.test(b)) {
-    return A - B;
-  } else if (/max-width/.test(a) && /min-width/.test(b)) {
-    return 1;
-  } else if (/min-width/.test(a) && /max-width/.test(b)) {
-    return -1;
-  }
-
-  return 1;
-};
-
-const PAGES = readdirSync('src/')
-  .filter(fileName => fileName.endsWith('.html'))
-  .map(
-    page =>
-      new HtmlWebpackPlugin({
-        filename: `${page}`,
-        template: join(__dirname, `../src/${page}`),
-        inject: true,
-        minify: {
-          removeComments: true,
-          collapseWhitespace: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          keepClosingSlash: true,
-          minifyJS: true,
-          minifyCSS: true,
-          minifyURLs: true
-        }
-      })
-  );
-
-const styleLoaders = preProcessor => {
-  const loaders = [
-    {
-      loader: MiniCssExtractPlugin.loader,
-      options: {
-        publicPath: '../'
-      }
-    },
-    'css-loader',
-    {
-      loader: 'postcss-loader',
-      options: {
-        postcssOptions: {
-          plugins: [
-            [
-              'autoprefixer',
-              {
-                grid: true
-              }
-            ],
-            [
-              'css-mqpacker',
-              {
-                sort: sortMediaQueries
-              }
-            ]
-          ]
-        }
-        // sourceMap: true,
-      }
-    }
-  ];
-
-  if (preProcessor && preProcessor === 'sass-loader') {
-    loaders.push(preProcessor);
-  }
-
-  return loaders;
-};
-
-
-const imageLoader = () => {
-  return [
-    {
-      loader: 'image-webpack-loader',
-      options: {
-        gifsicle: {
-          interlaced: false
-        },
-        optipng: {
-          optimizationLevel: 7
-        },
-        pngquant: {
-          quality: [0.65, 0.90],
-          speed: 4
-        },
-        mozjpeg: {
-          progressive: true,
-          quality: 65
-        },
-        webp: {
-          quality: 75
-        }
-      }
-    }
-  ]
-}
-const svgoLoader = () => {
-  return [
-    {
-      loader: 'svgo-loader',
-      options: {
-        plugins: [
-          {removeTitle: true},
-          {convertColors: {shorthex: false}},
-          {convertPathData: false},
-					{removeUselessDefs: false}
-        ]
-      }
-    }
-  ]
-}
 
 module.exports = merge(baseConfig, {
   target: 'browserslist',
@@ -154,12 +32,12 @@ module.exports = merge(baseConfig, {
     maxAssetSize: 512000,
   },
   plugins: [
-    ...PAGES,
-    new ScriptExtHtmlWebpackPlugin({
-      async: /ASYNCSCRIPT.*.js$/,
-      // sync: 'SYNCSCRIPT.[hash:7].js',
-      defaultAttribute: 'sync'
-    }),
+    ...Pages(),
+    // new ScriptExtHtmlWebpackPlugin({
+    //   async: /ASYNCSCRIPT.*.js$/,
+    //   // sync: 'SYNCSCRIPT.[hash:7].js',
+    //   defaultAttribute: 'sync'
+    // }),
     // new ESLintPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/bundle.[hash:7].css'
@@ -222,3 +100,133 @@ module.exports = merge(baseConfig, {
     ]
   }
 });
+
+function sortMediaQueries(a, b) {
+  let A = a.replace(/\D/g, '');
+  let B = b.replace(/\D/g, '');
+
+  if (/max-width/.test(a) && /max-width/.test(b)) {
+    return B - A;
+  } else if (/min-width/.test(a) && /min-width/.test(b)) {
+    return A - B;
+  } else if (/max-width/.test(a) && /min-width/.test(b)) {
+    return 1;
+  } else if (/min-width/.test(a) && /max-width/.test(b)) {
+    return -1;
+  }
+
+  return 1;
+};
+
+function Pages() {
+  return readdirSync('src/')
+  .filter(fileName => fileName.endsWith('.html'))
+  .map(
+    page =>
+      new HtmlWebpackPlugin({
+        filename: `${page}`,
+        template: join(__dirname, `../src/${page}`),
+        inject: true,
+        minify: {
+          removeComments: true,
+          collapseWhitespace: true,
+          removeRedundantAttributes: true,
+          useShortDoctype: true,
+          removeEmptyAttributes: true,
+          removeStyleLinkTypeAttributes: true,
+          keepClosingSlash: true,
+          minifyJS: true,
+          minifyCSS: true,
+          minifyURLs: true
+        }
+      })
+  );
+}
+
+function styleLoaders(preProcessor) {
+  const loaders = [
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        publicPath: '../'
+      }
+    },
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: arguments.length + 1
+      }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          plugins: [
+            [
+              'autoprefixer',
+              {
+                grid: true
+              }
+            ],
+            [
+              'css-mqpacker',
+              {
+                sort: sortMediaQueries
+              }
+            ]
+          ]
+        }
+      }
+    }
+  ];
+
+  if (preProcessor && preProcessor === 'sass-loader') {
+    loaders.push(preProcessor);
+  }
+
+  return loaders;
+};
+
+
+function imageLoader() {
+  return [
+    {
+      loader: 'image-webpack-loader',
+      options: {
+        gifsicle: {
+          interlaced: false
+        },
+        optipng: {
+          optimizationLevel: 7
+        },
+        pngquant: {
+          quality: [0.65, 0.90],
+          speed: 4
+        },
+        mozjpeg: {
+          progressive: true,
+          quality: 65
+        },
+        webp: {
+          quality: 75
+        }
+      }
+    }
+  ]
+}
+
+function svgoLoader() {
+  return [
+    {
+      loader: 'svgo-loader',
+      options: {
+        plugins: [
+          {removeTitle: true},
+          {convertColors: {shorthex: false}},
+          {convertPathData: false},
+					{removeUselessDefs: false}
+        ]
+      }
+    }
+  ]
+}
