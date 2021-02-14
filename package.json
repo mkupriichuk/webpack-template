@@ -11,7 +11,6 @@
 		"lint-fix": "eslint --fix src/*.js",
 		"server": "node ./config/server/server.js",
 		"purify": "node ./config/helpers/purify.js",
-		"iconfont": "rimraf src/icons/icon_font/icons/.gitkeep && svgo -f src/icons/icon_font/icons && node ./config/helpers/iconfont.js && rimraf src/fonts/**/*.{ttf,svg}",
 		"clearfonts": "rimraf src/fonts/**/*.{css,html,eot,ttf,svg}",
 		"size": "size-limit"
 	},
