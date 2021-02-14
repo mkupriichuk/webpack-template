@@ -99,12 +99,12 @@ module.exports = merge(baseConfig, {
           filename: 'images/[name].[hash:7][ext]'
         }
       },
+      // {
+      //   test: /\.(css)$/,
+      //   use: styleLoaders()
+      // },
       {
-        test: /\.(css)$/,
-        use: styleLoaders()
-      },
-      {
-        test: /\.(scss|sass)$/,
+        test: /\.(css|scss|sass)$/,
         use: styleLoaders('sass-loader')
       }
     ]

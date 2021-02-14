@@ -201,12 +201,12 @@ module.exports = merge(baseConfig, {
         },
         use: svgoLoader()
       },
+      // {
+      //   test: /\.(css)$/,
+      //   use: styleLoaders()
+      // },
       {
-        test: /\.(css)$/,
-        use: styleLoaders()
-      },
-      {
-        test: /\.(sass|scss)$/,
+        test: /\.(css|sass|scss)$/,
         use: styleLoaders('sass-loader')
       },
       {
