@@ -1,5 +1,4 @@
 const { join, resolve } = require('path');
-const { readdirSync } = require('fs');
 const webpack = require('webpack');
 const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,53 +7,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const baseConfig = require('./base.cfg');
 const stylelintCfg = require('../.stylelintrc');
 
-
-const PAGES = readdirSync('src/')
-  .filter(fileName => fileName.endsWith('.html'))
-  .map(
-    page =>
-      new HtmlWebpackPlugin({
-        filename: `${page}`,
-        template: join(__dirname, `../src/${page}`),
-        inject: true
-      })
-  );
-
-const styleLoaders = (preProcessor, postcss) => {
-  const loaders = [
-    {
-      loader: MiniCssExtractPlugin.loader,
-      options: {
-        publicPath: '../'
-      }
-    },
-    'css-loader'
-  ];
-
-  if (postcss === 'postcss-loader') {
-    loaders.push({
-      loader: postcss,
-      options: {
-        postcssOptions: {
-          plugins: [
-            [
-              'autoprefixer',
-              {
-                grid: true
-              }
-            ]
-          ]
-        }
-      }
-    });
-  }
-
-  if (preProcessor === 'sass-loader') {
-    loaders.push('sass-loader');
-  }
-
-  return loaders;
-};
 
 module.exports = merge(baseConfig, {
   target: 'web',
@@ -71,13 +23,13 @@ module.exports = merge(baseConfig, {
     }
   },
   mode: 'development',
-  devtool: 'eval',
+  // devtool: 'cheap-module-source-map',
   plugins: [
     new FriendlyErrorsWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css'
     }),
-    ...PAGES,
+    ...pageGenerator(['index.html'], {inject: true}), // inject must be set on true || 'head' || 'body' || false. See more on https://github.com/jantimon/html-webpack-plugin#options
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],
@@ -99,14 +51,64 @@ module.exports = merge(baseConfig, {
           filename: 'images/[name].[hash:7][ext]'
         }
       },
-      // {
-      //   test: /\.(css)$/,
-      //   use: styleLoaders()
-      // },
       {
         test: /\.(css|scss|sass)$/,
         use: styleLoaders('sass-loader')
+        // use: styleLoaders('sass-loader', {autoprefixer: true}) // uncomment to enable autoprefixer (on dev mode)
       }
     ]
   }
 });
+
+function pageGenerator(pages, options = {}) {
+  return pages.map(
+    page =>
+      new HtmlWebpackPlugin({
+        filename: `${page}`,
+        template: join(__dirname, `../src/${page}`),
+        inject: options.inject || false
+      })
+  );
+}
+
+function styleLoaders(preProcessor, options = {}) {
+  const loaders = [
+    {
+      loader: MiniCssExtractPlugin.loader,
+      options: {
+        publicPath: '../'
+      }
+    },
+    {
+      loader: 'css-loader',
+      options: {
+        importLoaders: arguments.length
+      }
+    }
+    
+  ];
+
+  if (options.autoprefixer) {
+    loaders.push({
+      loader: 'postcss-loader',
+      options: {
+        postcssOptions: {
+          plugins: [
+            [
+              'autoprefixer',
+              {
+                grid: true
+              }
+            ]
+          ]
+        }
+      }
+    });
+  }
+
+  if (preProcessor === 'sass-loader') {
+    loaders.push('sass-loader');
+  }
+
+  return loaders;
+};
