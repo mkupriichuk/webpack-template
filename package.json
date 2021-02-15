@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
-		"dev": "webpack serve --config ./config/dev.cfg.js",
+		"dev": "cross-env NODE_ENV=development webpack serve --config ./config/dev.cfg.js",
 		"build": "rimraf ./dist && cross-env NODE_ENV=production webpack --progress --config ./config/prod.cfg.js && size-limit",
 		"lint": "eslint src/*.js",
 		"lint-fix": "eslint --fix src/*.js",
@@ -20,7 +20,18 @@
 			"limit": "2000 ms"
 		}
 	],
-	"browserslist": "> 0.25%, not dead, ie 10",
+	"browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
 	"devDependencies": {
 		"@babel/core": "^7.12.16",
 		"@babel/eslint-parser": "^7.12.16",
