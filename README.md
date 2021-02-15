@@ -1,27 +1,29 @@
 # Getting Started
 
-## 0. Get the latest version
-
-You can start by cloning the latest version of project on your local machine by running:
+## 1. Clone repo
 
 ```
 $ git clone https://github.com/mkupriichuk/webpack-template.git .
 ```
 
-## 1. Select a branch
+## 2. Select a branch
 
 ```
 default master branch //html
+git checkout react // react
 git checkout pug // pug
 git checkout nunjucks // nunjucks
 ```
 
-## 2. Run yarn install or npm install
+## 3. Install packages
 
-This will install both run-time project dependencies and developer tools listed in package.json file.
+```
+npm install
+yarn install
+```
 
 
-## 3. Run yarn run dev or npm run dev
+## 4. Run yarn run dev or npm run dev
 
 This command will start the app from the source files (/src).
 
@@ -30,7 +32,7 @@ http://localhost:3000/
 ```
 
 
-## 4. Build
+## 5. Build
 
 - Build the app:
 
@@ -43,7 +45,7 @@ Or:
 $ npm run build
 ```
 
-## 5.Purify-Css
+## 6.Purify-Css
   - Do not forget to configure [Purify](https://github.com/purifycss/purifycss) config on ./config/helpers/purify.js
   - Now:
 
@@ -56,7 +58,7 @@ Or:
 $ npm run purify
 ```
 
-## 6. Server
+## 7. Server
 - Run server:
 
 ```
