@@ -14,24 +14,22 @@
 		"clearfonts": "rimraf src/fonts/**/*.{css,html,eot,ttf,svg}",
 		"size": "size-limit"
 	},
-	"size-limit": [
-		{
-			"path": "./dist/js/*.js",
-			"limit": "2000 ms"
-		}
-	],
+	"size-limit": [{
+		"path": "./dist/js/*.js",
+		"limit": "2000 ms"
+	}],
 	"browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
 	"devDependencies": {
 		"@babel/core": "^7.12.16",
 		"@babel/eslint-parser": "^7.12.16",
