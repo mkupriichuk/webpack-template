@@ -5,6 +5,7 @@ const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
@@ -22,7 +23,24 @@ module.exports = merge(baseConfig, {
     minimize: true,
     runtimeChunk: false,
     minimizer: [
-      `...`,
+      new TerserPlugin({
+        terserOptions: {
+          warnings: false,
+          format: {
+            comments: false,
+          },
+          compress: {
+            pure_getters: true,
+            unsafe_proto: true,
+            passes: 3,
+            join_vars: true,
+            sequences: true
+          },
+          mangle: true
+        },
+        extractComments: false,
+        parallel: true
+      }),
       new CssMinimizerPlugin()
     ]
   },
@@ -88,16 +106,6 @@ module.exports = merge(baseConfig, {
       {
         test: /\.(css|sass|scss)$/,
         use: styleLoaders('sass-loader')
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
       }
     ]
   }

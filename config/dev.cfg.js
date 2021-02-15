@@ -1,4 +1,5 @@
 const { join, resolve } = require('path');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const webpack = require('webpack');
 const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -31,6 +32,7 @@ module.exports = merge(baseConfig, {
     }),
     ...pageGenerator(['index.html'], {inject: true}), // inject must be set on true || 'head' || 'body' || false. See more on https://github.com/jantimon/html-webpack-plugin#options
     new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ],
   module: {

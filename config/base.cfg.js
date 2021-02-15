@@ -15,6 +15,7 @@ module.exports = {
     filename: 'js/[name].[fullhash].js'
   },
   resolve: {
+    extensions: ['.js', '.jsx'],
     alias: {
       'src': resolve(__dirname, '../src'),
       'icons': resolve(__dirname, '../src/images/icons'),
@@ -23,6 +24,13 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
+        }
+      },
       {
         test: /\.html$/,
         loader: 'html-loader'
