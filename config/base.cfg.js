@@ -1,8 +1,5 @@
-const { join, resolve } = require('path');
-const PATHS = {
-  src: join(__dirname, '../src'),
-  dist: join(__dirname, '../dist')
-};
+const PATHS = require('./paths.js');
+
 module.exports = {
   context: PATHS.src,
   entry: {
@@ -16,9 +13,9 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'src': resolve(__dirname, '../src'),
-      'icons': resolve(__dirname, '../static/images/icons'),
-      'images': resolve(__dirname, '../static/images')
+      'src': PATHS.src,
+      'icons': PATHS.static + '/images/icons',
+      'images': PATHS.static + '/images',
     }
   },
   module: {

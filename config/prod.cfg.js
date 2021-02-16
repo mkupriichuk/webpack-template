@@ -9,6 +9,7 @@ const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
+const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
 
 
@@ -46,18 +47,18 @@ module.exports = merge(baseConfig, {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: resolve(__dirname, '../static/images/favicons'),
+          from: PATHS.static +  '/images/favicons',
           globOptions: {
             dot : true,
             gitignore: true,
             ignore: [
-              resolve(__dirname, '../static/images/favicons/.gitkeep'),
-              resolve(__dirname, '../static/images/favicons/*.svg'),
+              PATHS.static +  '/images/favicons/.gitkeep',
+              PATHS.static + '/images/favicons/*.svg',
             ],
             copyUnmodified: true
           },
-          to: resolve(__dirname, '../dist'),
-          context: resolve(__dirname, '../static'),
+          to: PATHS.dist,
+          context: PATHS.static,
         }
       ]
     }),
@@ -96,10 +97,7 @@ module.exports = merge(baseConfig, {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
+          loader: 'babel-loader'
         }
       }
     ]
@@ -124,13 +122,13 @@ function sortMediaQueries(a, b) {
 };
 
 function Pages(options = {}) {
-  return readdirSync('src/')
+  return readdirSync(PATHS.src)
   .filter(fileName => fileName.endsWith('.html'))
   .map(
     page =>
       new HtmlWebpackPlugin({
         filename: `${page}`,
-        template: join(__dirname, `../src/${page}`),
+        template: PATHS.src +  `/${page}`,
         inject: options.inject || false,
         minify: {
           removeComments: true,

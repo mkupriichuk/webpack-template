@@ -6,6 +6,7 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const baseConfig = require('./base.cfg');
 const stylelintCfg = require('../.stylelintrc');
+const PATHS = require('./paths.js');
 
 
 module.exports = merge(baseConfig, {
@@ -65,7 +66,7 @@ function pageGenerator(pages, options = {}) {
     page =>
       new HtmlWebpackPlugin({
         filename: `${page}`,
-        template: join(__dirname, `../src/${page}`),
+        template: PATHS.src +  `/${page}`,
         inject: options.inject || false
       })
   );
