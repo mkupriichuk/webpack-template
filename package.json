@@ -5,13 +5,12 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
-		"dev": "webpack serve --config ./config/dev.cfg.js",
-		"build": "rimraf ./dist && webpack --progress --config ./config/prod.cfg.js && size-limit",
+		"dev": "cross-env NODE_ENV=development webpack serve --config ./config/dev.cfg.js",
+		"build": "cross-env NODE_ENV=production webpack --progress --config ./config/prod.cfg.js && size-limit",
 		"lint": "eslint src/*.js",
 		"lint-fix": "eslint --fix src/*.js",
 		"server": "node ./config/server/server.js",
 		"purify": "node ./config/helpers/purify.js",
-		"clearfonts": "rimraf src/fonts/**/*.{css,html,eot,ttf,svg}",
 		"size": "size-limit"
 	},
 	"size-limit": [
@@ -20,7 +19,18 @@
 			"limit": "500 ms"
 		}
 	],
-	"browserslist": "> 0.25%, not dead, ie 10",
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
 	"devDependencies": {
 		"@babel/core": "^7.12.16",
 		"@babel/eslint-parser": "^7.12.16",
@@ -28,7 +38,9 @@
 		"@size-limit/preset-app": "^4.9.2",
 		"autoprefixer": "^10.2.4",
 		"babel-loader": "^8.2.2",
+		"clean-webpack-plugin": "^3.0.0",
 		"copy-webpack-plugin": "^7.0.0",
+		"cross-env": "^7.0.3",
 		"css-loader": "^5.0.2",
 		"css-minimizer-webpack-plugin": "^1.2.0",
 		"css-mqpacker": "^7.0.0",
@@ -44,7 +56,6 @@
 		"postcss": "^8.2.6",
 		"postcss-loader": "^5.0.0",
 		"purify-css": "^1.2.5",
-		"rimraf": "^3.0.2",
 		"sass-loader": "^11.0.1",
 		"script-ext-html-webpack-plugin": "^2.1.5",
 		"size-limit": "^4.9.2",

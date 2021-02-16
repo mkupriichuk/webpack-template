@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const baseConfig = require('./base.cfg');
 
@@ -58,7 +59,8 @@ module.exports = merge(baseConfig, {
           to: resolve(__dirname, '../dist')
         }
       ]
-    })
+    }),
+    new CleanWebpackPlugin()
   ],
   module: {
     rules: [
