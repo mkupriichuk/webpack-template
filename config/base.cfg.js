@@ -17,8 +17,8 @@ module.exports = {
   resolve: {
     alias: {
       'src': resolve(__dirname, '../src'),
-      'icons': resolve(__dirname, '../src/images/icons'),
-      'images': resolve(__dirname, '../src/images')
+      'icons': resolve(__dirname, '../static/images/icons'),
+      'images': resolve(__dirname, '../static/images')
     }
   },
   module: {

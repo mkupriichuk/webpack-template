@@ -15,7 +15,7 @@ const baseConfig = require('./base.cfg');
 module.exports = merge(baseConfig, {
   target: 'browserslist',
   output: {
-    publicPath: './'
+    publicPath: ''
   },
   mode: 'production',
   // devtool: 'source-map',
@@ -46,17 +46,18 @@ module.exports = merge(baseConfig, {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: resolve(__dirname, '../src/images/favicons'),
+          from: resolve(__dirname, '../static/images/favicons'),
           globOptions: {
             dot : true,
             gitignore: true,
             ignore: [
-              resolve(__dirname, '../src/images/favicons/.gitkeep'),
-              resolve(__dirname, '../src/images/favicons/*.svg'),
+              resolve(__dirname, '../static/images/favicons/.gitkeep'),
+              resolve(__dirname, '../static/images/favicons/*.svg'),
             ],
             copyUnmodified: true
           },
-          to: resolve(__dirname, '../dist')
+          to: resolve(__dirname, '../dist'),
+          context: resolve(__dirname, '../static'),
         }
       ]
     }),

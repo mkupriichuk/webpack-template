@@ -12,7 +12,7 @@ module.exports = merge(baseConfig, {
   target: 'web',
   devServer: {
     stats: 'errors-only',
-    // contentBase: resolve(__dirname, '../src'),
+    // contentBase: resolve(__dirname, '../static'),
     // watchContentBase: true,
     hot: true,
     port: 3000,
