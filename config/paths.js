@@ -1,7 +1,7 @@
-const { join } = require('path');
+const { resolve } = require('path');
 
 module.exports = {
-  src: join(__dirname, '../src'),
-  static: join(__dirname, '../static'),
-  dist: join(__dirname, '../dist')
+  src: resolve(__dirname, '../src'),
+  static: resolve(__dirname, '../static'),
+  dist: resolve(__dirname, '../dist')
 };

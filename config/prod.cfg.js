@@ -15,7 +15,6 @@ const baseConfig = require('./base.cfg');
 module.exports = merge(baseConfig, {
   target: 'browserslist',
   output: {
-    publicPath: '',
     clean: true
   },
   mode: 'production',
