@@ -7,7 +7,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
@@ -16,7 +15,8 @@ const baseConfig = require('./base.cfg');
 module.exports = merge(baseConfig, {
   target: 'browserslist',
   output: {
-    publicPath: ''
+    publicPath: '',
+    clean: true
   },
   mode: 'production',
   // devtool: 'source-map',
@@ -61,8 +61,7 @@ module.exports = merge(baseConfig, {
           context: PATHS.static,
         }
       ]
-    }),
-    new CleanWebpackPlugin()
+    })
   ],
   module: {
     rules: [
