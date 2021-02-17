@@ -31,7 +31,7 @@ module.exports = merge(baseConfig, {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: PATHS.src +  '/index.html',
+      template: PATHS.static +  '/index.html',
       inject: true
     }),
     new HotModuleReplacementPlugin(),

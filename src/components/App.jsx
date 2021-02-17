@@ -1,5 +1,6 @@
 import '../sass/app.sass';
 import samoyed from 'images/samoyed.jpg'
+import twitter from 'icons/twitter.svg'
 
 const style = {
   backgroundImage: `url(${samoyed})`,
@@ -13,9 +14,11 @@ const App = () => {
   return (
     <>
     <div className="container" style={style}>
-      Hello
+      <h1 style={{color: 'pink'}}>Hello</h1>
+      <div className="hero">
+        <img src={twitter} alt=""/>
+      </div>
     </div>
-    <div className="hero"></div>
     </>
   )
 }

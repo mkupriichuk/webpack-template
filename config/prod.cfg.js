@@ -50,7 +50,7 @@ module.exports = merge(baseConfig, {
   plugins: [
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: PATHS.src + '/index.html',
+      template: PATHS.static + '/index.html',
       inject: true,
       minify: {
         removeComments: true,
@@ -72,16 +72,7 @@ module.exports = merge(baseConfig, {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: PATHS.static +  '/images/favicons',
-          globOptions: {
-            dot : true,
-            gitignore: true,
-            ignore: [
-              PATHS.static +  '/images/favicons/.gitkeep',
-              PATHS.static + '/images/favicons/*.svg',
-            ],
-            copyUnmodified: true
-          },
+          from: PATHS.static + '/favicons',
           to: PATHS.dist,
           context: PATHS.static,
         }
