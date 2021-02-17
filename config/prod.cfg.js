@@ -1,21 +1,19 @@
-const {join, resolve} = require('path');
-const { readdirSync } = require('fs');
-const webpack = require('webpack');
 const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ESLintPlugin = require('eslint-webpack-plugin');
+// const ESLintPlugin = require('eslint-webpack-plugin');
+const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
 
 
 module.exports = merge(baseConfig, {
   target: 'browserslist',
   output: {
-    publicPath: './'
+    publicPath: '',
+    clean: true
   },
   mode: 'production',
   // devtool: 'source-map',
@@ -50,12 +48,23 @@ module.exports = merge(baseConfig, {
     maxAssetSize: 512000,
   },
   plugins: [
-    ...Pages({inject : true}),  // inject must be set on true || 'head' || 'body' || false. See more on https://github.com/jantimon/html-webpack-plugin#options
-    // new ScriptExtHtmlWebpackPlugin({
-    //   async: /ASYNCSCRIPT.*.js$/,
-    //   // sync: 'SYNCSCRIPT.[hash:7].js',
-    //   defaultAttribute: 'sync'
-    // }),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: PATHS.src + '/index.html',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
+    }),
     // new ESLintPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/bundle.[hash:7].css'
@@ -63,17 +72,18 @@ module.exports = merge(baseConfig, {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: resolve(__dirname, '../src/images/favicons'),
+          from: PATHS.static +  '/images/favicons',
           globOptions: {
             dot : true,
             gitignore: true,
             ignore: [
-              resolve(__dirname, '../src/images/favicons/.gitkeep'),
-              resolve(__dirname, '../src/images/favicons/*.svg'),
+              PATHS.static +  '/images/favicons/.gitkeep',
+              PATHS.static + '/images/favicons/*.svg',
             ],
             copyUnmodified: true
           },
-          to: resolve(__dirname, '../dist')
+          to: PATHS.dist,
+          context: PATHS.static,
         }
       ]
     })
@@ -128,30 +138,6 @@ function sortMediaQueries(a, b) {
   return 1;
 };
 
-function Pages(options = {}) {
-  return readdirSync('src/')
-  .filter(fileName => fileName.endsWith('.html'))
-  .map(
-    page =>
-      new HtmlWebpackPlugin({
-        filename: `${page}`,
-        template: join(__dirname, `../src/${page}`),
-        inject: options.inject || false,
-        minify: {
-          removeComments: true,
-          collapseWhitespace: true,
-          removeRedundantAttributes: true,
-          useShortDoctype: true,
-          removeEmptyAttributes: true,
-          removeStyleLinkTypeAttributes: true,
-          keepClosingSlash: true,
-          minifyJS: true,
-          minifyCSS: true,
-          minifyURLs: true
-        }
-      })
-  );
-}
 
 function styleLoaders(preProcessor) {
   const loaders = [

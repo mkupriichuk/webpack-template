@@ -1,13 +1,12 @@
-const { join, resolve } = require('path');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const webpack = require('webpack');
+const {HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack');
 const {merge} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const baseConfig = require('./base.cfg');
-const stylelintCfg = require('../.stylelintrc');
-
+// const stylelintCfg = require('../.stylelintrc');
+const PATHS = require('./paths.js');
 
 module.exports = merge(baseConfig, {
   target: 'web',
@@ -30,10 +29,14 @@ module.exports = merge(baseConfig, {
     new MiniCssExtractPlugin({
       filename: 'css/[name].css'
     }),
-    ...pageGenerator(['index.html'], {inject: true}), // inject must be set on true || 'head' || 'body' || false. See more on https://github.com/jantimon/html-webpack-plugin#options
-    new webpack.HotModuleReplacementPlugin(),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: PATHS.src +  '/index.html',
+      inject: true
+    }),
+    new HotModuleReplacementPlugin(),
     new ReactRefreshWebpackPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new NoEmitOnErrorsPlugin()
   ],
   module: {
     rules: [
@@ -62,16 +65,6 @@ module.exports = merge(baseConfig, {
   }
 });
 
-function pageGenerator(pages, options = {}) {
-  return pages.map(
-    page =>
-      new HtmlWebpackPlugin({
-        filename: `${page}`,
-        template: join(__dirname, `../src/${page}`),
-        inject: options.inject || false
-      })
-  );
-}
 
 function styleLoaders(preProcessor, options = {}) {
   const loaders = [

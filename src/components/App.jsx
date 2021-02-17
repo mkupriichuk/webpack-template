@@ -1,5 +1,5 @@
 import '../sass/app.sass';
-import samoyed from '../images/samoyed.jpg'
+import samoyed from 'images/samoyed.jpg'
 
 const style = {
   backgroundImage: `url(${samoyed})`,
@@ -11,9 +11,12 @@ const style = {
 
 const App = () => {
   return (
+    <>
     <div className="container" style={style}>
       Hello
     </div>
+    <div className="hero"></div>
+    </>
   )
 }
 
