@@ -10,7 +10,8 @@ $ git clone https://github.com/mkupriichuk/webpack-template.git .
 
 ```
 default master branch //html
-git checkout react // react
+git checkout react // react-sass
+git checkout react-css // react-css
 git checkout pug // pug
 git checkout nunjucks // nunjucks
 ```
