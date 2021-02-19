@@ -225,7 +225,8 @@ function svgoLoader() {
           {removeTitle: true},
           {convertColors: {shorthex: false}},
           {convertPathData: false},
-					{removeUselessDefs: false}
+          {removeUselessDefs: false},
+          {cleanupIDs: false}
         ]
       }
     }
