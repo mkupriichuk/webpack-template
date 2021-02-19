@@ -1,0 +1,14 @@
+@import 'reset.css';
+
+body {
+	min-width: 320px;
+	position: relative;
+	font-family: sans-serif;
+	overflow-x: hidden;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	position: relative;
+}

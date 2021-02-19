@@ -57,16 +57,16 @@ module.exports = merge(baseConfig, {
         }
       },
       {
-        test: /\.(css|scss|sass)$/,
-        use: styleLoaders('sass-loader')
-        // use: styleLoaders('sass-loader', {autoprefixer: true}) // uncomment to enable autoprefixer (on dev mode)
+        test: /\.(css)$/,
+        use: styleLoaders()
+        // use: styleLoaders({autoprefixer: true}) // uncomment to enable autoprefixer (on dev mode)
       }
     ]
   }
 });
 
 
-function styleLoaders(preProcessor, options = {}) {
+function styleLoaders(options = {}) {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -99,10 +99,6 @@ function styleLoaders(preProcessor, options = {}) {
         }
       }
     });
-  }
-
-  if (preProcessor === 'sass-loader') {
-    loaders.push('sass-loader');
   }
 
   return loaders;

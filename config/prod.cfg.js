@@ -105,8 +105,8 @@ module.exports = merge(baseConfig, {
       //   use: styleLoaders()
       // },
       {
-        test: /\.(css|sass|scss)$/,
-        use: styleLoaders('sass-loader')
+        test: /\.(css)$/,
+        use: styleLoaders()
       }
     ]
   }
@@ -130,7 +130,7 @@ function sortMediaQueries(a, b) {
 };
 
 
-function styleLoaders(preProcessor) {
+function styleLoaders() {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -166,10 +166,6 @@ function styleLoaders(preProcessor) {
       }
     }
   ];
-
-  if (preProcessor && preProcessor === 'sass-loader') {
-    loaders.push(preProcessor);
-  }
 
   return loaders;
 };
