@@ -1,11 +1,9 @@
-const {join, resolve} = require('path');
 const { readdirSync } = require('fs');
-const webpack = require('webpack');
-const {merge} = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require('./paths.js');
@@ -22,10 +20,47 @@ module.exports = merge(baseConfig, {
   optimization: {
     minimize: true,
     runtimeChunk: false,
-    minimizer: [
-      `...`,
-      new CssMinimizerPlugin()
-    ]
+		splitChunks: {
+			chunks: 'all',
+			cacheGroups: {
+				default: {
+					minChunks: 1,
+					priority: -20,
+					reuseExistingChunk: true,
+				},
+				vendors: {
+					test: /[\\/]node_modules[\\/]/,
+					name(module) {
+						const packageName = module.context.match(
+							/[\\/]node_modules[\\/](.*?)([\\/]|$)/
+						)[1];
+						return `npm.${packageName.replace(/@/g, '')}`;
+					},
+					priority: -10,
+				},
+			},
+		},
+		minimizer: [
+			new TerserPlugin({
+				terserOptions: {
+					warnings: false,
+					format: {
+						comments: false,
+					},
+					compress: {
+						pure_getters: true,
+						unsafe_proto: true,
+						passes: 3,
+						join_vars: true,
+						sequences: true,
+					},
+					mangle: true,
+				},
+				extractComments: false,
+				parallel: true,
+			}),
+			new CssMinimizerPlugin(),
+		],
   },
   performance: {
     hints: false,
@@ -34,11 +69,6 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     ...Pages({inject : true}),  // inject must be set on true || 'head' || 'body' || false. See more on https://github.com/jantimon/html-webpack-plugin#options
-    // new ScriptExtHtmlWebpackPlugin({
-    //   async: /ASYNCSCRIPT.*.js$/,
-    //   // sync: 'SYNCSCRIPT.[hash:7].js',
-    //   defaultAttribute: 'sync'
-    // }),
     // new ESLintPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/bundle.[hash:7].css'
