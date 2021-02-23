@@ -71,7 +71,7 @@ module.exports = merge(baseConfig, {
     ...Pages({inject : true}),  // inject must be set on true || 'head' || 'body' || false. See more on https://github.com/jantimon/html-webpack-plugin#options
     // new ESLintPlugin(),
     new MiniCssExtractPlugin({
-      filename: 'css/bundle.[contenthash].css'
+      filename: 'css/[name].[contenthash].css'
     }),
     new CopyWebpackPlugin({
       patterns: [
