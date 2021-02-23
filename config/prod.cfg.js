@@ -86,7 +86,7 @@ module.exports = merge(baseConfig, {
 		}),
 		// new ESLintPlugin(),
 		new MiniCssExtractPlugin({
-			filename: "css/bundle.[contenthash].css",
+			filename: "css/[name].[contenthash].css",
 		}),
 		new CopyWebpackPlugin({
 			patterns: [
