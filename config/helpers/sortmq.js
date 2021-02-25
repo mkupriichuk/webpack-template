@@ -13,7 +13,11 @@ files.forEach(cssFile => {
 		map: false,
 		to: "to.css"
 	}).css
-	writeFileSync(f, res)
+	if(typeof res === 'string') {
+		writeFileSync(f, res)
+	} else {
+		throw new Error(`res not a string`)
+	}
 })
 
 function sortMediaQueries(a, b) {
