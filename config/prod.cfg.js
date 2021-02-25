@@ -130,6 +130,7 @@ module.exports = merge(baseConfig, {
 	},
 });
 
+<<<<<<< HEAD
 function sortMediaQueries(a, b) {
 	let A = a.replace(/\D/g, "");
 	let B = b.replace(/\D/g, "");
@@ -148,6 +149,9 @@ function sortMediaQueries(a, b) {
 }
 
 function styleLoaders() {
+=======
+function styleLoaders(preProcessor) {
+>>>>>>> 40e389d (moved css-mqpacker from postcss to node)
 	const loaders = [
 		{
 			loader: MiniCssExtractPlugin.loader,
@@ -171,13 +175,7 @@ function styleLoaders() {
 							{
 								grid: true,
 							},
-						],
-						[
-							"css-mqpacker",
-							{
-								sort: sortMediaQueries,
-							},
-						],
+						]
 					],
 				},
 			},

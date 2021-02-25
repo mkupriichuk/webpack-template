@@ -6,10 +6,11 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "cross-env NODE_ENV=development webpack serve --config ./config/dev.cfg.js",
-		"build": "cross-env NODE_ENV=production webpack --progress --config ./config/prod.cfg.js && size-limit",
+		"build": "cross-env NODE_ENV=production webpack --progress --config ./config/prod.cfg.js && npm run sortmq && size-limit",
 		"lint": "eslint src/*.js",
 		"lint-fix": "eslint --fix src/*.js",
 		"server": "node ./config/server/server.js",
+		"sortmq": "node ./config/helpers/sortmq.js",
 		"purify": "node ./config/helpers/purify.js",
 		"size": "size-limit"
 	},
