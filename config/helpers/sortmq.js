@@ -1,12 +1,18 @@
-const {readdirSync, readFileSync, writeFileSync} = require("fs");
+const {readdirSync, readFileSync, writeFileSync, existsSync} = require("fs");
 const mqpacker = require("css-mqpacker");
 const PATHS = require("../paths")
 
-let files = readdirSync(PATHS.dist + '/css')
-	.filter(el => el.endsWith('.css'))
+let targetDir = existsSync(PATHS.dist + '/css')
+	? PATHS.dist + '/css'
+	: PATHS.dist
+
+let whiteList = []
+
+let files = readdirSync(targetDir)
+	.filter(el => el.endsWith('.css') && !whiteList.includes(el))
 
 files.forEach(cssFile => {
-	let f = PATHS.dist + '/css/' + cssFile
+	let f = targetDir + '/' + cssFile
 	let res = mqpacker.pack(readFileSync(f, "utf8"), {
 		from: cssFile,
 		sort: sortMediaQueries,
