@@ -1,14 +1,15 @@
 const { readdirSync } = require('fs');
 const { merge } = require('webpack-merge');
+const { extendDefaultPlugins } = require('svgo');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
 
+console.log(PATHS.nodeModules)
 
 module.exports = merge(baseConfig, {
   target: 'browserslist',
@@ -73,40 +74,31 @@ module.exports = merge(baseConfig, {
     new MiniCssExtractPlugin({
       filename: 'css/[name].[contenthash].css'
     }),
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: PATHS.static +  '/images/favicons',
-          globOptions: {
-            dot : true,
-            gitignore: true,
-            ignore: [
-              PATHS.static +  '/images/favicons/.gitkeep',
-              PATHS.static + '/images/favicons/*.svg',
-            ],
-            copyUnmodified: true
-          },
-          to: PATHS.dist,
-          context: PATHS.static,
-        }
-      ]
-    })
   ],
   module: {
     rules: [
       {
         test: /\.(png|jpe?g|gif|ico|webp)$/,
-        exclude: /node_modules/,
+        exclude: PATHS.nodeModules,
         type: 'asset/resource',
         generator: {
           filename: 'images/[name].[hash:7][ext]'
         },
         use: imageLoader()
-
+      },
+      {
+        test: /\.(png|jpe?g|gif|ico|webp)$/,
+        exclude: PATHS.nodeModules,
+        include: [PATHS.static + '/images/favicons'],
+        type: 'asset/resource',
+        generator: {
+          filename: '[name].[hash:7][ext]'
+        },
+        use: imageLoader()
       },
       {
         test: /\.svg$/,
-        exclude: /node_modules/,
+        exclude: PATHS.nodeModules,
         type: 'asset/resource',
         generator: {
           filename: 'images/[name].[hash:7][ext]'
@@ -123,7 +115,7 @@ module.exports = merge(baseConfig, {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: PATHS.nodeModules,
         use: {
           loader: 'babel-loader'
         }
@@ -251,13 +243,37 @@ function svgoLoader() {
     {
       loader: 'svgo-loader',
       options: {
-        plugins: [
-          {removeTitle: true},
-          {convertColors: {shorthex: false}},
-          {convertPathData: false},
-          {removeUselessDefs: false},
-          {cleanupIDs: false}
-        ]
+        // plugins: [
+        //   {removeTitle: true},
+        //   {convertColors: {shorthex: false}},
+        //   {convertPathData: false},
+        //   {removeUselessDefs: false},
+        //   {cleanupIDs: false}
+        // ]
+        plugins: extendDefaultPlugins([
+          {
+            name: 'removeTitle',
+            active: true
+          },
+          {
+            name: 'convertPathData',
+            active: false
+          },
+          {
+            name: 'removeUselessDefs',
+            active: false
+          },
+          {
+            name: 'cleanupIDs',
+            active: false
+          },
+          {
+            name: 'convertColors',
+            params: {
+              shorthex: false
+            }
+          }
+        ])
       }
     }
   ]
