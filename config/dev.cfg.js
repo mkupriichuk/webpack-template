@@ -41,16 +41,8 @@ module.exports = merge(baseConfig, {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif|ico)$/,
-        exclude: /node_modules/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'images/[name].[hash:7].[ext]'
-        }
-      },
-      {
-        test: /\.svg$/,
-        // exclude: resolve(__dirname, '../src/images/icons/'),
+        test: /\.(png|jpe?g|gif|ico|svg)$/,
+        exclude: PATHS.nodeModules,
         type: 'asset/resource',
         generator: {
           filename: 'images/[name].[hash:7][ext]'

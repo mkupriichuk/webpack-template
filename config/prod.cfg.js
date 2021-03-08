@@ -1,4 +1,5 @@
 const { merge } = require("webpack-merge");
+const { extendDefaultPlugins } = require('svgo');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
@@ -102,7 +103,7 @@ module.exports = merge(baseConfig, {
 		rules: [
 			{
 				test: /\.(png|jpe?g|gif|ico|webp)$/,
-				exclude: /node_modules/,
+				exclude: PATHS.nodeModules,
 				type: "asset/resource",
 				generator: {
 					filename: "images/[name].[hash:7][ext]",
@@ -111,17 +112,13 @@ module.exports = merge(baseConfig, {
 			},
 			{
 				test: /\.svg$/,
-				exclude: /node_modules/,
+				exclude: PATHS.nodeModules,
 				type: "asset/resource",
 				generator: {
 					filename: "images/[name].[hash:7][ext]",
 				},
 				use: svgoLoader(),
 			},
-			// {
-			//   test: /\.(css)$/,
-			//   use: styleLoaders()
-			// },
 			{
 				test: /\.(css|sass|scss)$/,
 				use: styleLoaders("sass-loader"),
@@ -200,13 +197,30 @@ function svgoLoader() {
 		{
 			loader: "svgo-loader",
 			options: {
-				plugins: [
-					{ removeTitle: true },
-					{ convertColors: { shorthex: false } },
-					{ convertPathData: false },
-					{ removeUselessDefs: false },
-					{ cleanupIDs: false },
-				],
+        plugins: extendDefaultPlugins([
+          {
+            name: 'removeTitle',
+            active: true
+          },
+          {
+            name: 'convertPathData',
+            active: false
+          },
+          {
+            name: 'removeUselessDefs',
+            active: false
+          },
+          {
+            name: 'cleanupIDs',
+            active: false
+          },
+          {
+            name: 'convertColors',
+            params: {
+              shorthex: false
+            }
+          }
+        ])
 			},
 		},
 	];

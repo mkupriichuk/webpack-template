@@ -15,6 +15,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
     alias: {
       'src': PATHS.src,
+      'static': PATHS.static,
       'icons': PATHS.static + '/images/icons',
       'images': PATHS.static + '/images',
     }
@@ -23,7 +24,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: PATHS.nodeModules,
         use: {
           loader: 'babel-loader'
         }
