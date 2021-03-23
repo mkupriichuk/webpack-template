@@ -9,8 +9,6 @@ const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
 
-console.log(PATHS.nodeModules)
-
 module.exports = merge(baseConfig, {
   target: 'browserslist',
   output: {
