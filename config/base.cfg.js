@@ -40,7 +40,7 @@ module.exports = {
         test: /\.(woff|woff2)$/,
         type: 'asset/resource',
         generator: {
-          filename: 'fonts/[name].[hash:7][ext]'
+          filename: 'fonts/[name][ext]'
         }
       }
     ]
