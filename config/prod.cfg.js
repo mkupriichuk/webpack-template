@@ -101,7 +101,8 @@ module.exports = merge(baseConfig, {
     }),
     new CssMQPackerPlugin({
       cssPath: PATHS.dist + '/css',
-      printResult: true
+      printResult: true,
+      // blackList: [] // add a css files in you dont wont CssMQPackerPlugin to pack media qu. Expample: blackList: ['bundle.5e13f9fac51ff1f4e194.css']
     })
   ],
   module: {
