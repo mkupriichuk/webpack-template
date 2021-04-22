@@ -20,7 +20,8 @@ files.forEach(cssFile => {
 		to: "to.css"
 	}).css
 	if(typeof res === 'string') {
-		writeFileSync(f, res)
+		// writeFileSync(f, res)
+		writeFileSync(f, '11')
 	} else {
 		throw new Error(`res not a string`)
 	}

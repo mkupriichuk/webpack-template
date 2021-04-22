@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const CssMQPackerPlugin = require("./helpers/CssMQPackerPlugin")
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require("./paths.js");
 const baseConfig = require("./base.cfg");
@@ -98,6 +99,10 @@ module.exports = merge(baseConfig, {
         },
       ],
     }),
+    new CssMQPackerPlugin({
+      cssPath: PATHS.dist + '/css',
+      printResult: true
+    })
   ],
   module: {
     rules: [
