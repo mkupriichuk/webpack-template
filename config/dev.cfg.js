@@ -50,15 +50,30 @@ module.exports = merge(baseConfig, {
       },
       {
         test: /\.(css|scss|sass)$/,
-        use: styleLoaders('sass-loader')
-        // use: styleLoaders('sass-loader', {autoprefixer: true}) // uncomment to enable autoprefixer (on dev mode)
+        exclude:  /\.module\.(css|scss|sass)$/,
+        use: styleLoaders({
+          importLoaders: 2,
+        },
+        // 'autoprefixer' // uncommit if u want to use autoprefixer on dev-mode
+        )
+      },
+      {
+        test: /\.module\.(css|scss|sass)$/,
+        use: styleLoaders({
+          importLoaders: 2,
+          modules: {
+            localIdentName: '[local]__[sha1:hash:hex:7]',
+          }
+        },
+        // 'autoprefixer' // uncommit if u want to use autoprefixer on dev-mode
+        )
       }
     ]
   }
 });
 
 
-function styleLoaders(preProcessor, options = {}) {
+function styleLoaders(options = {}, autoprefixer) {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -68,14 +83,12 @@ function styleLoaders(preProcessor, options = {}) {
     },
     {
       loader: 'css-loader',
-      options: {
-        importLoaders: arguments.length
-      }
-    }
-    
+      options
+    },
+    'sass-loader'
   ];
 
-  if (options.autoprefixer) {
+  if (autoprefixer) {
     loaders.push({
       loader: 'postcss-loader',
       options: {
@@ -91,10 +104,6 @@ function styleLoaders(preProcessor, options = {}) {
         }
       }
     });
-  }
-
-  if (preProcessor === 'sass-loader') {
-    loaders.push('sass-loader');
   }
 
   return loaders;

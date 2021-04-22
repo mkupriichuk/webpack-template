@@ -119,15 +119,31 @@ module.exports = merge(baseConfig, {
 				},
 				use: svgoLoader(),
 			},
-			{
-				test: /\.(css|sass|scss)$/,
-				use: styleLoaders("sass-loader"),
-			},
+      {
+        test: /\.(css|scss|sass)$/,
+        exclude:  /\.module\.(css|scss|sass)$/,
+        use: styleLoaders({
+          importLoaders: 3,
+        },
+        // 'autoprefixer' // uncommit if u want to use autoprefixer on dev-mode
+        )
+      },
+      {
+        test: /\.module\.(css|scss|sass)$/,
+        use: styleLoaders({
+          importLoaders: 3,
+          modules: {
+            localIdentName: '[hash:base64]',
+          }
+        },
+        // 'autoprefixer' // uncommit if u want to use autoprefixer on dev-mode
+        )
+      }
 		],
 	},
 });
 
-function styleLoaders(preProcessor) {
+function styleLoaders(options = {}) {
 	const loaders = [
 		{
 			loader: MiniCssExtractPlugin.loader,
@@ -137,9 +153,7 @@ function styleLoaders(preProcessor) {
 		},
 		{
 			loader: "css-loader",
-			options: {
-				importLoaders: arguments.length + 1,
-			},
+			options,
 		},
 		{
 			loader: "postcss-loader",
@@ -156,11 +170,8 @@ function styleLoaders(preProcessor) {
 				},
 			},
 		},
+    'sass-loader'
 	];
-
-	if (preProcessor && preProcessor === "sass-loader") {
-		loaders.push(preProcessor);
-	}
 
 	return loaders;
 }
