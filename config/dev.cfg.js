@@ -1,6 +1,11 @@
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
-const {HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack');
-const {merge} = require('webpack-merge');
+const {
+  HotModuleReplacementPlugin,
+  NoEmitOnErrorsPlugin
+} = require('webpack');
+const {
+  merge
+} = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -31,7 +36,7 @@ module.exports = merge(baseConfig, {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: PATHS.static +  '/index.html',
+      template: PATHS.static + '/index.html',
       inject: true
     }),
     new HotModuleReplacementPlugin(),
@@ -39,8 +44,7 @@ module.exports = merge(baseConfig, {
     new NoEmitOnErrorsPlugin()
   ],
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.(png|jpe?g|gif|ico|svg)$/,
         exclude: PATHS.nodeModules,
         type: 'asset/resource',
@@ -49,18 +53,32 @@ module.exports = merge(baseConfig, {
         }
       },
       {
-        test: /\.(css)$/,
-        use: styleLoaders()
-        // use: styleLoaders({autoprefixer: true}) // uncomment to enable autoprefixer (on dev mode)
+        test: /\.css$/,
+        exclude: /\.module\.css$/,
+        use: styleLoaders({
+          importLoaders: 1
+        },
+        // 'autoprefixer' // add 'autoprefixer' to enable autoprefixer on dev
+        )
+      },
+      {
+        test: /\.module\.css$/,
+        use: styleLoaders({
+          importLoaders: 1,
+          modules: {
+            localIdentName: '[local]__[sha1:hash:hex:7]',
+          }
+        },
+        // 'autoprefixer' // add 'autoprefixer' to enable autoprefixer on dev
+        )
       }
     ]
   }
 });
 
 
-function styleLoaders(options = {}) {
-  const loaders = [
-    {
+function styleLoaders(options = {}, autoprefixer) {
+  const loaders = [{
       loader: MiniCssExtractPlugin.loader,
       options: {
         publicPath: '../'
@@ -68,14 +86,12 @@ function styleLoaders(options = {}) {
     },
     {
       loader: 'css-loader',
-      options: {
-        importLoaders: arguments.length
-      }
+      options
     }
-    
+
   ];
 
-  if (options.autoprefixer) {
+  if (autoprefixer) {
     loaders.push({
       loader: 'postcss-loader',
       options: {

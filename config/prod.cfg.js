@@ -120,14 +120,27 @@ module.exports = merge(baseConfig, {
         use: svgoLoader(),
       },
       {
-        test: /\.(css)$/,
-        use: styleLoaders(),
+        test: /\.css$/,
+        exclude: /\.module\.css$/,
+        use: styleLoaders({
+          importLoaders: 2,
+        }),
       },
+      {
+        test: /\.module\.css$/,
+        use: styleLoaders({
+          importLoaders: 2,
+          modules: {
+            localIdentName: '[hash:base64]',
+          }
+        },
+        )
+      }
     ],
   },
 });
 
-function styleLoaders(preProcessor) {
+function styleLoaders(options) {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -137,9 +150,7 @@ function styleLoaders(preProcessor) {
     },
     {
       loader: "css-loader",
-      options: {
-        importLoaders: arguments.length + 1,
-      },
+      options,
     },
     {
       loader: "postcss-loader",
