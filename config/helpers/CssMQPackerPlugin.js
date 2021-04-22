@@ -18,42 +18,48 @@ class CssMQPackerPlugin {
     compiler.hooks.done.tap(
       'CssMQPackerPlugin',
       () => {
-        // let targetDir = existsSync(PATHS.dist + '/css') ?
-        //   PATHS.dist + '/css' :
-        //   PATHS.dist
-
-        let files = readdirSync(this.cssPath)
-          .filter(el => el.endsWith('.css') && !this.blackList.includes(el))
-
-        files.forEach(cssFile => {
-          let f = this.cssPath + '/' + cssFile
-          let fileSizeBefore = statSync(f).size
-          let res = mqpacker.pack(readFileSync(f, "utf8"), {
-            from: cssFile,
-            sort: this.sortMediaQueries,
-            map: false,
-            to: "to.css"
-          }).css
-          if (typeof res === 'string') {
-            writeFileSync(f, res)
-            if (this.printResult) {
-              const printSize = () => {
-                let fileSizeAfter = statSync(f).size
+        this.sortMq()
+          .then(res => {
+            if(this.printResult) {
+              res.forEach(({name,before,after}) => {
                 console.log(chalk.hex('#32F265')('CSS MQPacker plugin:'), '\n',
-                  'before', cssFile, 'size:', chalk.yellow(this.formatBytes(fileSizeBefore)), '\n',
-                  'after', cssFile, 'size:', chalk.hex('#32F265')(this.formatBytes(fileSizeAfter)), '\n',
-                  chalk.green('You saved:'), chalk.hex('#32F265')(this.formatBytes(fileSizeBefore - fileSizeAfter))
+                  'Css file name:', chalk.hex('#1434a8')(name), '\n',
+                  '\t', 'Size before', chalk.yellow(this.formatBytes(before)), '\n',
+                  '\t', 'Size after', chalk.hex('#32F265')(this.formatBytes(after)), '\n',
+                  '\t', chalk.green('You saved:'), chalk.hex('#32F265')(this.formatBytes(before - after), '\n')
                 );
-              }
-              setTimeout(printSize, 0);
+              })
             }
-          } else {
-            throw new Error(`res not a string`)
-          }
-        })
-
+          })
       }
     );
+  }
+  async sortMq() {
+    let files = readdirSync(this.cssPath)
+      .filter(el => el.endsWith('.css') && !this.blackList.includes(el))
+    const filesStats = []
+    files.forEach(cssFile => {
+      let f = this.cssPath + '/' + cssFile
+      let fileSizeBefore = statSync(f).size
+      let res = mqpacker.pack(readFileSync(f, "utf8"), {
+        from: cssFile,
+        sort: this.sortMediaQueries,
+        map: false,
+        to: "to.css"
+      }).css
+      if (typeof res === 'string') {
+        writeFileSync(f, res)
+        let fileSizeAfter = statSync(f).size
+        filesStats.push({
+          name: cssFile,
+          before: fileSizeBefore,
+          after: fileSizeAfter
+        })
+      } else {
+        throw new Error(`res not a string`)
+      }
+    })
+    return filesStats
   }
   sortMediaQueries(a, b) {
     let A = a.replace(/\D/g, "");
@@ -77,16 +83,5 @@ class CssMQPackerPlugin {
     return parseFloat((a / Math.pow(1024, d)).toFixed(c)) + " " + ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][d]
   }
 }
-
-// function sortMediaQueries(a, b) {
-
-// }
-
-// function formatBytes(a, b = 2) {
-//   if (0 === a) return "0 Bytes";
-//   const c = 0 > b ? 0 : b,
-//     d = Math.floor(Math.log(a) / Math.log(1024));
-//   return parseFloat((a / Math.pow(1024, d)).toFixed(c)) + " " + ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"][d]
-// }
 
 module.exports = CssMQPackerPlugin;
