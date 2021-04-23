@@ -1,11 +1,16 @@
-const { merge } = require("webpack-merge");
-const { extendDefaultPlugins } = require('svgo');
+const {
+  merge
+} = require("webpack-merge");
+const {
+  extendDefaultPlugins
+} = require('svgo');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CssMQPackerPlugin = require("./helpers/CssMQPackerPlugin")
+const PurifyCssPlugin = require("./helpers/PurifyCssPlugin")
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require("./paths.js");
 const baseConfig = require("./base.cfg");
@@ -91,23 +96,25 @@ module.exports = merge(baseConfig, {
       filename: "css/[name].[contenthash].css",
     }),
     new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: PATHS.static + "/favicons",
-          to: PATHS.dist,
-          context: PATHS.static,
-        },
-      ],
+      patterns: [{
+        from: PATHS.static + "/favicons",
+        to: PATHS.dist,
+        context: PATHS.static,
+      }, ],
     }),
     new CssMQPackerPlugin({
       cssPath: PATHS.dist + '/css',
       printResult: true,
-      // blackList: [] // add a css files in you dont wont CssMQPackerPlugin to pack media qu. Expample: blackList: ['bundle.5e13f9fac51ff1f4e194.css']
-    })
+      // blackList: ['npm']
+      /* add a css files in you dont wont CssMQPackerPlugin to pack media qu.
+      Expample:
+        blackList: ['bundle.5e13f9fac51ff1f4e194.css']
+        or ['npm'] for exclude all files with 'npm' in name (npm.bootstrap.32ccae4211943.css)
+      */
+    }),
   ],
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.(png|jpe?g|gif|ico|webp)$/,
         exclude: PATHS.nodeModules,
         type: "asset/resource",
@@ -139,16 +146,14 @@ module.exports = merge(baseConfig, {
           modules: {
             localIdentName: '[hash:base64]',
           }
-        },
-        )
+        }, )
       }
     ],
   },
 });
 
 function styleLoaders(options) {
-  const loaders = [
-    {
+  const loaders = [{
       loader: MiniCssExtractPlugin.loader,
       options: {
         publicPath: "../",
@@ -179,62 +184,57 @@ function styleLoaders(options) {
 }
 
 function imageLoader() {
-  return [
-    {
-      loader: "image-webpack-loader",
-      options: {
-        gifsicle: {
-          interlaced: false,
-        },
-        optipng: {
-          optimizationLevel: 7,
-        },
-        pngquant: {
-          quality: [0.65, 0.9],
-          speed: 4,
-        },
-        mozjpeg: {
-          progressive: true,
-          quality: 65,
-        },
-        webp: {
-          quality: 75,
-        },
+  return [{
+    loader: "image-webpack-loader",
+    options: {
+      gifsicle: {
+        interlaced: false,
+      },
+      optipng: {
+        optimizationLevel: 7,
+      },
+      pngquant: {
+        quality: [0.65, 0.9],
+        speed: 4,
+      },
+      mozjpeg: {
+        progressive: true,
+        quality: 65,
+      },
+      webp: {
+        quality: 75,
       },
     },
-  ];
+  }, ];
 }
 
 function svgoLoader() {
-  return [
-    {
-      loader: "svgo-loader",
-      options: {
-        plugins: extendDefaultPlugins([
-          {
-            name: "removeTitle",
-            active: true,
+  return [{
+    loader: "svgo-loader",
+    options: {
+      plugins: extendDefaultPlugins([{
+          name: "removeTitle",
+          active: true,
+        },
+        {
+          name: "convertPathData",
+          active: false,
+        },
+        {
+          name: "removeUselessDefs",
+          active: false,
+        },
+        {
+          name: "cleanupIDs",
+          active: false,
+        },
+        {
+          name: "convertColors",
+          params: {
+            shorthex: false,
           },
-          {
-            name: "convertPathData",
-            active: false,
-          },
-          {
-            name: "removeUselessDefs",
-            active: false,
-          },
-          {
-            name: "cleanupIDs",
-            active: false,
-          },
-          {
-            name: "convertColors",
-            params: {
-              shorthex: false,
-            },
-          },
-        ])
-      },
+        },
+      ])
     },
-  ];
+  }, ];
 }
