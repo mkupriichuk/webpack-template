@@ -39,7 +39,7 @@ class CssMQPackerPlugin {
   }
   async sortMq() {
     let files = readdirSync(this.cssPath)
-      .filter(el => el.endsWith('.css') && !this.blackList.includes(el))
+      .filter(el => el.endsWith('.css') && !this.blackList.some(f => el.includes(f)))
     const filesStats = []
     files.forEach(cssFile => {
       let f = this.cssPath + '/' + cssFile
