@@ -8,3 +8,8 @@ node_modules
 dist
 coverage
 *.xml
+
+# yarn
+.pnp.js
+.yarnrc.yml
+.yarn
