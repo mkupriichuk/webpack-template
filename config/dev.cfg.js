@@ -38,7 +38,7 @@ module.exports = merge(baseConfig, {
     rules: [
       {
         test: /\.(png|jpe?g|gif|ico|svg)$/,
-        exclude: PATHS.nodeModules,
+        exclude: PATHS.packagesExludePath,
         type: 'asset/resource',
         generator: {
           filename: 'images/[name].[hash:7][ext]'
@@ -78,7 +78,7 @@ function styleLoaders(preProcessor, options = {}) {
         importLoaders: arguments.length
       }
     }
-    
+
   ];
 
   if (options.autoprefixer) {
