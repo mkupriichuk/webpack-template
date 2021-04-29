@@ -24,7 +24,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: PATHS.nodeModules,
+        exclude: PATHS.packagesExludePath,
         use: {
           loader: 'babel-loader'
         }

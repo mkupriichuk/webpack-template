@@ -116,7 +116,7 @@ module.exports = merge(baseConfig, {
   module: {
     rules: [{
         test: /\.(png|jpe?g|gif|ico|webp)$/,
-        exclude: PATHS.nodeModules,
+        exclude: PATHS.packagesExludePath,
         type: "asset/resource",
         generator: {
           filename: "images/[name].[hash:7][ext]",
