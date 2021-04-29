@@ -11,4 +11,5 @@ coverage
 
 # yarn
 .pnp.js
+.yarnrc.yml
 .yarn
