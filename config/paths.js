@@ -1,8 +1,11 @@
 const { resolve } = require('path');
+const {readdirSync} = require('fs')
+
+const isYarn2 = readdirSync('.').includes('.yarn')
 
 module.exports = {
   src: resolve(__dirname, '../src'),
   static: resolve(__dirname, '../static'),
-  nodeModules: resolve(__dirname, '../node_modules'),
+  packagesExludePath: resolve(__dirname, isYarn2 ? '../.yarn' : '../node_modules'),
   dist: resolve(__dirname, '../dist')
 };
