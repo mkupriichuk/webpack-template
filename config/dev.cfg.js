@@ -42,7 +42,7 @@ module.exports = merge(baseConfig, {
     rules: [
       {
         test: /\.(png|jpe?g|gif|ico|svg)$/,
-        exclude: PATHS.packagesExludePath,
+        exclude: PATHS.packagesExcludePath,
         type: 'asset/resource',
         generator: {
           filename: 'images/[name].[hash:7][ext]'
