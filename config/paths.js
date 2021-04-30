@@ -9,7 +9,7 @@ const isYARNv2 = () => {
 module.exports = {
 	src: resolve(__dirname, '../src'),
 	static: resolve(__dirname, '../static'),
-	packagesExludePath: resolve(
+	packagesExcludePath: resolve(
 		__dirname,
 		isYARNv2() ? '../.yarn' : '../node_modules'
 	),

@@ -77,7 +77,7 @@ module.exports = merge(baseConfig, {
     rules: [
       {
         test: /\.(png|jpe?g|gif|ico|webp)$/,
-        exclude: PATHS.packagesExludePath,
+        exclude: PATHS.packagesExcludePath,
         type: 'asset/resource',
         generator: {
           filename: 'images/[name].[hash:7][ext]'
@@ -86,7 +86,7 @@ module.exports = merge(baseConfig, {
       },
       {
         test: /\.(png|jpe?g|gif|ico|webp)$/,
-        exclude: PATHS.packagesExludePath,
+        exclude: PATHS.packagesExcludePath,
         include: [PATHS.static + '/images/favicons'],
         type: 'asset/resource',
         generator: {
@@ -96,7 +96,7 @@ module.exports = merge(baseConfig, {
       },
       {
         test: /\.svg$/,
-        exclude: PATHS.packagesExludePath,
+        exclude: PATHS.packagesExcludePath,
         type: 'asset/resource',
         generator: {
           filename: 'images/[name].[hash:7][ext]'
@@ -113,7 +113,7 @@ module.exports = merge(baseConfig, {
       },
       {
         test: /\.js$/,
-        exclude: PATHS.packagesExludePath,
+        exclude: PATHS.packagesExcludePath,
         use: {
           loader: 'babel-loader'
         }
