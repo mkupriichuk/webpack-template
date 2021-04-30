@@ -8,6 +8,8 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
+[*.{js,jsx}]
+quote_type = single
 
 [*.md]
 max_line_length = 0
