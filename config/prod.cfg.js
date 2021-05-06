@@ -77,7 +77,7 @@ module.exports = merge(baseConfig, {
     rules: [
       {
         test: /\.(png|jpe?g|gif|ico|webp)$/,
-        exclude: PATHS.packagesExcludePath,
+        exclude: [PATHS.packagesExcludePath, PATHS.static + '/images/favicons'],
         type: 'asset/resource',
         generator: {
           filename: 'images/[name].[hash:7][ext]'
