@@ -10,7 +10,6 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CssMQPackerPlugin = require("./helpers/CssMQPackerPlugin")
-const PurifyCssPlugin = require("./helpers/PurifyCssPlugin")
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require("./paths.js");
 const baseConfig = require("./base.cfg");
