@@ -1,4 +1,4 @@
-import "/app.css";
+import "./app.css";
 import twitter from "icons/twitter.svg";
 import samoyed from 'images/samoyed.jpg'
 
