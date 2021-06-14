@@ -3,7 +3,7 @@ const PATHS = require('./paths.js');
 module.exports = {
   context: PATHS.src,
   entry: {
-    bundle: PATHS.src + '/index.js'
+    bundle: PATHS.src + '/index.tsx'
   },
 
   output: {
@@ -12,7 +12,7 @@ module.exports = {
     filename: 'js/[name].[contenthash].js'
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
       'src': PATHS.src,
       'static': PATHS.static,
@@ -23,7 +23,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
         exclude: PATHS.packagesExcludePath,
         use: {
           loader: 'babel-loader'
