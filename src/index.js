@@ -1,4 +1,4 @@
-import './sass/app.sass';
+import './styles/app.scss';
 
 if (process.env.NODE_ENV !== 'production') {
   require('./index.html');

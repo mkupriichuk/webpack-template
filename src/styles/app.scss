@@ -1,0 +1,31 @@
+@import "_helpers/all";
+
+@include font-face("Roboto", "roboto-regular", 400);
+// @include font-face("Roboto", "roboto-bold", 700);
+
+body {
+	min-width: 320px;
+	position: relative;
+	font-family: sans-serif;
+	overflow-x: hidden;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	position: relative;
+
+	p {
+		font-family: Roboto;
+		font-weight: 700;
+	}
+
+	@include r($container-width) {
+		margin: 0 20px;
+	}
+}
