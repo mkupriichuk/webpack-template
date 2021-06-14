@@ -39,6 +39,7 @@
 		"@babel/eslint-parser": "^7.13.14",
 		"@babel/preset-env": "^7.14.1",
 		"@babel/preset-react": "^7.13.13",
+		"@babel/preset-typescript": "^7.14.5",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
 		"@size-limit/preset-app": "^4.10.2",
 		"@types/react": "^17.0.11",
@@ -73,7 +74,6 @@
 		"webpack-merge": "^5.7.3"
 	},
 	"dependencies": {
-		"@babel/preset-typescript": "^7.14.5",
 		"classnames": "^2.3.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2"
