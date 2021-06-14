@@ -1,4 +1,4 @@
-import '../sass/app.sass';
+import './styles/app.scss';
 import twitter from 'icons/twitter.svg'
 import samoyed from 'images/samoyed.jpg'
 

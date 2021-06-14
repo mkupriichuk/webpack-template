@@ -1,0 +1,211 @@
+@mixin ts {
+	box-shadow: 0 0 0 .5px #FF0000;
+}
+@mixin full($var: absolute) {
+	position: $var;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+@mixin size($width, $height: $width) {
+	width: $width + px;
+	height: $height + px;
+}
+
+@mixin cover {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50% 50%;
+}
+
+@mixin vcenter($var: absolute) {
+	position: $var;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+@mixin hcenter($var: absolute) {
+	position: $var;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@mixin center($var: absolute) {
+	position: $var;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+}
+
+@mixin scale($var) {
+	transform: scale($var);
+}
+
+@mixin rotate($var) {
+	transform: rotate($var+deg);
+}
+
+@mixin skew($var, $direction) {
+	@if $direction == x {
+		transform: skewX($var+deg);
+	}
+	@if $direction == y {
+		transform: skewY($var+deg);
+	}
+}
+
+@mixin persp($var) {
+	perspective: $var + px;
+}
+
+@mixin tr($what, $time) {
+	transition: $what $time+s linear;
+}
+
+@mixin hvr{
+	&:hover {
+		@content;
+	}
+}
+@mixin nth($value) {
+	&:nth-of-type($value) {
+		@content;
+	}
+}
+
+@mixin r($width) {
+	@media only screen and (max-width: $width+ "px") {
+			@content;
+		}
+}
+
+@mixin rmin($width) {
+	@media only screen and (min-width: $width+ "px") {
+		@content;
+	}
+}
+
+
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal) {
+	@font-face {
+		font-family: $font-family;
+		font-weight: $weight;
+		font-style: $style;
+		font-display: swap;
+		src: url("../../static/fonts/" + $file-path + ".woff2") format("woff2"), url("../../static/fonts/" + $file-path + ".woff") format("woff");
+	}
+}
+
+@mixin fwt {
+	font-weight: 100;
+}
+@mixin fwl {
+	font-weight: 300;
+}
+@mixin fwn {
+	font-weight: 400;
+}
+@mixin fwm {
+	font-weight: 500;
+}
+@mixin fwsb {
+	font-weight: 600;
+}
+@mixin fwb {
+	font-weight: 700;
+}
+@mixin fweb {
+	font-weight: 800;
+}
+// height;
+@mixin rh($height) {
+	@media only screen and (max-height: $height + "px") {
+		@content;
+	}
+}
+
+@mixin rhmin($height) {
+	@media only screen and (min-height: $height + "px") {
+		@content;
+	}
+}
+
+
+//half circle;
+@mixin hcircle($width, $height, $bg, $direction) {
+	background-color: $bg;
+	height: $height + px;
+	width: $width + px;
+	@if $direction == t {
+		border-top-right-radius: $width + px;
+		border-top-left-radius: $width + px;
+	}
+	@if $direction == b {
+		border-bottom-right-radius: $width + px;
+		border-bottom-left-radius: $width + px;
+	}
+	@if $direction == r {
+		border-bottom-right-radius: $width + px;
+		border-top-right-radius: $width + px;
+	}
+	@if $direction == l {
+		border-bottom-left-radius: $width + px;
+		border-top-left-radius: $width + px;
+	}
+}
+
+// example;
+// +hcircle(90, 45, #000, b);
+
+@mixin circle($value, $bg) {
+	height: $value + px;
+	width: $value + px;
+	border-radius: 50%;
+	background-color: $bg;
+}
+
+// example;
+// +circle(90, #000);
+
+//triangle;
+@mixin tri($width, $height, $bg, $direction) {
+	width: 0px;
+	height: 0px;
+	border-style: solid;
+	@if $direction == t {
+		border-width: 0 $width / 2 + px $height + px $width / 2 + px;
+		border-color: transparent transparent $bg transparent;
+	}
+	@if $direction == r {
+		border-width: $height / 2 + px 0 $height / 2 + px $width + px;
+		border-color: transparent transparent transparent $bg;
+	}
+	@if $direction == b {
+		border-width: $height + px $width / 2 + px 0 $width / 2 + px;
+		border-color: $bg transparent transparent transparent;
+	}
+	@if $direction == l {
+		border-width: $height / 2 + px $width + px $height / 2 + px 0;
+		border-color: transparent $bg transparent transparent;
+	}
+	@if $direction == tl {
+		border-width: $height + px $width + px 0 0;
+		border-color: $bg transparent transparent transparent;
+	}
+	@if $direction == tr {
+		border-width: 0 $width + px $height + px 0;
+		border-color: transparent $bg transparent transparent;
+	}
+	@if $direction == br {
+		border-width: 0 0 $height + px $width + px;
+		border-color: transparent transparent $bg transparent;
+	}
+	@if $direction == bl {
+		border-width: $width + px 0 0 $height + px;
+		border-color: transparent transparent transparent $bg;
+	}
+}
+// example;
+// +tri(500,50, #000, l);
+// +tri(500,50, #000, bl);
