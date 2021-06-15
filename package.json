@@ -45,7 +45,6 @@
 		"css-minimizer-webpack-plugin": "^2.0.0",
 		"css-mqpacker": "^7.0.0",
 		"eslint": "^7.25.0",
-		"eslint-webpack-plugin": "^2.5.4",
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"html-loader": "^2.1.2",
 		"html-webpack-plugin": "^5.3.1",
