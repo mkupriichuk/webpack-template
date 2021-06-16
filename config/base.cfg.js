@@ -14,8 +14,8 @@ module.exports = {
   resolve: {
     alias: {
       'src': PATHS.src,
-      'icons': PATHS.static + '/images/icons',
-      'images': PATHS.static + '/images',
+      'icons': PATHS.public + '/images/icons',
+      'images': PATHS.public + '/images',
     }
   },
   module: {
