@@ -36,8 +36,8 @@ module.exports = merge(baseConfig, {
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-			favicon: PATHS.static + '/favicons/favicon.ico',
-      template: PATHS.static +  '/index.html',
+			favicon: PATHS.public + '/favicons/favicon.ico',
+      template: PATHS.public +  '/index.html',
       inject: true
     }),
     new HotModuleReplacementPlugin(),
