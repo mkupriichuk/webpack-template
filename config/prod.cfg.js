@@ -70,7 +70,7 @@ module.exports = merge(baseConfig, {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: 'index.html',
-			template: PATHS.static + '/index.html',
+			template: PATHS.public + '/index.html',
 			inject: true,
 			minify: {
 				removeComments: true,
@@ -92,9 +92,9 @@ module.exports = merge(baseConfig, {
 		new CopyWebpackPlugin({
 			patterns: [
 				{
-					from: PATHS.static + '/favicons',
+					from: PATHS.public + '/favicons',
 					to: PATHS.dist,
-					context: PATHS.static,
+					context: PATHS.public,
 				},
 			],
 		}),
