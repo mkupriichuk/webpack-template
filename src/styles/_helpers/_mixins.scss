@@ -93,7 +93,7 @@
 		font-weight: $weight;
 		font-style: $style;
 		font-display: swap;
-		src: url("../../static/fonts/" + $file-path + ".woff2") format("woff2"), url("../../static/fonts/" + $file-path + ".woff") format("woff");
+		src: url("../../public/fonts/" + $file-path + ".woff2") format("woff2"), url("../../public/fonts/" + $file-path + ".woff") format("woff");
 	}
 }
 

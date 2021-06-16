@@ -15,9 +15,9 @@ module.exports = {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
       'src': PATHS.src,
-      'static': PATHS.static,
-      'icons': PATHS.static + '/images/icons',
-      'images': PATHS.static + '/images',
+      'public': PATHS.public,
+      'icons': PATHS.public + '/images/icons',
+      'images': PATHS.public + '/images',
     }
   },
   module: {
