@@ -37,10 +37,12 @@
 	"devDependencies": {
 		"@babel/core": "^7.14.0",
 		"@babel/eslint-parser": "^7.13.14",
+		"@babel/plugin-transform-runtime": "^7.14.5",
 		"@babel/preset-env": "^7.14.1",
 		"@babel/preset-react": "^7.13.13",
 		"@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
 		"@size-limit/preset-app": "^4.10.2",
+		"@svgr/webpack": "^5.5.0",
 		"autoprefixer": "^10.2.5",
 		"babel-loader": "^8.2.2",
 		"copy-webpack-plugin": "^8.1.1",
@@ -49,7 +51,6 @@
 		"css-minimizer-webpack-plugin": "^2.0.0",
 		"css-mqpacker": "^7.0.0",
 		"eslint": "^7.25.0",
-		"eslint-webpack-plugin": "^2.5.4",
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"html-webpack-plugin": "^5.3.1",
 		"image-webpack-loader": "^7.0.1",
@@ -70,6 +71,9 @@
 		"webpack-merge": "^5.7.3"
 	},
 	"dependencies": {
+		"@babel/runtime": "^7.14.6",
+		"clsx": "^1.1.1",
+		"eslint-plugin-react": "^7.24.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2"
 	}
