@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMQPackerPlugin = require('./helpers/CssMQPackerPlugin');
 const PATHS = require('./paths.js');
@@ -106,6 +107,9 @@ module.exports = merge(baseConfig, {
         blackList: ['bundle.5e13f9fac51ff1f4e194.css']
         or ['npm'] for exclude all files with 'npm' in name (npm.bootstrap.32ccae4211943.css)
       */
+		}),
+		new Dotenv({
+			path: PATHS.root + '/.env.production',
 		}),
 	],
 	module: {
@@ -223,32 +227,32 @@ function imageLoader() {
 
 function svgoLoader() {
 	return {
-			loader: 'svgo-loader',
-			options: {
-				plugins: extendDefaultPlugins([
-					{
-						name: 'removeTitle',
-						active: true,
+		loader: 'svgo-loader',
+		options: {
+			plugins: extendDefaultPlugins([
+				{
+					name: 'removeTitle',
+					active: true,
+				},
+				{
+					name: 'convertPathData',
+					active: false,
+				},
+				{
+					name: 'removeUselessDefs',
+					active: false,
+				},
+				{
+					name: 'cleanupIDs',
+					active: false,
+				},
+				{
+					name: 'convertColors',
+					params: {
+						shorthex: false,
 					},
-					{
-						name: 'convertPathData',
-						active: false,
-					},
-					{
-						name: 'removeUselessDefs',
-						active: false,
-					},
-					{
-						name: 'cleanupIDs',
-						active: false,
-					},
-					{
-						name: 'convertColors',
-						params: {
-							shorthex: false,
-						}
-					}
-				])
-			}
-		}
+				},
+			]),
+		},
+	};
 }
