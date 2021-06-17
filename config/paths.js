@@ -7,6 +7,7 @@ const isYARNv2 = () => {
 };
 
 module.exports = {
+	root: resolve(__dirname, '../'),
 	src: resolve(__dirname, '../src'),
 	public: resolve(__dirname, '../public'),
 	packagesExcludePath: resolve(

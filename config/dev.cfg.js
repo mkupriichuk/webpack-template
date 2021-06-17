@@ -4,6 +4,7 @@ const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 const baseConfig = require('./base.cfg');
 // const stylelintCfg = require('../.stylelintrc');
 const PATHS = require('./paths.js');
@@ -37,6 +38,9 @@ module.exports = merge(baseConfig, {
 		}),
 		new HotModuleReplacementPlugin(),
 		new ReactRefreshWebpackPlugin(),
+		new Dotenv({
+			path: PATHS.root + '/.env.development'
+		}),
 		new NoEmitOnErrorsPlugin(),
 	],
 	module: {
