@@ -37,6 +37,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.14.0",
 		"@babel/eslint-parser": "^7.13.14",
+		"@babel/plugin-transform-runtime": "^7.14.5",
 		"@babel/preset-env": "^7.14.1",
 		"@babel/preset-react": "^7.13.13",
 		"@babel/preset-typescript": "^7.14.5",
@@ -79,6 +80,8 @@
 		"webpack-merge": "^5.7.3"
 	},
 	"dependencies": {
+		"@babel/runtime": "^7.14.6",
+		"clsx": "^1.1.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2"
 	}
