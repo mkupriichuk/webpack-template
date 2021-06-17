@@ -123,10 +123,17 @@ module.exports = merge(baseConfig, {
 				test: /\.svg$/,
 				exclude: PATHS.packagesExcludePath,
 				type: 'asset/resource',
+				issuer: /\.(s?css|sass)$/,
 				generator: {
 					filename: 'images/[name].[hash:7][ext]',
 				},
 				use: svgoLoader(),
+			},
+			{
+				test: /\.svg$/,
+				exclude: PATHS.packagesExcludePath,
+				issuer: /\.(js|ts)x?$/,
+				use: ['@svgr/webpack', svgoLoader()],
 			},
 			{
 				test: /\.(css|scss|sass)$/,
@@ -215,8 +222,7 @@ function imageLoader() {
 }
 
 function svgoLoader() {
-	return [
-		{
+	return {
 			loader: 'svgo-loader',
 			options: {
 				plugins: extendDefaultPlugins([
@@ -240,10 +246,9 @@ function svgoLoader() {
 						name: 'convertColors',
 						params: {
 							shorthex: false,
-						},
-					},
-				]),
-			},
-		},
-	];
+						}
+					}
+				])
+			}
+		}
 }
