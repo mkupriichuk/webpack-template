@@ -37,6 +37,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.14.0",
 		"@babel/eslint-parser": "^7.13.14",
+		"@babel/plugin-transform-runtime": "^7.14.5",
 		"@babel/preset-env": "^7.14.1",
 		"@babel/preset-react": "^7.13.13",
 		"@babel/preset-typescript": "^7.14.5",
@@ -54,6 +55,7 @@
 		"css-loader": "^5.2.4",
 		"css-minimizer-webpack-plugin": "^2.0.0",
 		"css-mqpacker": "^7.0.0",
+		"dotenv-webpack": "^7.0.3",
 		"eslint": "^7.25.0",
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"html-webpack-plugin": "^5.3.1",
@@ -76,6 +78,7 @@
 		"webpack-merge": "^5.7.3"
 	},
 	"dependencies": {
+		"@babel/runtime": "^7.14.6",
 		"clsx": "^1.1.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2"

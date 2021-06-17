@@ -4,6 +4,7 @@ import samoyed from 'images/samoyed.jpg';
 import React from 'react';
 
 const App = ():JSX.Element => {
+
 	return (
 		<>
 			<div className="container">

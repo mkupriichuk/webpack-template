@@ -6,6 +6,9 @@ module.exports = api => {
       ["@babel/preset-react", { runtime: "automatic" }],
 			"@babel/preset-typescript"
     ],
-    ...(!api.env('production') && { plugins: ['react-refresh/babel'] })
+    ...(!api.env('production') && { plugins: ['react-refresh/babel'] }),
+		...(api.env('production') && {
+			plugins: [['@babel/plugin-transform-runtime', { regenerator: true }]],
+		}),
   }
 }
