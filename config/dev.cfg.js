@@ -15,6 +15,7 @@ module.exports = merge(baseConfig, {
 		stats: 'errors-only',
 		// contentBase: resolve(__dirname, '../src'),
 		// watchContentBase: true,
+		historyApiFallback: true,
 		hot: true,
 		port: 3000,
 		quiet: true,
