@@ -7,6 +7,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMQPackerPlugin = require('./helpers/CssMQPackerPlugin');
 const Dotenv = require('dotenv-webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
@@ -113,6 +115,16 @@ module.exports = merge(baseConfig, {
 		new Dotenv({
 			path: PATHS.root + '/.env.production',
 		}),
+		new ForkTsCheckerWebpackPlugin({
+			typescript: {
+				configFile: PATHS.root + '/tsconfig.json',
+			},
+			eslint: {
+				files: PATHS.src + '/**/*.{ts,tsx,js,jsx}',
+			},
+			async: false,
+			// logger: { infrastructure: 'silent', issues: 'silent', devServer: false }
+		})
 	],
 	module: {
 		rules: [
