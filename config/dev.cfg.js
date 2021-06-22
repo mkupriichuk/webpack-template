@@ -5,9 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Dotenv = require('dotenv-webpack');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const baseConfig = require('./base.cfg');
 const PATHS = require('./paths.js');
-
 
 module.exports = merge(baseConfig, {
 	target: 'web',
@@ -40,9 +40,19 @@ module.exports = merge(baseConfig, {
 		new HotModuleReplacementPlugin(),
 		new ReactRefreshWebpackPlugin(),
 		new Dotenv({
-			path: PATHS.root + '/.env.development'
+			path: PATHS.root + '/.env.development',
 		}),
 		new NoEmitOnErrorsPlugin(),
+		new ForkTsCheckerWebpackPlugin({
+			typescript: {
+				configFile: PATHS.root + '/tsconfig.json',
+			},
+			eslint: {
+				files: PATHS.src + '/**/*.{ts,tsx,js,jsx}',
+			},
+			async: true,
+			logger: { infrastructure: 'silent', issues: 'silent', devServer: false }
+		}),
 	],
 	module: {
 		rules: [
@@ -67,7 +77,7 @@ module.exports = merge(baseConfig, {
 				test: /\.svg$/,
 				exclude: PATHS.packagesExcludePath,
 				issuer: /\.(js|ts)x?$/,
-				use: '@svgr/webpack'
+				use: '@svgr/webpack',
 			},
 			{
 				test: /\.css$/,
