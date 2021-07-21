@@ -2,6 +2,7 @@ const {
   readdirSync,
   readFileSync,
   writeFileSync,
+	existsSync,
   statSync
 } = require("fs");
 const mqpacker = require("css-mqpacker");
@@ -28,6 +29,9 @@ class CssMQPackerPlugin {
     );
   }
   print(res) {
+		if(!existsSync(this.cssPath)) {
+			return
+		}
     res.forEach(({name,before,after}) => {
       console.log(chalk.hex('#32F265')('CSS MQPacker plugin:'), '\n',
         'Css file name:', chalk.yellow(name), '\n',
@@ -38,6 +42,9 @@ class CssMQPackerPlugin {
     })
   }
   async sortMq() {
+		if(!existsSync(this.cssPath)) {
+			return
+		}
     let files = readdirSync(this.cssPath)
       .filter(el => el.endsWith('.css') && !this.blackList.some(f => el.includes(f)))
     const filesStats = []
