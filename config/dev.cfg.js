@@ -66,6 +66,14 @@ module.exports = merge(baseConfig, {
 			},
 			{
 				test: /\.svg$/,
+				include: PATHS.public,
+				type: 'asset/resource',
+				generator: {
+					filename: 'images/[name].[hash:7][ext]',
+				},
+			},
+			{
+				test: /\.svg$/,
 				exclude: PATHS.packagesExcludePath,
 				issuer: /\.(s?css|sass)$/,
 				type: 'asset/resource',
@@ -75,7 +83,7 @@ module.exports = merge(baseConfig, {
 			},
 			{
 				test: /\.svg$/,
-				exclude: PATHS.packagesExcludePath,
+				exclude: [PATHS.packagesExcludePath, PATHS.public],
 				issuer: /\.(js|ts)x?$/,
 				use: '@svgr/webpack',
 			},
