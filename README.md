@@ -34,7 +34,28 @@ This command will start the app from the source files (/src).
 http://localhost:3000/
 ```
 
+### SVG usage:
+#### Svgs which stores in public folder used by default webpack file loader:
+```
+js\ts:
+import twitter from 'public/twitter.svg'
+...
+<img src={twitter} alt="twitter" />
 
+or in css:
+background-image: url('public/twitter.svg')
+```
+
+#### Svgs which stores in src/components folder used by @svgr/webpack, but still can be usage on css like a background: 
+```
+js\ts:
+import Twitter from 'components/Header'
+...
+<Twitter/>
+
+or in css:
+background-image: url('./twitter.svg')
+```
 ## 5. Build
 
 - Build the app:

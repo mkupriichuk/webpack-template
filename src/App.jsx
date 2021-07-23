@@ -1,7 +1,6 @@
 import React from 'react'
 import './app.css';
-import Twitter from 'icons/twitter.svg';
-import samoyed from 'images/samoyed.jpg';
+import twitter from 'icons/twitter.svg';
 
 const App = () => {
 	return (
@@ -9,8 +8,7 @@ const App = () => {
 			<div className="container">
 				<h1>Hello</h1>
 				<div className="hero">
-					<Twitter />
-					<img src={samoyed} alt="" />
+					<img src={twitter} alt="twitter" />
 				</div>
 			</div>
 		</>
