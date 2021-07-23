@@ -1,16 +1,14 @@
-import "./styles/app.scss";
-import Twitter from "icons/twitter.svg";
-import samoyed from "images/samoyed.jpg";
 import React from "react";
+import "./styles/app.scss";
+import twitter from "icons/twitter.svg";
 
-const App = (): JSX.Element => {
+const App: React.FC = ()=> {
 	return (
 		<>
 			<div className="container">
 				<h1>Hello</h1>
 				<div className="hero">
-					<img src={samoyed} alt="" />
-					<Twitter />
+					<img src={twitter} alt="" />
 				</div>
 			</div>
 		</>
