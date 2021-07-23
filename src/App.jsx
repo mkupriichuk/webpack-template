@@ -1,16 +1,14 @@
 import React from 'react';
 import './styles/app.scss';
-import samoyed from 'images/samoyed.jpg';
-import Twitter from 'icons/twitter.svg'
+import twitter from 'icons/twitter.svg'
 
 const App = () => {
 	return (
 		<>
 			<div className="container">
 				<h1>Hello</h1>
-				<Twitter />
 				<div className="hero">
-					<img src={samoyed} alt="" />
+					<img src={twitter} alt="" />
 				</div>
 			</div>
 		</>
