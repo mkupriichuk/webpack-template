@@ -41,6 +41,7 @@ js\ts:
 import twitter from 'public/twitter.svg'
 ...
 <img src={twitter} alt="twitter" />
+
 or in css:
 background-image: url('public/twitter.svg')
 ```
@@ -51,6 +52,7 @@ js\ts:
 import Twitter from 'components/Header'
 ...
 <Twitter/>
+
 or in css:
 background-image: url('./twitter.svg')
 ```
