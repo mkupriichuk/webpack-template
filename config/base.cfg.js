@@ -33,7 +33,7 @@ module.exports = {
         test: /\.(mp4|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
-          filename: 'media/[name].[hash:7][ext]'
+          filename: 'media/[name].[contenthash][ext]'
         }
       },
       {
