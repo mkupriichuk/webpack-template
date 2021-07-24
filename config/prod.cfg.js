@@ -119,7 +119,7 @@ module.exports = merge(baseConfig, {
 				exclude: PATHS.packagesExcludePath,
 				type: 'asset/resource',
 				generator: {
-					filename: 'images/[name].[hash:7][ext]',
+					filename: 'images/[name].[contenthash][ext]',
 				},
 				use: imageLoader(),
 			},
@@ -128,7 +128,7 @@ module.exports = merge(baseConfig, {
 				include: PATHS.public,
 				type: 'asset/resource',
 				generator: {
-					filename: 'images/[name].[hash:7][ext]',
+					filename: 'images/[name].[contenthash][ext]',
 				},
 				use: svgoLoader()
 			},
@@ -138,7 +138,7 @@ module.exports = merge(baseConfig, {
 				type: 'asset/resource',
 				issuer: /\.(s?css|sass)$/,
 				generator: {
-					filename: 'images/[name].[hash:7][ext]',
+					filename: 'images/[name].[contenthash][ext]',
 				},
 				use: svgoLoader(),
 			},
