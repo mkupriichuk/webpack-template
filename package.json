@@ -52,6 +52,7 @@
 		"css-mqpacker": "^7.0.0",
 		"dotenv-webpack": "^7.0.3",
 		"eslint": "^7.31.0",
+		"eslint-plugin-react": "^7.25.2",
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"html-webpack-plugin": "^5.3.2",
 		"image-webpack-loader": "^7.0.1",
@@ -74,7 +75,6 @@
 	"dependencies": {
 		"@babel/runtime": "^7.14.8",
 		"clsx": "^1.1.1",
-		"eslint-plugin-react": "^7.24.0",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2"
 	}
