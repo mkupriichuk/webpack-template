@@ -1,5 +1,6 @@
 {
 	"extends": ["eslint:recommended", "plugin:react/recommended"],
+	"parser": "@babel/eslint-parser",
 	"plugins": ["react"],
 	"parserOptions": {
 		"ecmaVersion": 2020,
