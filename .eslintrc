@@ -2,7 +2,7 @@
 	"extends": ["eslint:recommended", "plugin:react/recommended"],
 	"plugins": ["react"],
 	"parserOptions": {
-		"ecmaVersion": 2015,
+		"ecmaVersion": 2020,
 		"ecmaFeatures": {
 			"jsx": true
 		},
