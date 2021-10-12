@@ -7,7 +7,7 @@
 	"ignorePatterns": ["config/**/*.js"],
 	"rules": {
 		"semi": "off",
-		"@typescript-eslint/no-non-null-assertion": false,
+		"@typescript-eslint/no-non-null-assertion": 0,
 		"@typescript-eslint/semi": [
 			"warn"
 		],
