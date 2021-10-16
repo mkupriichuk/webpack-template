@@ -14,7 +14,8 @@ git checkout react // react-sass
 git checkout react-css // react-css
 git checkout react-ts // react css typescript
 git checkout react-scss-ts // react scss typescript
-git checkout pug // pug  (deprecated, do not updated anymore)
+git checkout standart // react with typescript,mobx,axios,scss
+git checkout pug // pug (deprecated, do not updated anymore)
 git checkout nunjucks // nunjucks (deprecated, do not updated anymore)
 ```
 
