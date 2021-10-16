@@ -33,13 +33,13 @@ type ObtainName<T> = T extends any
 		: never
 	: never;
 
-type PeoplesRole = ObtainName<typeof routes[number]>;
+type RoutesMapType = ObtainName<typeof routes[number]>;
 
 const routesMap = routes.reduce((map, route: IRoute) => {
 	if (route.name) {
 		map[route.name] = route.path;
 	}
 	return map;
-}, {} as Record<PeoplesRole, string>);
+}, {} as Record<RoutesMapType, string>);
 
 export { history, routes, routesMap };
