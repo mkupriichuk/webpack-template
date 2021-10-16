@@ -26,12 +26,13 @@ yarn install
 ```
 
 
-## 4. Run yarn run dev or npm run dev
+## 4. Start dev
 
-This command will start the app from the source files (/src).
+Server start at http://localhost:3000/
 
 ```
-http://localhost:3000/
+npm run dev
+yarn run dev
 ```
 
 ### SVG usage:
