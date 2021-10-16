@@ -39,7 +39,7 @@ const requests = {
 
 const Todos = {
   allPosts: (): Promise<ITodo[]> => requests.get('/posts'),
-	postById: (n: number): Promise<ITodo> => requests.get(`/posts/${n}`)
+  postById: (n: number): Promise<ITodo> => requests.get(`/posts/${n}`)
 };
 
 export default {
