@@ -9,9 +9,12 @@ $ git clone https://github.com/mkupriichuk/webpack-template.git .
 ## 2. Select a branch
 
 ```
-default master branch //html
+default master branch // react/typescript/scss with pre-configured mobx,axios,rr-dom
 git checkout react // react-sass
 git checkout react-css // react-css
+git checkout react-ts // react css typescript
+git checkout react-scss-ts // react scss typescript
+git checkout standart // simply html
 git checkout pug // pug (deprecated, do not updated anymore)
 git checkout nunjucks // nunjucks (deprecated, do not updated anymore)
 ```
@@ -24,15 +27,37 @@ yarn install
 ```
 
 
-## 4. Run yarn run dev or npm run dev
+## 4. Start dev
 
-This command will start the app from the source files (/src).
+Server start at http://localhost:3000/
 
 ```
-http://localhost:3000/
+npm run dev
+yarn run dev
 ```
 
+### SVG usage:
+#### Svgs which stores in public folder used by default webpack file loader:
+```
+js\ts:
+import twitter from 'public/twitter.svg'
+...
+<img src={twitter} alt="twitter" />
 
+or in css:
+background-image: url('public/twitter.svg')
+```
+
+#### Svgs which stores in src/components folder used by @svgr/webpack, but still can be usage on css like a background: 
+```
+js\ts:
+import Twitter from 'components/Header'
+...
+<Twitter/>
+
+or in css:
+background-image: url('./twitter.svg')
+```
 ## 5. Build
 
 - Build the app:
