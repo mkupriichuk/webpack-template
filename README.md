@@ -9,12 +9,12 @@ $ git clone https://github.com/mkupriichuk/webpack-template.git .
 ## 2. Select a branch
 
 ```
-default master branch //html
+default master branch // react/typescript/scss with pre-configured mobx,axios,rr-dom
 git checkout react // react-sass
 git checkout react-css // react-css
 git checkout react-ts // react css typescript
 git checkout react-scss-ts // react scss typescript
-git checkout standart // react/typescript/scss with pre-configured mobx,axios,rr-dom
+git checkout standart // simply html
 git checkout pug // pug (deprecated, do not updated anymore)
 git checkout nunjucks // nunjucks (deprecated, do not updated anymore)
 ```
