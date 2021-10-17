@@ -10,9 +10,6 @@ export class RootStore {
 	}
 }
 
-// const RootStoreFuncContext = createContext({
-// 	todos: todosStoreF()
-// });
 export type RootStoreType = RootStore;
 
 const RootStoreContext = createContext(new RootStore());

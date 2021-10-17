@@ -1,4 +1,4 @@
-export interface ITodo {
+export interface IPost {
 	userId: number,
 	id: number,
 	title: string,

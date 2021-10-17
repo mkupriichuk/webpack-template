@@ -1,13 +1,13 @@
 import { makeAutoObservable } from "mobx";
 import { RootStoreType } from "./rootStore";
-import agent from "../api/agent";
-import { ITodo } from "../models/posts";
+import { IPost } from "../models/posts";
+import { Posts } from "../api";
 
 export default class FooStore {
 	rootStore: RootStoreType;
 	num = 0;
-	posts: ITodo[] = [];
-	currentPost: ITodo|null = null;
+	posts: IPost[] = [];
+	currentPost: IPost | null = null;
 	constructor(rootStore: RootStoreType) {
 		this.rootStore = rootStore;
 		makeAutoObservable(this);
@@ -17,20 +17,20 @@ export default class FooStore {
 	}
 	loadPosts = async () => {
 		try {
-			const posts = await agent.Todos.allPosts();
+			const posts = await Posts.allPosts();
 			this.posts = posts;
 		} catch (error) {
 			console.log(error);
 		}
-	}
-	getPostById = async (id:number) => {
+	};
+	getPostById = async (id: number) => {
 		try {
-			const post = await agent.Todos.postById(id);
+			const post = await Posts.postById(id);
 			this.currentPost = post;
 		} catch (error) {
 			console.log(error);
 		}
-	}
+	};
 
 	get valueFromBar() {
 		return this.rootStore.barStore.getName;
@@ -41,7 +41,4 @@ export default class FooStore {
 	}
 }
 
-// const todosContext = createContext({
-// 	todos: new TodoStore()
-// })
 export type FooStoreType = FooStore;
