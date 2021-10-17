@@ -15,7 +15,7 @@ export default class FooStore {
 	plus(): void {
 		this.num++;
 	}
-	async loadPosts() {
+	loadPosts = async () => {
 		try {
 			const posts = await agent.Todos.allPosts();
 			this.posts = posts;
@@ -23,7 +23,7 @@ export default class FooStore {
 			console.log(error);
 		}
 	}
-	async getPostById(id:number) {
+	getPostById = async (id:number) => {
 		try {
 			const post = await agent.Todos.postById(id);
 			this.currentPost = post;
