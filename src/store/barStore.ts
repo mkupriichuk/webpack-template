@@ -6,7 +6,7 @@ export default class BarStore {
 	name = 'maksym';
 	constructor(rootStore: RootStoreType) {
 		this.rootStore = rootStore;
-		makeAutoObservable(this);
+		makeAutoObservable(this, undefined, { autoBind: true });
 	}
 	get getName() {
 		return this.name;

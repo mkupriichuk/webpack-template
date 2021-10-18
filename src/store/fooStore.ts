@@ -10,12 +10,12 @@ export default class FooStore {
 	currentPost: IPost | null = null;
 	constructor(rootStore: RootStoreType) {
 		this.rootStore = rootStore;
-		makeAutoObservable(this);
+		makeAutoObservable(this, undefined, { autoBind: true });
 	}
-	plus = () => {
+	plus() {
 		this.num++;
-	};
-	loadPosts = async () => {
+	}
+	async loadPosts() {
 		try {
 			const posts = await Posts.allPosts();
 			runInAction(() => {
@@ -24,8 +24,8 @@ export default class FooStore {
 		} catch (error) {
 			console.log(error);
 		}
-	};
-	getPostByIdid = async (id: number) => {
+	}
+	async getPostByIdid(id: number) {
 		try {
 			const post = await Posts.postById(id);
 			runInAction(() => {
@@ -34,7 +34,7 @@ export default class FooStore {
 		} catch (error) {
 			console.log(error);
 		}
-	};
+	}
 
 	get valueFromBar() {
 		return this.rootStore.barStore.getName;
