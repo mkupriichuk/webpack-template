@@ -1,4 +1,5 @@
 const { merge } = require('webpack-merge');
+const { readdirSync } = require('fs')
 const { extendDefaultPlugins } = require('svgo');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -12,6 +13,90 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
+
+const plugins = [
+	new HtmlWebpackPlugin({
+		filename: 'index.html',
+		template: PATHS.public + '/index.html',
+		inject: true,
+		minify: {
+			removeComments: true,
+			collapseWhitespace: true,
+			removeRedundantAttributes: true,
+			useShortDoctype: true,
+			removeEmptyAttributes: true,
+			removeStyleLinkTypeAttributes: true,
+			keepClosingSlash: true,
+			minifyJS: true,
+			minifyCSS: true,
+			minifyURLs: true,
+		},
+	}),
+	// new ESLintPlugin(),
+	new MiniCssExtractPlugin({
+		filename: 'css/[name].[contenthash].css',
+	}),
+	new CopyWebpackPlugin({
+		patterns: [
+			{
+				from: PATHS.public + '/favicons',
+				to: PATHS.dist,
+				context: PATHS.public,
+			},
+		],
+	}),
+	new CssMQPackerPlugin({
+		cssPath: PATHS.dist + '/css',
+		printResult: true,
+		// blackList: ['npm']
+		/* add a css files in you dont wont CssMQPackerPlugin to pack media qu.
+		Expample:
+			blackList: ['bundle.5e13f9fac51ff1f4e194.css']
+			or ['npm'] for exclude all files with 'npm' in name (npm.bootstrap.32ccae4211943.css)
+		*/
+	}),
+	new ForkTsCheckerWebpackPlugin({
+		typescript: {
+			configFile: PATHS.root + '/tsconfig.json',
+		},
+		eslint: {
+			files: PATHS.src + '/**/*.{ts,tsx,js,jsx}',
+		},
+		async: false,
+		// logger: { infrastructure: 'silent', issues: 'silent', devServer: false }
+	})
+]
+
+function checkEnvFiles() {
+	const filesOnRoot = readdirSync(PATHS.root)
+	let env = null;
+	let envDevelopment = null;
+	let envProduction = null;
+	filesOnRoot.forEach(file => {
+		if(file === '.env.development') {
+			envDevelopment = file
+		}
+		if(file === '.env.production') {
+			envProduction = file
+		}
+		if(file === '.env') {
+			env = file
+		}
+	})
+
+	if(envDevelopment && !envProduction) {
+		throw new Error('\x1b[0mIt looks like you used the \x1b[32m.env.development\x1b[0m file while developing, but forgot to create \x1b[32m.env.production\x1b[0m.\n Please create \x1b[32m.env.production\x1b[0m and fill in the required data or rename \x1b[32m.env.development\x1b[0m to \x1b[32m.env\x1b[0m\n')
+	}
+	return envProduction || env
+}
+
+const envFile = checkEnvFiles()
+
+if(envFile) {
+	plugins.push(new Dotenv({
+		path: PATHS.root + '/' + envFile
+	}))
+}
 
 module.exports = merge(baseConfig, {
 	target: 'browserslist',
@@ -71,61 +156,7 @@ module.exports = merge(baseConfig, {
 		maxEntrypointSize: 512000,
 		maxAssetSize: 512000,
 	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			filename: 'index.html',
-			template: PATHS.public + '/index.html',
-			inject: true,
-			minify: {
-				removeComments: true,
-				collapseWhitespace: true,
-				removeRedundantAttributes: true,
-				useShortDoctype: true,
-				removeEmptyAttributes: true,
-				removeStyleLinkTypeAttributes: true,
-				keepClosingSlash: true,
-				minifyJS: true,
-				minifyCSS: true,
-				minifyURLs: true,
-			},
-		}),
-		// new ESLintPlugin(),
-		new MiniCssExtractPlugin({
-			filename: 'css/[name].[contenthash].css',
-		}),
-		new CopyWebpackPlugin({
-			patterns: [
-				{
-					from: PATHS.public + '/favicons',
-					to: PATHS.dist,
-					context: PATHS.public,
-				},
-			],
-		}),
-		new CssMQPackerPlugin({
-			cssPath: PATHS.dist + '/css',
-			printResult: true,
-			// blackList: ['npm']
-			/* add a css files in you dont wont CssMQPackerPlugin to pack media qu.
-      Expample:
-        blackList: ['bundle.5e13f9fac51ff1f4e194.css']
-        or ['npm'] for exclude all files with 'npm' in name (npm.bootstrap.32ccae4211943.css)
-      */
-		}),
-		new Dotenv({
-			path: PATHS.root + '/.env.production',
-		}),
-		new ForkTsCheckerWebpackPlugin({
-			typescript: {
-				configFile: PATHS.root + '/tsconfig.json',
-			},
-			eslint: {
-				files: PATHS.src + '/**/*.{ts,tsx,js,jsx}',
-			},
-			async: false,
-			// logger: { infrastructure: 'silent', issues: 'silent', devServer: false }
-		})
-	],
+	plugins,
 	module: {
 		rules: [
 			{
