@@ -4,13 +4,14 @@ import twitter from "icons/twitter.svg";
 import { observer } from "mobx-react-lite";
 import { useFooStore } from "../../hooks/useStore";
 const Home: React.FC = () => {
-	const {loadPosts, num, posts, postsLength} = useFooStore();
+	const {loadPosts, num, posts, postsLength, plus} = useFooStore();
 	return (
 		<div>
 			<Title />
 			<div className="hero">
 				<img src={twitter} alt="" />
 			</div>
+			<button onClick={() =>plus()}>inc num</button>
 			{num}
 			<button onClick={() => loadPosts()}>load posts</button>
 			posts {postsLength}:

@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { RootStoreType } from "./rootStore";
 import { IPost } from "../models/posts";
 import { Posts } from "../api";
@@ -12,21 +12,25 @@ export default class FooStore {
 		this.rootStore = rootStore;
 		makeAutoObservable(this);
 	}
-	plus(): void {
+	plus = () => {
 		this.num++;
-	}
+	};
 	loadPosts = async () => {
 		try {
 			const posts = await Posts.allPosts();
-			this.posts = posts;
+			runInAction(() => {
+				this.posts = posts;
+			});
 		} catch (error) {
 			console.log(error);
 		}
 	};
-	getPostById = async (id: number) => {
+	getPostByIdid = async (id: number) => {
 		try {
 			const post = await Posts.postById(id);
-			this.currentPost = post;
+			runInAction(() => {
+				this.currentPost = post;
+			});
 		} catch (error) {
 			console.log(error);
 		}
