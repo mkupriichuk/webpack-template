@@ -35,14 +35,9 @@ type ObtainName<T> = T extends any
 
 type RoutesMapType = ObtainName<typeof routes[number]>;
 
-const buildPath = (path: string): string => {
-	const isDynamic = path.indexOf(":");
-	return isDynamic > -1 ? path.slice(0, isDynamic) : path;
-};
-
 const routesMap = routes.reduce((map, route: IRoute) => {
 	if (route.name) {
-		map[route.name] = buildPath(route.path);
+		map[route.name] = route.path.replace(/:.+/, ''); //remove slug for path: product:id -> product
 	}
 	return map;
 }, {} as Record<RoutesMapType, string>);

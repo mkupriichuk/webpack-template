@@ -2,7 +2,7 @@ import React from "react";
 import { Title } from "../../components";
 import twitter from "icons/twitter.svg";
 import { observer } from "mobx-react-lite";
-import { useFooStore } from "../../store/rootStore";
+import { useFooStore } from "../../hooks/useStore";
 const Home: React.FC = () => {
 	const {loadPosts, num, posts, postsLength} = useFooStore();
 	return (

@@ -2,8 +2,8 @@ import React from "react";
 import "./styles/app.scss";
 import { Router, Switch, Route, Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
-import { useFooStore, useRootStore, useBarStore } from "./store/rootStore";
 import { history, routesMap, routes, IRoute } from "./routes";
+import { useBarStore, useFooStore, useRootStore } from "./hooks/useStore";
 
 const App: React.FC = () => {
 	const rootStore = useRootStore(); //rootStore
