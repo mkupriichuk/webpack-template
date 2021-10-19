@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
-axios.defaults.baseURL = process.env.API_URL;
+axios.defaults.baseURL = process.env.API_URL || 'https://jsonplaceholder.typicode.com/todos';
 
 axios.interceptors.request.use(
 	(config) => {
