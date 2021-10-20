@@ -3,10 +3,12 @@
 	"parser": "@typescript-eslint/parser",
 	"plugins": [
 		"@typescript-eslint",
-		"react-hooks"
+		"react-hooks",
+		"mobx-observer-checker"
 	],
 	"ignorePatterns": ["config/**/*.js"],
 	"rules": {
+		"mobx-observer-checker/observer-wrapper": "warn",
 		"semi": "off",
 		"@typescript-eslint/no-non-null-assertion": 0,
 		"@typescript-eslint/explicit-module-boundary-types": "off",
