@@ -8,9 +8,11 @@ const rootReducer = combineReducers({
 	bar: barReducer
 });
 
+const middleware = [thunk];
+
 export const store = createStore(
 	rootReducer,
-	composeWithDevTools(applyMiddleware(thunk))
+	composeWithDevTools(applyMiddleware(...middleware))
 );
 
 export type RootState = ReturnType<typeof store.getState>;
