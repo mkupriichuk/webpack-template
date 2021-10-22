@@ -1,18 +1,9 @@
 import React from "react";
 import "./styles/app.scss";
 import { Router, Switch, Route, Link } from "react-router-dom";
-import { observer } from "mobx-react-lite";
 import { history, routesMap, routes, IRoute } from "./routes";
-import { useBarStore, useFooStore, useRootStore } from "./hooks/useStore";
 
 const App: React.FC = () => {
-	const rootStore = useRootStore(); //rootStore
-	const fooStore = useFooStore();
-	const barStore = useBarStore();
-	console.log("rootStore:", rootStore);
-	console.log("fooStore:", fooStore);
-	console.log("barStore:", barStore);
-
 	return (
 		<Router history={history}>
 			<ul>
@@ -21,6 +12,9 @@ const App: React.FC = () => {
 				</li>
 				<li>
 					<Link to={routesMap.about}>about</Link>
+				</li>
+				<li>
+					<Link to={routesMap.user}>user</Link>
 				</li>
 			</ul>
 			<div className="container">
@@ -39,4 +33,4 @@ const App: React.FC = () => {
 	);
 };
 
-export default observer(App);
+export default App;
