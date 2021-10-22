@@ -10,6 +10,7 @@ $ git clone https://github.com/mkupriichuk/webpack-template.git .
 
 ```
 default master branch // react/typescript/scss with pre-configured mobx,axios,rr-dom
+git checkout redux // react/typescript/scss with pre-configured REDUX,axios,rr-dom
 git checkout react // react-sass
 git checkout react-css // react-css
 git checkout react-ts // react css typescript
