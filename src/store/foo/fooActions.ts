@@ -23,7 +23,7 @@ export const loadPosts =
 	};
 
 export const loadPostById =
-	(id: number): ThunkAction<Promise<void>, RootState, unknown, AnyAction> =>
+	(id: number): ThunkAction<Promise<void>, RootState, unknown, loadPostByIdAction> =>
 	async (dispatch: ThunkDispatch<RootState, unknown, loadPostByIdAction>) => {
 		try {
 			const post = await Posts.postById(id);
