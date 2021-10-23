@@ -8,17 +8,17 @@ const PATHS = require('./paths.js');
 
 module.exports = merge(baseConfig, {
 	target: 'web',
+	stats: 'errors-only',
 	devServer: {
-		stats: 'errors-only',
-		// contentBase: resolve(__dirname, '../public'),
-		// watchContentBase: true,
+		client: {
+			overlay: {
+				warnings: true,
+				errors: true,
+			},
+		},
+		historyApiFallback: true,
 		hot: true,
 		port: 3000,
-		quiet: true,
-		overlay: {
-			warnings: true,
-			errors: true,
-		},
 	},
 	mode: 'development',
 	// devtool: 'cheap-module-source-map',
