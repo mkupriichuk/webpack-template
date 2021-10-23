@@ -1,5 +1,4 @@
 const { merge } = require('webpack-merge');
-const { extendDefaultPlugins } = require('svgo');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
@@ -241,32 +240,20 @@ function imageLoader() {
 
 function svgoLoader() {
 	return {
-			loader: 'svgo-loader',
-			options: {
-				plugins: extendDefaultPlugins([
-					{
-						name: 'removeTitle',
-						active: true,
-					},
-					{
-						name: 'convertPathData',
-						active: false,
-					},
-					{
-						name: 'removeUselessDefs',
-						active: false,
-					},
-					{
-						name: 'cleanupIDs',
-						active: false,
-					},
-					{
-						name: 'convertColors',
-						params: {
-							shorthex: false,
-						},
-					},
-				])
+		loader: 'svgo-loader',
+		options: {
+			name: 'preset-default',
+			overrides: {
+				'convertPathData': false,
+				'removeUselessDefs': false,
+				'cleanupIDs': false,
+				'convertColors': {
+					params: {
+						shorthex: false,
+					}
+				},
+				'removeTitle': true
 			}
-		}
+		},
+	};
 }
