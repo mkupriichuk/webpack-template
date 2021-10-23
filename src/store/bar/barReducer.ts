@@ -1,4 +1,4 @@
-import { BarAction, BarActionEnum, IBarState } from './types';
+import { BarAction, BarActionTypes, IBarState } from './types';
 
 const initialState: IBarState = {
 	name: 'maksym'
@@ -6,7 +6,7 @@ const initialState: IBarState = {
 
 export function barReducer(state = initialState, action: BarAction): IBarState {
 	switch (action.type) {
-		case BarActionEnum.SET_NAME:
+		case BarActionTypes.SET_NAME:
 			return { ...state, name: action.payload};
 		default:
 			return state;

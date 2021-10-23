@@ -12,15 +12,26 @@ const User: React.FC = () => {
 	const changeName = () => {
 		if (inp.trim() !== "") {
 			dispatch(setName(inp));
+			setInp('');
+		}
+	};
+	const handleEnterClick = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === "Enter") {
+			changeName();
 		}
 	};
 	return (
 		<div>
 			Enter user name: <br />
-			<input type="text" value={inp} onChange={(e) => setInp(e.target.value)} />
+			<input
+				type="text"
+				value={inp}
+				onChange={(e) => setInp(e.target.value)}
+				onKeyPress={handleEnterClick}
+			/>
 			<br />
 			<button onClick={changeName}>change name</button>
-			Cuttenr user: {user && user}
+			Current user: {user}
 		</div>
 	);
 };

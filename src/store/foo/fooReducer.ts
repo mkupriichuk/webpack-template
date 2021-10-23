@@ -1,4 +1,4 @@
-import { FooAction, FooActionEnum } from './types';
+import { FooAction, FooActionTypes } from './types';
 import { IFooState } from "./types";
 
 const initialState: IFooState = {
@@ -9,11 +9,11 @@ const initialState: IFooState = {
 
 export function fooReducer(state = initialState, action: FooAction): IFooState {
 	switch (action.type) {
-		case FooActionEnum.PLUS_NUMBER:
+		case FooActionTypes.PLUS_NUMBER:
 			return { ...state, num: state.num + 1 };
-		case FooActionEnum.LOAD_POSTS:
+		case FooActionTypes.LOAD_POSTS:
 			return { ...state, posts: action.payload };
-		case FooActionEnum.CURRENT_POST:
+		case FooActionTypes.CURRENT_POST:
 			return { ...state, currentPost: action.payload };
 		default:
 			return state;
