@@ -7,7 +7,7 @@
 		//
 		// "strict": true,
 		"alwaysStrict": true,
-		"noImplicitAny": true,
+		"noImplicitAny": false,
 		"strictNullChecks": true,
 		"strictPropertyInitialization": false,
 		"strictFunctionTypes": true,
