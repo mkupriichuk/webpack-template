@@ -6,6 +6,7 @@
 	],
 	"ignorePatterns": ["config/**/*.js"],
 	"rules": {
+		"@typescript-eslint/no-explicit-any": "off",
 		"semi": "off",
 		"@typescript-eslint/no-non-null-assertion": 0,
 		"@typescript-eslint/semi": [
