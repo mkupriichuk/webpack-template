@@ -18,7 +18,7 @@ configure({ observableRequiresReaction: true });
 
 export type RootStoreType = RootStore;
 
-export const store = new RootStore()
+export const store = new RootStore();
 
 export const RootStoreContext = createContext(store);
 

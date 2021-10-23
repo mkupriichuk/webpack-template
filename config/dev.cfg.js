@@ -1,6 +1,6 @@
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { readdirSync } = require('fs')
-const { HotModuleReplacementPlugin, NoEmitOnErrorsPlugin } = require('webpack');
+const { NoEmitOnErrorsPlugin } = require('webpack');
 const { merge } = require('webpack-merge');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
@@ -22,7 +22,6 @@ const plugins = [
 		template: PATHS.public + '/index.html',
 		inject: true,
 	}),
-	new HotModuleReplacementPlugin(),
 	new ReactRefreshWebpackPlugin(),
 	new NoEmitOnErrorsPlugin(),
 	new ForkTsCheckerWebpackPlugin({
@@ -62,18 +61,17 @@ if(envFile) {
 
 module.exports = merge(baseConfig, {
 	target: 'web',
+	stats: 'errors-only',
 	devServer: {
-		stats: 'errors-only',
-		// contentBase: resolve(__dirname, '../src'),
-		// watchContentBase: true,
+		client: {
+			overlay: {
+				warnings: true,
+				errors: true,
+			},
+		},
 		historyApiFallback: true,
 		hot: true,
 		port: 3000,
-		quiet: true,
-		overlay: {
-			warnings: true,
-			errors: true,
-		},
 	},
 	mode: 'development',
 	// devtool: 'cheap-module-source-map',
