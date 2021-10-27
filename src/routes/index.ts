@@ -1,6 +1,5 @@
-import { Home, About, E404 } from "../pages";
+import { Home, About, E404, Dashboard, Profile } from "../pages";
 import { createBrowserHistory } from "history";
-
 const history = createBrowserHistory();
 
 export interface IRoute {
@@ -8,6 +7,7 @@ export interface IRoute {
 	path: string;
 	component: React.FunctionComponent;
 	exact?: boolean;
+	auth?: boolean;
 }
 
 const routes = [
@@ -20,6 +20,17 @@ const routes = [
 		name: "about",
 		path: "/about",
 		component: About,
+	},
+	{
+		name: "profile",
+		path: "/profile",
+		component: Profile,
+	},
+	{
+		name: "dashboard",
+		path: "/dashboard",
+		auth: true,
+		component: Dashboard,
 	},
 	{
 		path: "**",
