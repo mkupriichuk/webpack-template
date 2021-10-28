@@ -2,13 +2,11 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { clearUser, getUser } from "../../store/user/userActions";
-import { getIsLoggedIn, getUserNameAndEmail } from "../../store/user/selectors";
+import { userNameAndEmailSelector } from "../../store/user/selectors";
 import { history, routesMap } from "../../routes";
 
 const Login: React.FC = () => {
-	const { name, email, error } = useTypedSelector(getUserNameAndEmail);
-	// const isLoggedIn = useTypedSelector(getIsLoggedIn);
-	// console.log(isLoggedIn);
+	const { name, email, error } = useTypedSelector(userNameAndEmailSelector);
 
 	const [inp, setInp] = React.useState("");
 	const dispatch = useDispatch();
@@ -35,7 +33,7 @@ const Login: React.FC = () => {
 		}
 	};
 	return (
-		<div>
+		<div>name
 			Enter user id: <br />
 			<input
 				type="text"

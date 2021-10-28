@@ -1,4 +1,3 @@
-import { AnyAction } from "redux";
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { RootState } from "..";
 import { Posts } from "../../api";

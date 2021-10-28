@@ -1,9 +1,9 @@
 import React from "react";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { getUserNameAndEmail } from "../../store/user/selectors";
+import { userNameAndEmailSelector } from "../../store/user/selectors";
 
 const Protected: React.FC = () => {
-	const { name, email } = useTypedSelector(getUserNameAndEmail);
+	const { name, email } = useTypedSelector(userNameAndEmailSelector);
 	return (
 		<div>
 			Current user name: {name} <br />

@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { routesMap } from "../../routes";
-import { getIsLoggedIn } from "../../store/user/selectors";
+import { IsLoggedInSelector } from "../../store/user/selectors";
 
 interface IPrivatRouteProps extends RouteProps {
 	component: React.ComponentType<RouteComponentProps<any>>;
@@ -19,7 +19,7 @@ const PrivateRoute: React.FC<IPrivatRouteProps> = ({
 	component: Component,
 	...rest
 }) => {
-	const isLoggedIn= useTypedSelector(getIsLoggedIn);
+	const isLoggedIn= useTypedSelector(IsLoggedInSelector);
 	const location = useLocation();
 
 	return (

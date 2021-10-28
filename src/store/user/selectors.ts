@@ -1,17 +1,19 @@
 import { RootState } from "..";
+import { createSelector } from "reselect";
 
-export const userStore = (store: RootState) => store.user;
+const selectUser = (store: RootState) => store.user.user;
+const selectError = (store: RootState) => store.user.error;
 
-export const getUserNameAndEmail = (store: RootState) => {
-	const s = userStore(store);
-	return {
-		name: s.user?.name,
-		email: s.user?.email,
-		error: s.error
-	};
-};
+export const userNameAndEmailSelector = createSelector(
+	selectUser,
+	selectError,
+	(user, error) => ({
+		name: user?.name,
+		email: user?.email,
+		error,
+	})
+);
 
-export const getIsLoggedIn = (store: RootState) => {
-	const s = userStore(store);
-	return Boolean(s.user);
-};
+export const IsLoggedInSelector = createSelector(selectUser, (user) =>
+	Boolean(user)
+);
