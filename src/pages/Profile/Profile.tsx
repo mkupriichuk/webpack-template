@@ -3,16 +3,12 @@ import React from "react";
 import { useLocation } from "react-router";
 import { useBarStore } from "../../hooks/useStore";
 
-interface ILocationState {
-	from: string;
-}
 
 const Profile: React.FC = () => {
 	const { login, logout, isLoggedIn, name } = useBarStore();
-	const location = useLocation<ILocationState>();
+	const location = useLocation<any>();
 
-	const redirectFrom = location.state?.from;
-	const loginHandler = () => login("maksym", redirectFrom);
+	const loginHandler = () => login("maksym", location.state?.from);
 	const logoutHandler = () => logout();
 
 	return (
