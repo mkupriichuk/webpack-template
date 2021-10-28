@@ -6,7 +6,9 @@ import { getIsLoggedIn, getUserNameAndEmail } from "../../store/user/selectors";
 import { history, routesMap } from "../../routes";
 
 const Login: React.FC = () => {
-	const { name, email } = useTypedSelector(getUserNameAndEmail);
+	const { name, email, error } = useTypedSelector(getUserNameAndEmail);
+	// const isLoggedIn = useTypedSelector(getIsLoggedIn);
+	// console.log(isLoggedIn);
 
 	const [inp, setInp] = React.useState("");
 	const dispatch = useDispatch();
@@ -45,7 +47,8 @@ const Login: React.FC = () => {
 			<button onClick={getUserById}>get user</button> <br />
 			Current user name: {name} <br />
 			Current user email: {email} <br />
-			<button onClick={removeUser}>logout</button> <br />
+			{error && <span>Error. Please enter a number from 1 to 10</span> }
+			{name && <button onClick={removeUser}>logout</button>} <br />
 		</div>
 	);
 };

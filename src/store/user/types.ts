@@ -24,7 +24,8 @@ export interface IUserState {
 
 export enum UserActionTypes {
 	GET_USER = "GET_USER",
-	CLEAR_USER = "CLEAR_USER"
+	CLEAR_USER = "CLEAR_USER",
+	ERROR = "ERROR"
 }
 
 export interface getUserAction {
@@ -35,5 +36,8 @@ export interface getUserAction {
 export interface clearUserAction {
 	type: UserActionTypes.CLEAR_USER;
 }
+export interface errorAction {
+	type: UserActionTypes.ERROR;
+}
 
-export type UserAction = getUserAction | clearUserAction;
+export type UserAction = getUserAction | clearUserAction | errorAction;

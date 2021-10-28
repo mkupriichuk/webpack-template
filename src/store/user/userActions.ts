@@ -1,11 +1,17 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { RootState } from "..";
-import Users from "../../api/users";
-import { UserActionTypes, getUserAction } from "./types";
+import { Users } from "../../api";
+import { UserActionTypes, getUserAction, errorAction } from "./types";
+
+export const getError = (): errorAction => ({
+	type: UserActionTypes.ERROR
+});
 
 export const getUser =
 	(id: number): ThunkAction<Promise<void>, RootState, unknown, getUserAction> =>
-	async (dispatch: ThunkDispatch<RootState, unknown, getUserAction>) => {
+	async (
+		dispatch: ThunkDispatch<RootState, unknown, getUserAction | errorAction>
+	) => {
 		try {
 			const user = await Users.getUserById(id);
 			dispatch({
@@ -13,10 +19,11 @@ export const getUser =
 				payload: user,
 			});
 		} catch (error) {
+			dispatch(getError());
 			console.log(error);
 		}
 	};
 
 export const clearUser = () => ({
-	type: UserActionTypes.CLEAR_USER
+	type: UserActionTypes.CLEAR_USER,
 });

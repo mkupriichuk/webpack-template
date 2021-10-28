@@ -1,13 +1,23 @@
-import { UserAction, UserActionTypes, IUserState } from './types';
+import { UserAction, UserActionTypes, IUserState } from "./types";
 
-const initialState: IUserState | null = null;
+interface IState {
+	user: IUserState | null;
+	error: null | number;
+}
 
-export function userReducer(state = initialState, action: UserAction): IUserState | null {
+const initialState: IState = {
+	user: null,
+	error: null,
+};
+
+export function userReducer(state = initialState, action: UserAction): IState {
 	switch (action.type) {
 		case UserActionTypes.GET_USER:
-			return {...action.payload};
+			return { ...state, user: action.payload };
 		case UserActionTypes.CLEAR_USER:
-			return null;
+			return { ...state, user: null };
+		case UserActionTypes.ERROR:
+			return { ...state, user: null, error: 404 };
 		default:
 			return state;
 	}

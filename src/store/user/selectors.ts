@@ -3,14 +3,15 @@ import { RootState } from "..";
 export const userStore = (store: RootState) => store.user;
 
 export const getUserNameAndEmail = (store: RootState) => {
-	const user = userStore(store);
+	const s = userStore(store);
 	return {
-		name: user?.name,
-		email: user?.email,
+		name: s.user?.name,
+		email: s.user?.email,
+		error: s.error
 	};
 };
 
 export const getIsLoggedIn = (store: RootState) => {
-	const user = userStore(store);
-	return Boolean(user);
+	const s = userStore(store);
+	return Boolean(s.user);
 };
