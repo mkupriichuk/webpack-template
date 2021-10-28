@@ -2,10 +2,10 @@ import { applyMiddleware, combineReducers, createStore } from "redux";
 import thunk from "redux-thunk";
 import { fooReducer } from "./foo/fooReducer";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { barReducer } from "./bar/barReducer";
+import { userReducer } from "./user/userReducer";
 const rootReducer = combineReducers({
 	foo: fooReducer,
-	bar: barReducer
+	user: userReducer
 });
 
 const middleware = [thunk];

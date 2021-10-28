@@ -1,4 +1,4 @@
-import { Home, About, E404, User } from "../pages";
+import { Home, About, E404, Login, Protected } from "../pages";
 import { createBrowserHistory } from "history";
 
 const history = createBrowserHistory();
@@ -8,6 +8,7 @@ export interface IRoute {
 	path: string;
 	component: React.FunctionComponent;
 	exact?: boolean;
+	auth?: boolean;
 }
 
 const routes = [
@@ -22,9 +23,15 @@ const routes = [
 		component: About,
 	},
 	{
-		name: "user",
-		path: "/user",
-		component: User,
+		name: "login",
+		path: "/login",
+		component: Login,
+	},
+	{
+		name: "protected",
+		path: "/protected",
+		component: Protected,
+		auth: true
 	},
 	{
 		path: "**",
