@@ -1,8 +1,8 @@
-import { RootState } from "..";
 import { createSelector } from "reselect";
+import { RootState } from ".";
 
-const selectUser = (store: RootState) => store.user.user;
-const selectError = (store: RootState) => store.user.error;
+const selectUser = (store: RootState) => store.users.user;
+const selectError = (store: RootState) => store.users.error;
 
 export const userNameAndEmailSelector = createSelector(
 	selectUser,

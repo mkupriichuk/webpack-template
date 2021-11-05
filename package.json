@@ -85,16 +85,15 @@
 	},
 	"dependencies": {
 		"@babel/runtime": "^7.15.4",
+		"@reduxjs/toolkit": "^1.6.2",
 		"@types/react-router": "^5.1.17",
 		"@types/react-router-dom": "^5.3.1",
 		"axios": "^0.23.0",
 		"clsx": "^1.1.1",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
-		"react-redux": "^7.2.5",
+		"react-redux": "^7.2.6",
 		"react-router-dom": "^5.3.0",
-		"redux": "^4.1.1",
-		"redux-thunk": "^2.3.0",
 		"reselect": "^4.1.1"
 	}
 }

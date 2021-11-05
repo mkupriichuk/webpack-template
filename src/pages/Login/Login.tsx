@@ -1,15 +1,14 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { clearUser, getUser } from "../../store/user/userActions";
-import { userNameAndEmailSelector } from "../../store/user/selectors";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { history, routesMap } from "../../routes";
+import { userNameAndEmailSelector } from "../../store/userSelectors";
+import { clearUser, getUser } from "../../store/userSlice";
 
 const Login: React.FC = () => {
-	const { name, email, error } = useTypedSelector(userNameAndEmailSelector);
+	const {name, email, error} = useAppSelector(userNameAndEmailSelector);
 
 	const [inp, setInp] = React.useState("");
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
 		if (/^\d+$/.test(value)) {
@@ -52,3 +51,4 @@ const Login: React.FC = () => {
 };
 
 export default Login;
+

@@ -1,16 +1,15 @@
 import React from "react";
 import { Title } from "../../components";
 import twitter from "icons/twitter.svg";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { useDispatch } from "react-redux";
-import { incNumber, loadPosts } from "../../store/foo/fooActions";
-import { fooStore } from "../../store/foo/selectors";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { inc, loadPosts } from "../../store/postsSlice";
+import { postsStore } from "../../store/postsSelectors";
 
 const Home: React.FC = () => {
-	const s = useTypedSelector(fooStore);
-	const dispatch = useDispatch();
+	const s = useAppSelector(postsStore);
+	const dispatch = useAppDispatch();
 	const increaseNum = () => {
-		dispatch(incNumber());
+		dispatch(inc());
 	};
 	const getPosts = () => {
 		dispatch(loadPosts());

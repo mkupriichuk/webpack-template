@@ -1,9 +1,9 @@
 import React from "react";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { userNameAndEmailSelector } from "../../store/user/selectors";
+import { useAppSelector } from "../../hooks/reduxHooks";
+import { userNameAndEmailSelector } from "../../store/userSelectors";
 
 const Protected: React.FC = () => {
-	const { name, email } = useTypedSelector(userNameAndEmailSelector);
+	const {name, email} = useAppSelector(userNameAndEmailSelector);
 	return (
 		<div>
 			Current user name: {name} <br />

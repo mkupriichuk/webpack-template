@@ -1,16 +1,15 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { RouteComponentProps, useParams } from "react-router-dom";
-import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { history } from "../../routes";
-import { loadPostById } from "../../store/foo/fooActions";
-import { getCurrentPost } from "../../store/foo/selectors";
+import { getCurrentPost } from "../../store/postsSelectors";
+import { loadPostById } from "../../store/postsSlice";
 const About: React.FC = () => {
 	// console.log(props);
 	const params = useParams();
-	const currentPost = useTypedSelector(getCurrentPost);
+	const currentPost = useAppSelector(getCurrentPost);
 	console.log(currentPost);
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const getPostById = () => {
 		dispatch(loadPostById(2));
 	};

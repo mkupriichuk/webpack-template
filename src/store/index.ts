@@ -1,19 +1,18 @@
-import { applyMiddleware, combineReducers, createStore } from "redux";
-import thunk from "redux-thunk";
-import { fooReducer } from "./foo/fooReducer";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { userReducer } from "./user/userReducer";
-const rootReducer = combineReducers({
-	foo: fooReducer,
-	user: userReducer
+import { configureStore } from "@reduxjs/toolkit";
+import postsSlice from "./postsSlice";
+import userSlice from "./userSlice";
+
+export const store = configureStore({
+	reducer: {
+		posts: postsSlice,
+		users: userSlice,
+	},
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: false,
+		}),
+	devTools: process.env.NODE_ENV !== "production",
 });
-
-const middleware = [thunk];
-
-export const store = createStore(
-	rootReducer,
-	composeWithDevTools(applyMiddleware(...middleware))
-);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
