@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
 
@@ -18,10 +18,10 @@ axios.interceptors.response.use(undefined, (error) => {
 const responseBody = (response: AxiosResponse) => response.data;
 
 export const requests = {
-	get: (url: string): Promise<any> => axios.get(url).then(responseBody),
-	post: (url: string, body: Record<string, unknown>): Promise<any> =>
-		axios.post(url, body).then(responseBody),
-	put: (url: string, body: Record<string, unknown>): Promise<any> =>
-		axios.put(url, body).then(responseBody),
-	del: (url: string): Promise<any> => axios.delete(url).then(responseBody),
+	get: (url: string, options?: AxiosRequestConfig): Promise<any> => axios.get(url, options).then(responseBody),
+	post: (url: string, body: Record<string, unknown>, options?: AxiosRequestConfig): Promise<any> =>
+		axios.post(url, body, options).then(responseBody),
+	put: (url: string, body: Record<string, unknown>, options?: AxiosRequestConfig): Promise<any> =>
+		axios.put(url, body, options).then(responseBody),
+	del: (url: string, options?: AxiosRequestConfig): Promise<any> => axios.delete(url, options).then(responseBody),
 };
