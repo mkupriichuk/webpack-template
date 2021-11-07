@@ -1,9 +1,10 @@
+import { AxiosRequestConfig } from "axios";
 import { IPost } from "../models/posts";
 import { requests } from "./config";
 
 const Posts = {
-  allPosts: (): Promise<IPost[]> => requests.get('/posts'),
-  postById: (n: number): Promise<IPost> => requests.get(`/posts/${n}`)
+  allPosts: (options?: AxiosRequestConfig): Promise<IPost[]> => requests.get('/posts', options),
+  postById: (n: number, options?: AxiosRequestConfig): Promise<IPost> => requests.get(`/posts/${n}`, options)
 };
 
 export default Posts;
