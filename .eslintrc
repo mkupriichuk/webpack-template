@@ -2,7 +2,8 @@
 	"root": true,
 	"parser": "@typescript-eslint/parser",
 	"plugins": [
-		"@typescript-eslint"
+		"@typescript-eslint",
+		"react-hooks"
 	],
 	"ignorePatterns": ["config/**/*.js"],
 	"rules": {
@@ -17,7 +18,9 @@
 			{
 				"allowSingleExtends": true
 			}
-		]
+		],
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn"
 	},
 	"extends": [
 		"eslint:recommended",
