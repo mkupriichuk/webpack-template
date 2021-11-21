@@ -3,12 +3,12 @@ import { RootStoreContext } from '../store/rootStore';
 
 export const useRootStore = () => useContext(RootStoreContext);
 
-export const useFooStore = () => {
+export const useUserStore = () => {
 	const root = useRootStore();
-	return root.fooStore;
+	return root.userStore;
 };
 
-export const useBarStore = () => {
+export const usePostsStore = () => {
 	const root = useRootStore();
-	return root.barStore;
+	return root.postsStore;
 };

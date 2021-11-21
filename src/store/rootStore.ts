@@ -1,13 +1,13 @@
-import FooStore, { FooStoreType } from "./fooStore";
-import BarStore, { BarStoreType } from "./barStore";
+import PostsStore, { PostsStoreType } from "./postsStore";
+import UserStore, { UserStoreType } from "./userStore";
 import { createContext } from "react";
 import { configure } from "mobx";
 export class RootStore {
-	fooStore: FooStoreType;
-	barStore: BarStoreType;
+	postsStore: PostsStoreType;
+	userStore: UserStoreType;
 	constructor() {
-		this.fooStore = new FooStore(this);
-		this.barStore = new BarStore(this);
+		this.postsStore = new PostsStore(this);
+		this.userStore = new UserStore(this);
 	}
 }
 

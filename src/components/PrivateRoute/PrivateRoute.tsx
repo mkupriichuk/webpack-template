@@ -7,7 +7,7 @@ import {
 	Redirect,
 	useLocation,
 } from "react-router-dom";
-import { useBarStore } from "../../hooks/useStore";
+import { useUserStore } from "../../hooks/useStore";
 import { routesMap } from "../../routes";
 
 interface IPrivatRouteProps extends RouteProps {
@@ -19,7 +19,7 @@ const PrivateRoute: React.FC<IPrivatRouteProps> = ({
 	component: Component,
 	...rest
 }) => {
-	const { isLoggedIn } = useBarStore();
+	const { isLoggedIn } = useUserStore();
 	const location = useLocation();
 
 	return (

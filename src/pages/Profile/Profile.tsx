@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { useLocation } from "react-router";
-import { useBarStore } from "../../hooks/useStore";
+import { useUserStore } from "../../hooks/useStore";
 
 
 const Profile: React.FC = () => {
-	const { login, logout, isLoggedIn, name } = useBarStore();
+	const { login, logout, isLoggedIn, name } = useUserStore();
 	const location = useLocation<any>();
 
 	const loginHandler = () => login("maksym", location.state?.from);

@@ -1,4 +1,4 @@
-import { Home, About, E404, Dashboard, Profile } from "../pages";
+import { Home, About, E404, Dashboard, Profile, Post } from "../pages";
 import { createBrowserHistory } from "history";
 const history = createBrowserHistory();
 
@@ -31,6 +31,11 @@ const routes = [
 		path: "/dashboard",
 		auth: true,
 		component: Dashboard,
+	},
+	{
+		name: "post",
+		path: "/post/:id",
+		component: Post,
 	},
 	{
 		path: "**",

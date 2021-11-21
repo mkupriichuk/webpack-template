@@ -1,8 +1,8 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
-import { useBarStore } from "../../hooks/useStore";
+import { useUserStore } from "../../hooks/useStore";
 const Dashboard: React.FC = () => {
-	const { name } = useBarStore();
+	const { name } = useUserStore();
 
 	return <div>{name} Dashboard</div>;
 };

@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { history, routesMap } from "../routes";
 import { RootStoreType } from "./rootStore";
 
-export default class BarStore {
+export default class UserStore {
 	rootStore: RootStoreType;
 	name: null | string = null;
 	constructor(rootStore: RootStoreType) {
@@ -25,4 +25,4 @@ export default class BarStore {
 	}
 }
 
-export type BarStoreType = BarStore;
+export type UserStoreType = UserStore;
