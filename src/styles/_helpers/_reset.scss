@@ -1,155 +1,76 @@
-html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5,
-h6, p, blockquote, pre,a, abbr, acronym, address, big,
-cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small,
-strike, strong, sub, sup, tt, var,b, u, i, center,dl, dt,
-dd, ul, ol, li, fieldset, form, label, legend,table, caption,
-tbody, tfoot, thead, tr, th, td,article, aside, canvas, details,
-embed, figure, figcaption, footer, header, hgroup, menu, nav,
-output, ruby, section, summary, time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	vertical-align: baseline;
-}
-html {
+*,
+*::before,
+*::after {
 	box-sizing: border-box;
+}
+
+* {
+	margin: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	overflow-wrap: break-word;
+}
+
+html,
+body,
+#root {
 	height: 100%;
-	-ms-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
 }
 
-*::-webkit-input-placeholder {
-	color: #666;
-	opacity: 1;
+#root {
+	isolation: isolate;
 }
 
-*:-moz-placeholder {
-	color: #666;
-	opacity: 1;
+input,
+button,
+textarea,
+select {
+	font: inherit;
 }
 
-*::-moz-placeholder {
-	color: #666;
-	opacity: 1;
-}
-
-*:-ms-input-placeholder {
-	color: #666;
-	opacity: 1;
-}
-
-body input:focus:required:invalid,
-body textarea:focus:required:invalid {
-	color: #666;
-}
-
-body input:required:valid,
-body textarea:required:valid {
-	color: #666;
-}
-
-img,fieldset, a img {
-	border: none;
-}
-
-svg:not(:root) {
-	overflow: hidden;
-}
-
-img {
-	border-style: none
-}
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-textarea {
-	-webkit-appearance: none;
-}
-input[type="submit"],
 button {
 	background-color: transparent;
 	cursor: pointer;
-
-	&::-moz-focus-inner {
-		padding: 0;
-		border: 0;
-	}
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-	box-sizing: border-box; // 1. Add the correct box sizing in IE 10-
-	padding: 0;// 2. Remove the padding in IE 10-
-}
-
-[type="search"]::-webkit-search-cancel-button,
-[type="search"]::-webkit-search-decoration {
-	-webkit-appearance: none;
-}
-//;
-// 1. Correct the inability to style clickable types in iOS and Safari.;
-// 2. Change font properties to `inherit` in Safari.;
-//;
-::-webkit-file-upload-button {
-	font: inherit; // 2;
-	-webkit-appearance: button; // 1;
-}
-//;
-// Correct element displays;
-//;
-output {
-	display: inline-block;
-}
-summary {
-	display: list-item; // Add the correct display in all browsers
-}
-
-template {
-	display: none; // Add the correct display in IE
-}
-
-[hidden] {
-	display: none !important;
-}
-
-ul, ol, li {
-	list-style: none outside none;
-}
-
-
-textarea {
-	overflow: auto;
-}
-
-input, button {
-	margin: 0;
+ul,
+ol {
+	list-style: none;
 	padding: 0;
-	border: 0;
 }
 
 a {
 	text-decoration: none;
-	background-color: transparent; // Remove the gray background on active links in IE 10.;
-	-webkit-text-decoration-skip: objects; // Remove gaps in links underline in iOS 8+ and
-	&:focus, &:hover, &:active {
-		text-decoration: none;
-	}
 }
 
-table {
-	border-spacing: 0;
-	border-collapse: collapse;
-	width: 100%;
-}
-
-
-*, *:before, *:after {
-	box-sizing: inherit;
+img,
+picture,
+video,
+canvas,
+svg {
+	max-width: 100%;
+	display: block;
 }
 
 @media (prefers-reduced-motion: reduce) {
-	* {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
 		transition: none !important;
 	}
 }
