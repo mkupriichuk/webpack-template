@@ -28,7 +28,12 @@ declare module "*.png" {
 	export default src;
 }
 
-declare module "*.webp" {
+declare module "*.mp3" {
+	const src: string;
+	export default src;
+}
+
+declare module "*.mp4" {
 	const src: string;
 	export default src;
 }
@@ -37,7 +42,10 @@ declare module "*.svg" {
 	const content: any;
 	export default content;
 }
-
+declare module "*.webp" {
+	const src: string;
+	export default src;
+}
 declare module "*.module.scss" {
 	const classes: { readonly [key: string]: string };
 	export default classes;

@@ -7,7 +7,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMQPackerPlugin = require('./helpers/CssMQPackerPlugin');
 const Dotenv = require('dotenv-webpack');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
@@ -114,6 +114,7 @@ module.exports = merge(baseConfig, {
 		new Dotenv({
 			path: PATHS.root + '/.env.production',
 		}),
+		new LodashModuleReplacementPlugin,
 		new ForkTsCheckerWebpackPlugin({
 			typescript: {
 				configFile: PATHS.root + '/tsconfig.json',
@@ -166,7 +167,7 @@ module.exports = merge(baseConfig, {
 				exclude: /\.module\.(css|scss|sass)$/,
 				use: styleLoaders(
 					{
-						importLoaders: 3,
+						importLoaders: 4,
 					}
 					// 'autoprefixer' // uncommit if u want to use autoprefixer on dev-mode
 				),
@@ -175,7 +176,7 @@ module.exports = merge(baseConfig, {
 				test: /\.module\.(css|scss|sass)$/,
 				use: styleLoaders(
 					{
-						importLoaders: 3,
+						importLoaders: 4,
 						modules: {
 							localIdentName: '[hash:base64]',
 						},
@@ -215,6 +216,15 @@ function styleLoaders(options = {}) {
 			},
 		},
 		'sass-loader',
+		{
+			loader: 'sass-resources-loader',
+			options: {
+				resources: [
+					`${PATHS.src}/styles/_helpers/_mixins.scss`,
+					`${PATHS.src}/styles/_helpers/_vars.scss`,
+				],
+			},
+		},
 	];
 
 	return loaders;
