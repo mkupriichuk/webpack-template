@@ -7,6 +7,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CssMQPackerPlugin = require('./helpers/CssMQPackerPlugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
@@ -110,6 +111,7 @@ module.exports = merge(baseConfig, {
         or ['npm'] for exclude all files with 'npm' in name (npm.bootstrap.32ccae4211943.css)
       */
 		}),
+		new LodashModuleReplacementPlugin,
 		new Dotenv({
 			path: PATHS.root + '/.env.production',
 		}),
