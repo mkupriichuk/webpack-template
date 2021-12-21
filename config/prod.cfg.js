@@ -5,6 +5,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const CssMQPackerPlugin = require('./helpers/CssMQPackerPlugin');
 const PATHS = require('./paths.js');
 const baseConfig = require('./base.cfg');
@@ -107,6 +108,7 @@ module.exports = merge(baseConfig, {
         or ['npm'] for exclude all files with 'npm' in name (npm.bootstrap.32ccae4211943.css)
       */
 		}),
+		new LodashModuleReplacementPlugin,
 		new Dotenv({
 			path: PATHS.root + '/.env.production',
 		}),
@@ -152,7 +154,7 @@ module.exports = merge(baseConfig, {
 				exclude: /\.module\.(css|scss|sass)$/,
 				use: styleLoaders(
 					{
-						importLoaders: 3,
+						importLoaders: 4,
 					}
 					// 'autoprefixer' // uncommit if u want to use autoprefixer on dev-mode
 				),
@@ -161,7 +163,7 @@ module.exports = merge(baseConfig, {
 				test: /\.module\.(css|scss|sass)$/,
 				use: styleLoaders(
 					{
-						importLoaders: 3,
+						importLoaders: 4,
 						modules: {
 							localIdentName: '[hash:base64]',
 						},
@@ -201,6 +203,15 @@ function styleLoaders(options = {}) {
 			},
 		},
 		'sass-loader',
+		{
+			loader: 'sass-resources-loader',
+			options: {
+				resources: [
+					`${PATHS.src}/styles/_helpers/_mixins.scss`,
+					`${PATHS.src}/styles/_helpers/_vars.scss`,
+				],
+			},
+		},
 	];
 
 	return loaders;
