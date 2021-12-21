@@ -123,7 +123,7 @@ module.exports = merge(baseConfig, {
 				test: /\.module\.(css|scss|sass)$/,
 				use: styleLoaders(
 					{
-						importLoaders: 2,
+						importLoaders: 3,
 						modules: {
 							localIdentName: '[local]__[sha1:hash:hex:7]',
 						},

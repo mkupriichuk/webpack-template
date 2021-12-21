@@ -54,7 +54,7 @@ const plugins = [
 			or ['npm'] for exclude all files with 'npm' in name (npm.bootstrap.32ccae4211943.css)
 		*/
 	}),
-	new LodashModuleReplacementPlugin(),
+	new LodashModuleReplacementPlugin,
 	new ForkTsCheckerWebpackPlugin({
 		typescript: {
 			configFile: PATHS.root + '/tsconfig.json',
