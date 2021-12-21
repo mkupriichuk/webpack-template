@@ -8,7 +8,7 @@ module.exports = (api) => {
 		],
 		...(!api.env('production') && { plugins: ['react-refresh/babel'] }),
 		...(api.env('production') && {
-			plugins: [['@babel/plugin-transform-runtime', { regenerator: true }]],
+			plugins: ['lodash', ['@babel/plugin-transform-runtime', { regenerator: true }]],
 		}),
 	};
 };

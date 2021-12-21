@@ -114,7 +114,7 @@ module.exports = merge(baseConfig, {
 				exclude: /\.module\.(css|scss|sass)$/,
 				use: styleLoaders(
 					{
-						importLoaders: 2,
+						importLoaders: 3,
 					}
 					// 'autoprefixer' // uncommit if u want to use autoprefixer on dev-mode
 				),
@@ -148,6 +148,15 @@ function styleLoaders(options = {}, autoprefixer) {
 			options,
 		},
 		'sass-loader',
+		{
+			loader: 'sass-resources-loader',
+			options: {
+				resources: [
+					`${PATHS.src}/styles/_helpers/_mixins.scss`,
+					`${PATHS.src}/styles/_helpers/_vars.scss`,
+				],
+			},
+		},
 	];
 
 	if (autoprefixer) {
