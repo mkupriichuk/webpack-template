@@ -1,6 +1,6 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { RootState } from "..";
-import { Users } from "../../api";
+import { UsersApi } from "../../api";
 import { UserActionTypes, getUserAction, errorAction } from "./types";
 
 export const getError = (): errorAction => ({
@@ -13,7 +13,7 @@ export const getUser =
 		dispatch: ThunkDispatch<RootState, unknown, getUserAction | errorAction>
 	) => {
 		try {
-			const user = await Users.getUserById(id);
+			const user = await UsersApi.getUserById(id);
 			dispatch({
 				type: UserActionTypes.GET_USER,
 				payload: user,
