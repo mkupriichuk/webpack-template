@@ -3,7 +3,7 @@ import { RootState } from "..";
 import { UsersApi } from "../../api";
 import { UserActionTypes, getUserAction, errorAction } from "./types";
 
-export const getError = (): errorAction => ({
+export const setError = (): errorAction => ({
 	type: UserActionTypes.ERROR
 });
 
@@ -19,7 +19,7 @@ export const getUser =
 				payload: user,
 			});
 		} catch (error) {
-			dispatch(getError());
+			dispatch(setError());
 			console.log(error);
 		}
 	};
