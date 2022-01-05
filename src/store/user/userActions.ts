@@ -1,17 +1,27 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { RootState } from "..";
 import { UsersApi } from "../../api";
-import { UserActionTypes, getUserAction, errorAction } from "./types";
+import {
+	UserActionTypes,
+	errorAction,
+	UserAction,
+} from "./types";
+
+type ThunkActionType = ThunkAction<
+	Promise<void>,
+	RootState,
+	unknown,
+	UserAction
+>;
+type ThunkDispatchType = ThunkDispatch<RootState, unknown, UserAction>;
 
 export const setError = (): errorAction => ({
-	type: UserActionTypes.ERROR
+	type: UserActionTypes.ERROR,
 });
 
 export const getUser =
-	(id: number): ThunkAction<Promise<void>, RootState, unknown, getUserAction> =>
-	async (
-		dispatch: ThunkDispatch<RootState, unknown, getUserAction | errorAction>
-	) => {
+	(id: number): ThunkActionType =>
+	async (dispatch: ThunkDispatchType) => {
 		try {
 			const user = await UsersApi.getUserById(id);
 			dispatch({
