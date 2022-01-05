@@ -11,15 +11,6 @@ const App: React.FC = () => {
 				<li>
 					<Link to={routesMap.home}>home</Link>
 				</li>
-				<li>
-					<Link to={routesMap.about}>about</Link>
-				</li>
-				<li>
-					<Link to={routesMap.login}>login page</Link>
-				</li>
-				<li>
-					<Link to={routesMap.protected}>protected page</Link>
-				</li>
 			</ul>
 			<div className="container">
 				<Switch>
