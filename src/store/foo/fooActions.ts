@@ -5,7 +5,6 @@ import {
 	FooAction,
 	FooActionTypes,
 	incNumberAction,
-	loadPostByIdAction,
 } from "./types";
 
 type ThunkActionType = ThunkAction<
