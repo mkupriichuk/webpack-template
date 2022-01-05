@@ -1,20 +1,32 @@
 import { ThunkAction, ThunkDispatch } from "redux-thunk";
 import { RootState } from "..";
 import { PostsApi } from "../../api";
-import { FooActionTypes, incNumberAction, loadPostByIdAction, loadPostsAction } from "./types";
+import {
+	FooAction,
+	FooActionTypes,
+	incNumberAction,
+	loadPostByIdAction,
+} from "./types";
+
+type ThunkActionType = ThunkAction<
+	Promise<void>,
+	RootState,
+	unknown,
+	FooAction
+>;
+type ThunkDispatchType = ThunkDispatch<RootState, unknown, FooAction>;
 
 export const incNumber = (): incNumberAction => {
 	return { type: FooActionTypes.PLUS_NUMBER };
 };
 
 export const loadPosts =
-	(): ThunkAction<Promise<void>, RootState, unknown, loadPostsAction> =>
-	async (dispatch: ThunkDispatch<RootState, unknown, loadPostsAction>) => {
+	(): ThunkActionType => async (dispatch: ThunkDispatchType) => {
 		try {
 			const posts = await PostsApi.allPosts();
 			dispatch({
 				type: FooActionTypes.LOAD_POSTS,
-				payload: posts
+				payload: posts,
 			});
 		} catch (error) {
 			console.log(error);
@@ -22,8 +34,10 @@ export const loadPosts =
 	};
 
 export const loadPostById =
-	(id: number): ThunkAction<Promise<void>, RootState, unknown, loadPostByIdAction> =>
-	async (dispatch: ThunkDispatch<RootState, unknown, loadPostByIdAction>) => {
+	(
+		id: number
+	): ThunkActionType =>
+	async (dispatch: ThunkDispatchType) => {
 		try {
 			const post = await PostsApi.postById(id);
 			dispatch({
