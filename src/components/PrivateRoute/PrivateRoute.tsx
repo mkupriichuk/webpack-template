@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import { routesMap } from "../../routes";
-import { IsLoggedInSelector } from "../../store/userSelectors";
+import { IsLoggedInSelector } from "../../store/user/userSelectors";
 
 interface IPrivatRouteProps extends RouteProps {
 	component: React.ComponentType<RouteComponentProps<any>>;
@@ -31,7 +31,7 @@ const PrivateRoute: React.FC<IPrivatRouteProps> = ({
 				) : (
 					<Redirect
 						to={{
-							pathname: routesMap.login,
+							pathname: routesMap.home,
 							state: { from: location.pathname }
 						}}
 					/>
