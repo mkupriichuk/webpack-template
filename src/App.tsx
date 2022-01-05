@@ -11,16 +11,7 @@ const App: React.FC = () => {
 			<AppLayout>
 				<ul>
 					<li>
-						<Link to={routesMap.profile}>profile</Link>
-					</li>
-					<li>
 						<Link to={routesMap.home}>home</Link>
-					</li>
-					<li>
-						<Link to={routesMap.about}>about</Link>
-					</li>
-					<li>
-						<Link to={routesMap.dashboard}>dashboard</Link>
 					</li>
 				</ul>
 				<Switch>
