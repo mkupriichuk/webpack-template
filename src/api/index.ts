@@ -1,2 +1,2 @@
-export {default as Posts} from './posts';
-export {default as Users} from './users';
+export {default as PostsApi} from './posts';
+export {default as UsersApi} from './users';

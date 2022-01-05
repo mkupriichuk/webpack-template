@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Users } from "../api";
+import { UsersApi } from "../../api";
 
 interface IUserState {
 	id: number;
@@ -42,7 +42,7 @@ export const getUser = createAsyncThunk<IUserState, number>(
 	"users/getUser",
 	async (id, thunkAPI) => {
 		try {
-			const data = await Users.getUserById(id);
+			const data = await UsersApi.getUserById(id);
 			return data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error);
