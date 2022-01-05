@@ -5,7 +5,7 @@ import { RootState } from "..";
 const selectUser = (store: RootState) => store.users.user;
 const selectError = (store: RootState) => store.users.error;
 
-export const userNameAndEmailSelector = createSelector(
+export const userDto = createSelector(
 	selectUser,
 	selectError,
 	(user, error) => ({
