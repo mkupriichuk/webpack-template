@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Posts } from "../api";
-import { IPost } from "../models/posts";
+import { PostsApi } from "../../api";
+import { IPost } from "../../models/posts";
 
 interface IPostsState {
 	error: boolean;
@@ -22,7 +22,7 @@ export const loadPosts = createAsyncThunk<IPost[] | undefined>(
 	"posts/loadPosts",
 	async (_, thunkAPI) => {
 		try {
-			const data = await Posts.allPosts();
+			const data = await PostsApi.allPosts();
 			return data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error);
@@ -34,7 +34,7 @@ export const loadPostById = createAsyncThunk<IPost, number>(
 	"posts/loadPostById",
 	async (id, thunkAPI) => {
 		try {
-			const data = await Posts.postById(id);
+			const data = await PostsApi.postById(id);
 			return data;
 		} catch (error) {
 			return thunkAPI.rejectWithValue(error);
