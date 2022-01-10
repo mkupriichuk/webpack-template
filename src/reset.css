@@ -4,6 +4,11 @@
 	box-sizing: border-box;
 }
 
+
+html {
+	text-size-adjust: none;
+}
+
 * {
 	margin: 0;
 }
