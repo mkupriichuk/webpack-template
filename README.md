@@ -74,16 +74,6 @@ import Twitter from './twitter.svg'
 <Twitter />
 ```
 
-#### Svgs which stores in src/components folder used by @svgr/webpack, but still can be usage on css like a background: 
-```
-js\ts:
-import Twitter from 'components/Header'
-...
-<Twitter/>
-
-or in css:
-background-image: url('./twitter.svg')
-```
 ## 6. Build
 
 - Build the app:
