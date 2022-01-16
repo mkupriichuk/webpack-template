@@ -1,53 +1,66 @@
-declare module '*.avif' {
+declare module "*.avif" {
 	const src: string;
 	export default src;
 }
 
-declare module '*.bmp' {
+declare module "*.bmp" {
 	const src: string;
 	export default src;
 }
 
-declare module '*.gif' {
+declare module "*.gif" {
 	const src: string;
 	export default src;
 }
 
-declare module '*.jpg' {
+declare module "*.jpg" {
 	const src: string;
 	export default src;
 }
 
-declare module '*.jpeg' {
+declare module "*.jpeg" {
 	const src: string;
 	export default src;
 }
 
-declare module '*.png' {
+declare module "*.png" {
 	const src: string;
 	export default src;
 }
 
-declare module '*.webp' {
+declare module "*.webp" {
 	const src: string;
 	export default src;
 }
 
+
+// declare svg types for @svgr
 declare module "*.svg" {
-	const content: any;
+	const content: React.FunctionComponent<React.SVGAttributes<SVGAElement>>;
 	export default content;
 }
 
-declare module '*.mp3' {
+// declare svg types for file-loader
+declare module "*.svg?url" {
+	const path: string;
+	export default path;
+}
+
+declare module "*.mp3" {
 	const src: string;
 	export default src;
 }
 
-declare module '*.mp4' {
+declare module "*.mp4" {
 	const src: string;
 	export default src;
 }
-declare module '*.module.css' {
+declare module "*.module.scss" {
+	const classes: { readonly [key: string]: string };
+	export default classes;
+}
+
+declare module "*.module.css" {
 	const classes: { readonly [key: string]: string };
 	export default classes;
 }
