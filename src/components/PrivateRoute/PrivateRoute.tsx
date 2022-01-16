@@ -31,7 +31,7 @@ const PrivateRoute: React.FC<IPrivatRouteProps> = ({
 				) : (
 					<Redirect
 						to={{
-							pathname: routesMap.profile,
+							pathname: routesMap.home,
 							state: { from: location.pathname }
 						}}
 					/>
