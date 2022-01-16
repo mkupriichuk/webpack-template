@@ -88,27 +88,37 @@ module.exports = merge(baseConfig, {
 			},
 			{
 				test: /\.svg$/,
-				include: PATHS.public,
-				type: 'asset/resource',
-				generator: {
-					filename: 'images/[name].[contenthash][ext]',
-				},
+				oneOf: [
+					{
+						resourceQuery: /url/,
+						issuer: /\.(js|ts)x?$/,
+						type: 'asset/resource',
+						generator: {
+							filename: 'images/[name].[contenthash][ext]',
+						},
+					},
+					{
+						type: 'asset/resource',
+						issuer: /\.(s?css|sass)$/,
+						generator: {
+							filename: 'images/[name].[contenthash][ext]',
+						},
+					},
+					{
+						issuer: /\.(js|ts)x?$/,
+						use: '@svgr/webpack',
+					}
+				]
 			},
-			{
-				test: /\.svg$/,
-				exclude: PATHS.packagesExcludePath,
-				issuer: /\.(s?css|sass)$/,
-				type: 'asset/resource',
-				generator: {
-					filename: 'images/[name].[contenthash][ext]',
-				},
-			},
-			{
-				test: /\.svg$/,
-				exclude: [PATHS.packagesExcludePath, PATHS.public],
-				issuer: /\.(js|ts)x?$/,
-				use: '@svgr/webpack',
-			},
+			// {
+			// 	test: /\.svg$/,
+			// 	exclude: PATHS.packagesExcludePath,
+			// 	issuer: /\.(s?css|sass)$/,
+			// 	type: 'asset/resource',
+			// 	generator: {
+			// 		filename: 'images/[name].[contenthash][ext]',
+			// 	},
+			// },
 			{
 				test: /\.(css|scss|sass)$/,
 				exclude: /\.module\.(css|scss|sass)$/,
