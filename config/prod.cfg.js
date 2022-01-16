@@ -128,28 +128,29 @@ module.exports = merge(baseConfig, {
 			},
 			{
 				test: /\.svg$/,
-				include: PATHS.public,
-				type: 'asset/resource',
-				generator: {
-					filename: 'images/[name].[contenthash][ext]',
-				},
-				use: svgoLoader()
-			},
-			{
-				test: /\.svg$/,
-				exclude: PATHS.packagesExcludePath,
-				type: 'asset/resource',
-				issuer: /\.(s?css|sass)$/,
-				generator: {
-					filename: 'images/[name].[contenthash][ext]',
-				},
-				use: svgoLoader(),
-			},
-			{
-				test: /\.svg$/,
-				exclude: [PATHS.packagesExcludePath, PATHS.public],
-				issuer: /\.(js|ts)x?$/,
-				use: ['@svgr/webpack', svgoLoader()]
+				oneOf: [
+					{
+						resourceQuery: /url/,
+						issuer: /\.(js|ts)x?$/,
+						type: 'asset/resource',
+						generator: {
+							filename: 'images/[name].[contenthash][ext]',
+						},
+						use: svgoLoader()
+					},
+					{
+						type: 'asset/resource',
+						issuer: /\.(s?css|sass)$/,
+						generator: {
+							filename: 'images/[name].[contenthash][ext]',
+						},
+						use: svgoLoader()
+					},
+					{
+						issuer: /\.(js|ts)x?$/,
+						use: ['@svgr/webpack', svgoLoader()],
+					}
+				]
 			},
 			{
 				test: /\.css$/,
