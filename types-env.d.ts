@@ -33,9 +33,17 @@ declare module "*.webp" {
 	export default src;
 }
 
+
+// declare svg types for @svgr
 declare module "*.svg" {
-  const content: any
-  export default content;
+	const content: React.FunctionComponent<React.SVGAttributes<SVGAElement>>;
+	export default content;
+}
+
+// declare svg types for file-loader
+declare module "*.svg?url" {
+	const path: string;
+	export default path;
 }
 
 declare module "*.mp3" {
