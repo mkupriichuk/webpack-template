@@ -54,28 +54,23 @@ Please note if you are using .env.development when developing
 you should also use .env.production in production
 */
 ```
-
 ### SVG usage:
-#### Svgs which stores in public folder used by default webpack file loader:
+#### You can use SVG as an asset. For this add ?url to the end of filename:
 ```
 js\ts:
-import twitter from 'public/twitter.svg'
+import twitter from './twitter.svg?url'
 ...
 <img src={twitter} alt="twitter" />
 
 or in css:
-background-image: url('public/twitter.svg')
+background-image: url('./twitter.svg')
 ```
-
-#### Svgs which stores in src/components folder used by @svgr/webpack, but still can be usage on css like a background: 
+#### Or inline (svgr)
 ```
 js\ts:
-import Twitter from 'components/Header'
+import Twitter from './twitter.svg'
 ...
-<Twitter/>
-
-or in css:
-background-image: url('./twitter.svg')
+<Twitter />
 ```
 ## 6. Build
 
