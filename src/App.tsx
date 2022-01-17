@@ -1,6 +1,6 @@
 import './app.css';
 import React from 'react';
-import twitter from 'icons/twitter.svg';
+import twitter from 'icons/twitter.svg?url';
 
 const App: React.FC = () => {
 	return (
