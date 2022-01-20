@@ -3224,6 +3224,11 @@ eslint-plugin-react-hooks@^4.3.0:
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.3.0.tgz#318dbf312e06fab1c835a4abef00121751ac1172"
   integrity sha512-XslZy0LnMn+84NEG9jSGR6eGqaZB3133L8xewQo3fQagbQuGt7a63gf+P1NGKZavEYEC3UXaWEAA/AqDkuN6xA==
 
+eslint-plugin-svg-import-helper@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-svg-import-helper/-/eslint-plugin-svg-import-helper-1.0.3.tgz#fe8eb82d95a984d8e9657e5379a085f8ea5c3c55"
+  integrity sha512-qOGEmmcoLptvau+ZWSsnsotCU6GjsuDVVsMZ79tRnk1ygNgISZqAkQs1PvvAb8X8jg0b8MHRDgjkqaU6sLCyTA==
+
 eslint-scope@5.1.1, eslint-scope@^5.1.1:
   version "5.1.1"
   resolved "https://registry.npmjs.org/eslint-scope/-/eslint-scope-5.1.1.tgz"
