@@ -3,7 +3,8 @@
 	"parser": "@typescript-eslint/parser",
 	"plugins": [
 		"@typescript-eslint",
-		"react-hooks"
+		"react-hooks",
+		"svg-import-helper"
 	],
 	"ignorePatterns": ["config/**/*.js"],
 	"rules": {
@@ -20,7 +21,8 @@
 			}
 		],
 		"react-hooks/rules-of-hooks": "error",
-		"react-hooks/exhaustive-deps": "warn"
+		"react-hooks/exhaustive-deps": "warn",
+		"svg-import-helper/correct-import": "warn"
 	},
 	"extends": [
 		"eslint:recommended",
