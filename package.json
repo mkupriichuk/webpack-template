@@ -60,6 +60,7 @@
 		"eslint": "^8.1.0",
 		"eslint-plugin-react": "^7.26.1",
 		"eslint-plugin-react-hooks": "^4.3.0",
+		"eslint-plugin-svg-import-helper": "^1.0.3",
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"html-webpack-plugin": "^5.4.0",
 		"image-webpack-loader": "^8.0.1",

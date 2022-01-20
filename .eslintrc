@@ -1,11 +1,12 @@
 {
 	"extends": ["eslint:recommended", "plugin:react/recommended"],
 	"parser": "@babel/eslint-parser",
-	"plugins": ["react", "react-hooks"],
+	"plugins": ["react", "react-hooks", "svg-import-helper"],
 	"rules": {
 		"react/prop-types": "off",
 		"react-hooks/rules-of-hooks": "error",
-		"react-hooks/exhaustive-deps": "warn"
+		"react-hooks/exhaustive-deps": "warn",
+		"svg-import-helper/correct-import": "warn"
 	},
 	"parserOptions": {
 		"ecmaVersion": 2020,
