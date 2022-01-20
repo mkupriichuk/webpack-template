@@ -3300,6 +3300,11 @@ eslint-plugin-react@^7.25.2:
     semver "^6.3.0"
     string.prototype.matchall "^4.0.6"
 
+eslint-plugin-svg-import-helper@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-svg-import-helper/-/eslint-plugin-svg-import-helper-1.0.3.tgz#fe8eb82d95a984d8e9657e5379a085f8ea5c3c55"
+  integrity sha512-qOGEmmcoLptvau+ZWSsnsotCU6GjsuDVVsMZ79tRnk1ygNgISZqAkQs1PvvAb8X8jg0b8MHRDgjkqaU6sLCyTA==
+
 eslint-scope@5.1.1, eslint-scope@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-5.1.1.tgz#e786e59a66cb92b3f6c1fb0d508aab174848f48c"
