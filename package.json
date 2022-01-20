@@ -64,6 +64,7 @@
 		"dotenv-webpack": "^7.0.3",
 		"eslint": "^8.1.0",
 		"eslint-plugin-react-hooks": "^4.3.0",
+		"eslint-plugin-svg-import-helper": "^1.0.3",
 		"fork-ts-checker-webpack-plugin": "^6.4.0",
 		"friendly-errors-webpack-plugin": "^1.7.0",
 		"html-webpack-plugin": "^5.4.0",
