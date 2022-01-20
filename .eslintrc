@@ -4,11 +4,13 @@
 	"plugins": [
 		"@typescript-eslint",
 		"react-hooks",
-		"mobx-observer-checker"
+		"mobx-observer-checker",
+		"svg-import-helper"
 	],
 	"ignorePatterns": ["config/**/*.js"],
 	"rules": {
 		"mobx-observer-checker/observer-wrapper": "warn",
+		"svg-import-helper/correct-import": "warn",
 		"semi": "off",
 		"@typescript-eslint/no-non-null-assertion": 0,
 		"@typescript-eslint/explicit-module-boundary-types": "off",
