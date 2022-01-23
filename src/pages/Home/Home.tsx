@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 const Home: React.FC = () => {
 	return (
 		<div>
-			<Title tag='h1'>Hello</Title>
+			<Title tag="h1">Hello</Title>
 		</div>
 	);
 };

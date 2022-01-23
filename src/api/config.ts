@@ -1,6 +1,6 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-axios.defaults.baseURL = 'https://jsonplaceholder.typicode.com';
+axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
 
 axios.interceptors.request.use(
 	(config) => {
@@ -14,12 +14,42 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(undefined, (error) => {
 	throw error.response;
 });
-
-
-// export const authInstance = axios.create({
-// 	baseURL: process.env.AUTH_API_URL,
-// 	withCredentials: true,
-// });
+export class Requests {
+	private instance: AxiosInstance;
+	constructor(instance: AxiosInstance) {
+		this.instance = instance;
+	}
+	get(url: string, options?: AxiosRequestConfig): Promise<any> {
+		return this.instance.get(url, options).then(this.responseBody);
+	}
+	post(
+		url: string,
+		body: Record<string, unknown>,
+		options?: AxiosRequestConfig
+	): Promise<any> {
+		return this.instance.post(url, body, options).then(this.responseBody);
+	}
+	patch(
+		url: string,
+		body: Record<string, unknown>,
+		options?: AxiosRequestConfig
+	): Promise<any> {
+		return this.instance.patch(url, body, options).then(this.responseBody);
+	}
+	put(
+		url: string,
+		body: Record<string, unknown>,
+		options?: AxiosRequestConfig
+	): Promise<any> {
+		return this.instance.put(url, body, options).then(this.responseBody);
+	}
+	del(url: string, options?: AxiosRequestConfig): Promise<any> {
+		return this.instance.delete(url, options).then(this.responseBody);
+	}
+	private responseBody(response: AxiosResponse) {
+		return response.data;
+	}
+}
 
 // // axios.defaults.baseURL = process.env.API_URL;
 // authInstance.interceptors.request.use(
@@ -32,7 +62,6 @@ axios.interceptors.response.use(undefined, (error) => {
 // 		return Promise.reject(error);
 // 	}
 // );
-
 
 // authInstance.interceptors.response.use(
 // 	(config) => {
@@ -61,14 +90,3 @@ axios.interceptors.response.use(undefined, (error) => {
 // 		throw error;
 // 	}
 // );
-
-const responseBody = (response: AxiosResponse) => response.data;
-
-export const requests = {
-	get: (url: string, options?: AxiosRequestConfig): Promise<any> => axios.get(url, options).then(responseBody),
-	post: (url: string, body: Record<string, unknown>, options?: AxiosRequestConfig): Promise<any> =>
-		axios.post(url, body, options).then(responseBody),
-	put: (url: string, body: Record<string, unknown>, options?: AxiosRequestConfig): Promise<any> =>
-		axios.put(url, body, options).then(responseBody),
-	del: (url: string, options?: AxiosRequestConfig): Promise<any> => axios.delete(url, options).then(responseBody),
-};
