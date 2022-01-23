@@ -1,9 +1,18 @@
-import { AxiosRequestConfig } from "axios";
+import { Requests } from "./config";
+import axios, { AxiosRequestConfig } from "axios";
 import { IUser } from "../models/users";
-import { requests } from "./config";
 
-const Users = {
-  getUserById: (n: number, options?: AxiosRequestConfig): Promise<IUser> => requests.get(`/users/${n}`, options)
-};
+const usersInstance = axios.create({
+	baseURL: "https://jsonplaceholder.typicode.com",
+	withCredentials: true,
+});
 
-export default Users;
+const usersRequests = new Requests(usersInstance);
+
+class Users {
+	getUserById(n: number, options?: AxiosRequestConfig): Promise<IUser> {
+		return usersRequests.get(`/users/${n}`, options);
+	}
+}
+
+export default new Users();

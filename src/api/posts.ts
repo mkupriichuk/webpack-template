@@ -1,10 +1,21 @@
-import { AxiosRequestConfig } from "axios";
 import { IPost } from "../models/posts";
-import { requests } from "./config";
+import { Requests } from "./config";
+import axios, { AxiosRequestConfig } from "axios";
 
-const Posts = {
-  allPosts: (options?: AxiosRequestConfig): Promise<IPost[]> => requests.get('/posts', options),
-  postById: (n: number, options?: AxiosRequestConfig): Promise<IPost> => requests.get(`/posts/${n}`, options)
-};
+const postsInstance = axios.create({
+	baseURL: "https://jsonplaceholder.typicode.com",
+	withCredentials: true,
+});
 
-export default Posts;
+const postsRequests = new Requests(postsInstance);
+
+class Posts {
+	allPosts(options?: AxiosRequestConfig): Promise<IPost[]> {
+		return postsRequests.get("/posts", options);
+	}
+	postById(n: number, options?: AxiosRequestConfig): Promise<IPost> {
+		return postsRequests.get(`/posts/${n}`, options);
+	}
+}
+
+export default new Posts();
