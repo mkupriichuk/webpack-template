@@ -1,19 +1,5 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
-
-axios.interceptors.request.use(
-	(config) => {
-		return config;
-	},
-	(error) => {
-		return Promise.reject(error);
-	}
-);
-
-axios.interceptors.response.use(undefined, (error) => {
-	throw error.response;
-});
 export class Requests {
 	private instance: AxiosInstance;
 	constructor(instance: AxiosInstance) {
@@ -51,6 +37,20 @@ export class Requests {
 	}
 }
 
+// axios.defaults.baseURL = "https://jsonplaceholder.typicode.com";
+
+// axios.interceptors.request.use(
+// 	(config) => {
+// 		return config;
+// 	},
+// 	(error) => {
+// 		return Promise.reject(error);
+// 	}
+// );
+
+// axios.interceptors.response.use(undefined, (error) => {
+// 	throw error.response;
+// });
 // // axios.defaults.baseURL = process.env.API_URL;
 // authInstance.interceptors.request.use(
 // 	(config) => {
