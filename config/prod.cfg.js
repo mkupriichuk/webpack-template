@@ -97,6 +97,13 @@ module.exports = merge(baseConfig, {
 					from: PATHS.public + '/favicons',
 					to: PATHS.dist,
 					context: PATHS.public,
+					noErrorOnMissing: true
+				},
+				{
+					from: PATHS.public + '/locales',
+					to: PATHS.dist + '/locales',
+					context: PATHS.public,
+					noErrorOnMissing: true
 				},
 			],
 		}),
