@@ -36,13 +36,20 @@ const plugins = [
 		filename: 'css/[name].[contenthash].css',
 	}),
 	new CopyWebpackPlugin({
-		patterns: [
-			{
-				from: PATHS.public + '/favicons',
-				to: PATHS.dist,
-				context: PATHS.public,
-			},
-		],
+			patterns: [
+				{
+					from: PATHS.public + '/favicons',
+					to: PATHS.dist,
+					context: PATHS.public,
+					noErrorOnMissing: true
+				},
+				{
+					from: PATHS.public + '/locales',
+					to: PATHS.dist + '/locales',
+					context: PATHS.public,
+					noErrorOnMissing: true
+				},
+			],
 	}),
 	new CssMQPackerPlugin({
 		cssPath: PATHS.dist + '/css',
