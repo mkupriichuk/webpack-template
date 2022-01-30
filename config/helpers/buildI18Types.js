@@ -15,10 +15,10 @@ if (_locale && fs.existsSync(typedHookPath)) {
 	function buildI18Types(obj, path = '') {
 		const res = {};
 		for (const key in obj) {
-			if (typeof obj[key] == 'string' && !key.includes('_plural')) {
-				res[[...path, key].join('.')] = obj[key];
-			} else if (typeof obj[key] == 'object') {
+			if (typeof obj[key] == 'object' && !Array.isArray(obj[key])) {
 				Object.assign(res, buildI18Types(obj[key], [...path, key]));
+			} else if(!key.includes('_plural')){
+				res[[...path, key].join('.')] = true;
 			}
 		}
 		return res;
